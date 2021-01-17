@@ -1,16 +1,6 @@
-import React, { Component } from 'react';
 
 import Viewer from "./viewer/index";
 import Upload from "./upload/index";
+import Manage from "./manage/index";
 
-class Container extends Component {
-  render() {
-    return (
-      <div>
-        <Viewer />
-      </div>
-    )
-  }
-}
-
-export default Container;
+export { Viewer, Upload, Manage };
