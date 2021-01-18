@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 import { Viewer, Upload, Manage } from "./components";
@@ -20,7 +21,7 @@ class App extends Component {
                 <Link to="/m/">Memes</Link>
               </li>
               <li>
-                <Link to="/m/manage"></Link>
+                <Link to="/m/manage">Manage</Link>
               </li>
               <li>
                 <Link to="/m/upload">Upload</Link>
@@ -31,7 +32,8 @@ class App extends Component {
             </ul>
           </nav>
           <Switch>
-            <Route exact path="/" component={Viewer} />
+            <Route default exact path="/" component={() => (<Redirect to="/m/" />)} />
+            <Route default exact path="/m/" component={Viewer} />
             <Route exact path="/m/upload" component={Upload} />
             <Route exact path="/m/manage" component={Manage} />
           </Switch>
