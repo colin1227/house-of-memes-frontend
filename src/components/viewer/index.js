@@ -1,76 +1,93 @@
-import React, { useEffect, useState, useReducer } from 'react';
-
+import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
+// import ImageViewer from "./../subCompMemes/ImageViewer";
 import "./style.scss";
-
-import ImageViewer from "../subCompMemes/ImageViewer.jsx";
-import VideoPlayer  from "../subCompMemes/VideoPlayer.jsx";
-import AudionOnlyPlayer from '../subCompMemes/AudioPlayer.jsx';
+import "../subCompMemes/allStyle.scss";
+import constants from '../../constants/vars';
+// import url from "../../photos/popicon.gif";
+import renderMemes from "./../subCompMemes/index";
+import reducer from "../../helper/index";
 
 const myStorage = window.localStorage;
-
 myStorage.setItem('lastCategory', '');
-
-const backgroundGroups = ['Twitter', 'Facebook', 'Intagram', 'Pintrest', 'None', 'N/A'];
 
 const instance = axios.create({
   proxyHeaders: false,
   credentials: false
-})
-
-// const myStorage = window.localStorage;
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'increment':
-      return {count: state.count + 1};
-    case 'decrement':
-      return {count: state.count - 1};
-    default:
-      throw new Error();
-  }
-}
+});
 
 
-const formies = {
-  VIDEO: ['mp4', 'oog', 'webm'],
-  AUDIO: [/* '.a.mp4', */ 'mp3', 'oog'],
-  PHOTO: ['gif', 'png', 'jpg', 'jpeg']
-}
+const Manage = ({ props }) => {  
 
-// Needs homes
-
-const Viewer = ({ props }) => {  
-  const [memeUrls, changeMemes] = useState([]);
-  const [formatList, changeFormat] = useState([]);
-  const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
-  const [lastViewed, dViewed] = useReducer(reducer, { count: 0 });
+  // Lifecycle
   const [mounted, mountState] = useState(false);
 
-  const lastCategory = localStorage.getItem('lastCategory')
-  const [category,  ] = useState(backgroundGroups[backgroundGroups.indexOf(lastCategory)]);
+  // data
+  const [memeUrls, changeMemes] = useState([]);
+  const [formatList, changeFormat] = useState([]);
+  const [categoryList, changeCategoryList] =
+    useState(['Twitter', 'Twitter', 'Facebook', 'Intagram', 'Pintrest', 'None', 'N/A'])
 
+  // locally stored data
+  const lastCategory = myStorage.getItem('lastCategory') || 'N/A';
+
+  // index of data
+  const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
+  const [lastViewed, dViewed] = useReducer(reducer, { count: 0 });
+  
+
+
+
+  const handleImportMemes = useCallback(async(n=2) => {
+    try {
+        const result = await instance.get(`http://localhost:9000/m/imports/${n}`);
+
+        changeMemes([
+          ...memeUrls, 
+          ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
+
+        changeFormat([
+          ...formatList,
+          ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
+        
+        changeCategoryList([
+          ...categoryList,
+          'Twitter'
+        ])
+      } catch(err) {
+        console.log(err);
+     }
+  },[memeUrls, formatList, categoryList]);
 
   // debug
   useEffect(() => {
     let gate = false;
-    // Current index
+
+    // Current view index
     if (viewIndex.count > lastViewed.count) {
       dViewed({ type: 'increment' });
       console.log(viewIndex.count);
       gate = true;
     }
-    if ((!gate && viewIndex.count !== lastViewed.count) || (gate && memeUrls.length && formatList.length && memeUrls.length === formatList.length)) {
+
+    if ((!gate && viewIndex.count !== lastViewed.count) ||
+      (gate &&
+        memeUrls.length &&
+        formatList.length &&
+        memeUrls.length === formatList.length)
+    ) {
       console.log(`
         url: ${memeUrls[viewIndex.count]},
         format: ${formatList[viewIndex.count]}; 
-        ${Object.keys(formies).filter((formi) => formies[formi].includes(formatList[viewIndex.count]))[0]} --
+        ${Object.keys(constants.formats).filter((formi) => {
+          return constants.formats[formi].includes(formatList[viewIndex.count])
+        })[0]} --
       `);
     }
   }, [viewIndex, formatList, memeUrls, lastViewed.count]);
-  
 
-  /* -~-~-~-~-~-~- Component Mounted, State Defined -~-~-~-~-~-~- */
+
+  /* -~-~-~-~-~-~- Component MOUNTED, State DEFINED -~-~-~-~-~-~- */
 
   useEffect(() => {
     if (!mounted) {
@@ -78,98 +95,88 @@ const Viewer = ({ props }) => {
       mountState(true);
       const handleImportMemes = async(n=2) => {
         try {
-            const result = await instance.get(`http://localhost:9000/m/imports/${n}?category=${category}`);
+            // get memes
+            const result = await instance.get(`http://localhost:9000/m/imports/${n}?category=${lastCategory}`);
+
+            /* update state */
             changeMemes([...memeUrls,
               ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
+
             changeFormat([...formatList,
               ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
+
+            changeCategoryList([
+              ...categoryList,
+              'Twitter'
+            ])
         } catch(err) {
             console.log(err);
         }
       };
       handleImportMemes(5);
-
     }
-  }, [category, mounted, memeUrls, formatList]);
+  }, [mounted, memeUrls, formatList, categoryList, lastCategory]);
 
-  /* -~-~-~-~-~-~- Component/State will update -~-~-~-~-~-~- */
+
+  /* -~-~-~-~-~-~- Component/State will UPDATE -~-~-~-~-~-~- */
   useEffect(() => {
     let gate = false;
 
     // Current index
     if (viewIndex.count > lastViewed.count) {
-      // dViewed({ type: 'increment' });
+      dViewed({ type: 'increment' });
       console.log(viewIndex.count);
       gate = true;
     };
 
-    if (['None', 'N/A'].includes(category) && memeUrls.length <= viewIndex.count + 5 && ((viewIndex.count === lastViewed.count) || gate)) {
-      const handleImportMemes = async(n=2) => {
-        try {
-            const result = await instance.get(`http://localhost:9000/m/imports/${n}?category=${category}`);
+    if (categoryList[viewIndex.count] !== categoryList) {
+      document.querySelector('body').classList.remove(constants.MainStream.filter((r) => {
+        return r !== categoryList[viewIndex.count]
+      }
+      ))
+      myStorage.setItem('lastCategory', categoryList[viewIndex.count]);
+    }
 
-            changeMemes([...memeUrls, 
-              ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
-
-            changeFormat([...formatList,
-              ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
-
-          } catch(err) {
-            console.log(err);
-         }
-      };
+    if (memeUrls.length <= viewIndex.count + 5 && ((viewIndex.count === lastViewed.count) || gate)) {
       handleImportMemes();
 
     }
-  }, [category, memeUrls, lastViewed.count, viewIndex.count, formatList])
-
+  }, [categoryList, memeUrls, lastViewed.count, viewIndex.count, formatList, handleImportMemes]);
 
   const handleClick = async() => {
-    dIndex({ type: 'increment' }); // viewIndex.count + 1
-    if (memeUrls.length <= viewIndex.count + 5 && memeUrls.length) {
-      const handleImportMemes = async(n=2) => {
-        try {
-          const result = await instance.get(`http://localhost:9000/m/import/${n}`);
-          changeMemes([...memeUrls, 
-            ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
-          
-          changeFormat([...formatList,
-            ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
-         } catch(err) {
-            console.log(err);
-         }
-      };
-      handleImportMemes()
+    dIndex({ type: 'increment' });
+    if (constants.MainStream[constants.MainStream.length - 1] &&
+      memeUrls.length <= viewIndex.count + 5
+      && memeUrls.length) {
+        handleImportMemes(2);
     }
   }
 
+  let bod = document.querySelector('body');
+
   return(
-  <div className="colur">
+  <div className='manager'>
+    {
+      memeUrls.length
+        && memeUrls[viewIndex.count]
+        && viewIndex.count <= lastViewed.count
+      ?
+        renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
+      :
+        null // ImageViewer(url, 69420)
+    }
     { 
-      memeUrls.length && memeUrls[lastViewed.count] &&
-      (formies.VIDEO.indexOf(formatList[lastViewed.count]) >= 0) ?
-        VideoPlayer(memeUrls[lastViewed.count], formatList[lastViewed.count], lastViewed.count)
-      :
+      constants.formats.PHOTO.indexOf(formatList[viewIndex.count]) >= 0
+      ? 
         null
+      :
+        bod.classList.add(categoryList[viewIndex.count])
     }
-    {
-      memeUrls.length && memeUrls[lastViewed.count] &&
-      (formies.PHOTO.indexOf(formatList[lastViewed.count]) >= 0)  ?
-        ImageViewer(memeUrls[lastViewed.count], lastViewed.count)
-      :
-        null
-    }
-    {
-      memeUrls.length && memeUrls[lastViewed.count] &&
-      (formies.AUDIO.indexOf(formatList[lastViewed.count]) >= 0) ?
-        AudionOnlyPlayer(memeUrls[lastViewed.count], formatList[lastViewed.count], lastViewed.count)
-      :
-        null
-    }   
-    
-    { false ? <button onClick={() => handleClick()}> :) </button> : false}
+    <div>
+      <button onClick={() => handleClick()} > widepeepoHappy </button>
+    </div>
   </div>
   )
 };
 
-export default Viewer;
+export default Manage;

@@ -1,14 +1,16 @@
 
-video::-webkit-media-controls-panel {
-  background-image: linear-gradient(transparent, transparent) !important;
-}
+// video::-webkit-media-controls-panel {
+//   background-image: linear-gradient(transparent, transparent) !important;
+// }
 
 .VideoViewer {
   padding: 0px;
   margin: 0px;
   max-width: 70%;
   max-height: 70%;
+  border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
   video {
+    border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -19,16 +21,19 @@ video::-webkit-media-controls-panel {
 }
 
 .ImageViewer {
+  border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
   padding: 0px;
   margin: 0px;
   max-width: 70%;
   max-height: 70%;
+  display: flex;
+  justify-content: center;
   .Image {
+    border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
     margin: 0;
     padding: 0;
     width: auto;
     height: 100%;
-    display: block;
   }
 }
 
