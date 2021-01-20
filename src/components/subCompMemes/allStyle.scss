@@ -1,0 +1,42 @@
+
+video::-webkit-media-controls-panel {
+  background-image: linear-gradient(transparent, transparent) !important;
+}
+
+.VideoViewer {
+  padding: 0px;
+  margin: 0px;
+  max-width: 70%;
+  max-height: 70%;
+  video {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-shadow: 0;
+  }
+}
+
+.ImageViewer {
+  padding: 0px;
+  margin: 0px;
+  max-width: 70%;
+  max-height: 70%;
+  .Image {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: 100%;
+    display: block;
+  }
+}
+
+.AudioObserver {
+  padding: 0px;
+  margin: 0px;
+  max-width: 70%;
+  max-height: 70%;
+}
+
+

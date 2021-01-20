@@ -1,0 +1,8 @@
+{
+  "formats": {
+    "VIDEO": ["mp4", "oog", "webm"],
+    "AUDIO": [ "mp3", "oog"],
+    "PHOTO": ["gif", "png", "jpg", "jpeg"]
+  },
+  "MainStream": ["Twitter", "TikTok", "Facebook", "Intagram", "Pintrest", "None", "N/A"]
+}
