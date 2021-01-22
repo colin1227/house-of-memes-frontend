@@ -1,6 +1,8 @@
 
-import Viewer from "./viewer/index";
-import Upload from "./upload/index";
-import Manage from "./manage/index";
+import Viewer from "./Viewer/Viewer";
+import Upload from "./Upload/Upload";
+import Manage from "./Manage/Manage";
+import Landing from "./Landing/Landing";
+import SignUpForum from "./SignUpForm/SignUpForm";
 
-export { Viewer, Upload, Manage };
+export { Viewer, Upload, Manage, Landing, SignUpForum };

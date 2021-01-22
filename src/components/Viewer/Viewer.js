@@ -1,12 +1,15 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 // import ImageViewer from "./../subCompMemes/ImageViewer";
-import "./style.scss";
-import "../subCompMemes/allStyle.scss";
+import "./Viewer.scss";
+
+// should this be here?
+import "../Media/allStyle.scss";
+
 import constants from '../../constants/vars';
 // import url from "../../photos/popicon.gif";
-import renderMemes from "./../subCompMemes/index";
-import reducer from "../../helper/index";
+import renderMemes from "../Media/index";
+import { reducer } from "../../helper/index";
 
 const myStorage = window.localStorage;
 myStorage.setItem('lastCategory', '');
@@ -35,8 +38,6 @@ const Manage = ({ props }) => {
   const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
   const [lastViewed, dViewed] = useReducer(reducer, { count: 0 });
   
-
-
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {

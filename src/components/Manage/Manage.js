@@ -1,12 +1,12 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 // import ImageViewer from "./../subCompMemes/ImageViewer";
-import "./style.scss";
-import "../subCompMemes/allStyle.scss";
+import "./Manage.scss";
+import "../Media/allStyle.scss";
 import constants from '../../constants/vars';
 // import url from "../../photos/popicon.gif";
-import renderMemes from "./../subCompMemes/index";
-import reducer from "../../helper/index";
+import renderMemes from "../Media/index";
+import { reducer } from "../../helper/index";
 
 const myStorage = window.localStorage;
 myStorage.setItem('lastCategory', '');
