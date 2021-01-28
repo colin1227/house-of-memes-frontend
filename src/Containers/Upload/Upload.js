@@ -46,7 +46,7 @@ const Upload = (props) => {
     try {
       if (!meme) throw Error('gimme meme');
       const formData = new FormData();
-      if (props.username) formData.append("username", props.username);
+      if (props.username)                formData.append("username", props.username);
       if (myStorage.getItem("loggedIn")) formData.append("username", myStorage.getItem("loggedIn"));      
       if (!props.username && !myStorage.getItem("loggedIn")) history.push("/u/sign-in");
       let memeSaved;

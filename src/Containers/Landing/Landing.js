@@ -7,11 +7,6 @@ import './Landing.scss';
 import { useHistory } from 'react-router';
 
 // import Waves from ' ../../components/Waves/Waves';
-const myStorage = window.localStorage;
-myStorage.setItem('runLast', '');
-
-
-
 
 const Landing = ({ props }) => {
   let history = useHistory();
