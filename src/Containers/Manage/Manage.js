@@ -5,7 +5,7 @@ import "./Manage.scss";
 import "../Media/allStyle.scss";
 import constants from '../../constants/vars';
 // import url from "../../photos/popicon.gif";
-import renderMemes from "../Media/index";
+import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
 
 const myStorage = window.localStorage;
@@ -168,9 +168,9 @@ const Manage = ({ props }) => {
     { 
       constants.formats.PHOTO.indexOf(formatList[viewIndex.count]) >= 0
       ? 
-        null
-      :
         bod.classList.add(categoryList[viewIndex.count])
+      :
+        null
     }
     <div>
       <button onClick={() => handleClick()} > widepeepoHappy </button>

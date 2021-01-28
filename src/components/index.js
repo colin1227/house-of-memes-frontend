@@ -1,8 +1,8 @@
 
-import Viewer from "./Viewer/Viewer";
-import Upload from "./Upload/Upload";
-import Manage from "./Manage/Manage";
-import Landing from "./Landing/Landing";
 import SignUpForum from "./SignUpForm/SignUpForm";
+import SignInForum from "./SignInForm/SignInForm";
+import Nav from "./tempNav/Nav";
+import Waves from "./Waves/Waves";
 
-export { Viewer, Upload, Manage, Landing, SignUpForum };
+
+export { SignUpForum, SignInForum, Waves, Nav };

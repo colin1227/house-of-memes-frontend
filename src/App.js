@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  useHistory,
 } from "react-router-dom";
 
-import { Viewer, Upload, Manage, Landing } from "./components/index";
+import Viewer from "./Containers/Viewer/Viewer";
+import Upload from "./Containers/Upload/Upload";
+import Landing  from "./Containers/Landing/Landing";
+import { SignInForum, SignUpForum } from "./components/index";
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div className="App">
+import "./App.scss";
+
+const App = () => {
+  const [ username, logUsername] = useState('');
+  const [ status, changeStatus] = useState('');
+  const history = useHistory();
+
+
+  if ((username && username.length <= 0 )|| (status && 0 >= status.length)) history.push("/u/sign-in");
+
+  return (
+
+    <Router>
+      <div className="App">
           <Switch>
-
-            <Route default path="/" component={Landing} />
-            <Route exact path="/m/" component={Viewer} />
-            <Route exact path="/m/upload" component={Upload} />
-            <Route exact path="/m/manage" component={Manage} />
+            <Route exact path="/" component={ () => <Landing username={username} status={status} />} />
+            <Route exact path="/m/" component={ () => <Viewer username={username} status={status} />} />
+            <Route exact path="/m/upload" component={ () => <Upload username={username} status={status} />} />
+            {/* <Route exact path="/m/category" /> */}
+            <Route exact path="/u/sign-in" component={ () => <SignInForum username={username} status={status} logUsername={logUsername} changeStatus={changeStatus} />} />
+            <Route exact path="/u/sign-up" component={ () => <SignUpForum username={username} status={status} logUsername={logUsername} changeStatus={changeStatus} />} />
+            
           </Switch>
-        </div>
-      </Router>
-    );
-  }
+      </div>
+    </Router>
+  );
 }
 
 export default App;

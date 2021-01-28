@@ -1,14 +1,16 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 // import ImageViewer from "./../subCompMemes/ImageViewer";
+import { Nav } from "./../../components/index";
+
 import "./Viewer.scss";
 
 // should this be here?
-import "../Media/allStyle.scss";
+import "../../components/Media/allStyle.scss";
 
 import constants from '../../constants/vars';
 // import url from "../../photos/popicon.gif";
-import renderMemes from "../Media/index";
+import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
 
 const myStorage = window.localStorage;
@@ -20,7 +22,7 @@ const instance = axios.create({
 });
 
 
-const Manage = ({ props }) => {  
+const Viewer = ({ props }) => {  
 
   // Lifecycle
   const [mounted, mountState] = useState(false);
@@ -114,7 +116,7 @@ const Manage = ({ props }) => {
             console.log(err);
         }
       };
-      handleImportMemes(5);
+      handleImportMemes(); // 5)
     }
   }, [mounted, memeUrls, formatList, categoryList, lastCategory]);
 
@@ -131,14 +133,14 @@ const Manage = ({ props }) => {
     };
 
     if (categoryList[viewIndex.count] !== categoryList) {
-      document.querySelector('body').classList.remove(constants.MainStream.filter((r) => {
+      document.querySelector('.viewer').classList.remove(constants.MainStream.filter((r) => {
         return r !== categoryList[viewIndex.count]
       }
       ))
       myStorage.setItem('lastCategory', categoryList[viewIndex.count]);
     }
 
-    if (memeUrls.length <= viewIndex.count + 5 && ((viewIndex.count === lastViewed.count) || gate)) {
+    if (memeUrls.length <= viewIndex.count /* + 5 */ && ((viewIndex.count === lastViewed.count) || gate)) {
       handleImportMemes();
 
     }
@@ -147,16 +149,15 @@ const Manage = ({ props }) => {
   const handleClick = async() => {
     dIndex({ type: 'increment' });
     if (constants.MainStream[constants.MainStream.length - 1] &&
-      memeUrls.length <= viewIndex.count + 5
+      memeUrls.length <= viewIndex.count // + 5
       && memeUrls.length) {
         handleImportMemes(2);
     }
   }
 
-  let bod = document.querySelector('body');
-
+  // let TopViewer = document.getElementsByClassName('viewer');
   return(
-  <div className='manager'>
+  <div className='viewer'>
     {
       memeUrls.length
         && memeUrls[viewIndex.count]
@@ -166,18 +167,19 @@ const Manage = ({ props }) => {
       :
         null // ImageViewer(url, 69420)
     }
-    { 
+    {/* { 
       constants.formats.PHOTO.indexOf(formatList[viewIndex.count]) >= 0
-      ? 
-        null
+      ?
+      TopViewer && TopViewer.classList.add(categoryList[viewIndex.count])
       :
-        bod.classList.add(categoryList[viewIndex.count])
-    }
+        null
+    } */}
     <div>
       <button onClick={() => handleClick()} > widepeepoHappy </button>
     </div>
+    <Nav />
   </div>
   )
 };
 
-export default Manage;
+export default Viewer;
