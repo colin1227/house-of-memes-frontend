@@ -16,7 +16,7 @@ const instance = axios.create({
   credentials: false
 });
 
-const url = false ? 'http://localhost:9000': 'https://wellcani.com';
+const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com/';
 
 const Manage = ({ props }) => {  
 

@@ -11,7 +11,7 @@ let emailRegEx = new RegExp(`(?:[a-z0-9!#$%&'*+/=?^_\`{|}~-]+(?:\\.[a-z0-9!#$%&'
 
 const myStorage = window.localStorage;
 
-const url = false ? 'http://localhost:9000': 'https://wellcani.com';
+const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com/';
 
 const SignUpForm = ({ logUsername, changeStatus }) => {
   const history = useHistory();
