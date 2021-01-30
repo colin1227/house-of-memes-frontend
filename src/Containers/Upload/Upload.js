@@ -8,7 +8,7 @@ import './Upload.scss';
 
 const myStorage = window.localStorage;
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com/';
+const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Upload = (props) => {
   const history = useHistory();

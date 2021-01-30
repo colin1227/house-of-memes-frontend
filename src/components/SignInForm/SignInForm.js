@@ -8,7 +8,7 @@ import axios from 'axios';
 import './SignInForm.scss';
 
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com/';
+const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const instance = axios.create({
   proxyHeaders: false,
