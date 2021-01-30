@@ -21,6 +21,7 @@ const instance = axios.create({
   credentials: false
 });
 
+const url = false ? 'http://localhost:9000': 'https://wellcani.com';
 
 const Viewer = ({ props }) => {  
 
@@ -40,14 +41,13 @@ const Viewer = ({ props }) => {
   const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
   const [lastViewed, dViewed] = useReducer(reducer, { count: 0 });
   
-
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`http://localhost:9000/m/imports/${n}`);
+        const result = await instance.get(`${url}/m/imports/${n}`);
 
         changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
+          ...result.data.memeExport.map((name) => `${url}/m/meme/${name}`)]);
 
         changeFormat([
           ...formatList,
@@ -99,11 +99,11 @@ const Viewer = ({ props }) => {
       const handleImportMemes = async(n=2) => {
         try {
             // get memes
-            const result = await instance.get(`http://localhost:9000/m/imports/${n}?category=${lastCategory}`);
+            const result = await instance.get(`${url}/m/imports/${n}?category=${lastCategory}`);
 
             /* update state */
             changeMemes([...memeUrls,
-              ...result.data.memeExport.map((name) => `http://localhost:9000/m/meme/${name}`)]);
+              ...result.data.memeExport.map((name) => `${url}/m/meme/${name}`)]);
 
             changeFormat([...formatList,
               ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);

@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
 import './Upload.scss';
-// const url = true ? 'http://localhost:9000': 'http://parasocial-media.com';
 
 const myStorage = window.localStorage;
+
+const url = false ? 'http://localhost:9000': 'https://wellcani.com';
 
 const Upload = (props) => {
   const history = useHistory();
@@ -67,7 +68,7 @@ const Upload = (props) => {
 
       memeSaved = await axios.request({
         method: 'POST',
-        url: `http://localhost:9000/m/upload`,
+        url: `${url}/m/upload`,
         headers: { "Content-Type": "multipart/form-data" },
         data: formData,
         files: {

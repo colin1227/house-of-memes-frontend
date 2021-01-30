@@ -11,11 +11,7 @@ let emailRegEx = new RegExp(`(?:[a-z0-9!#$%&'*+/=?^_\`{|}~-]+(?:\\.[a-z0-9!#$%&'
 
 const myStorage = window.localStorage;
 
-// const instance = axios.create({
-//   baseURL: true ? 'http://localhost:9000': 'https://parasocial-media.com',
-//   timeout: 3500,
-//   headers: { "Content-Type": "application/json" }
-// });
+const url = false ? 'http://localhost:9000': 'https://wellcani.com';
 
 const SignUpForm = ({ logUsername, changeStatus }) => {
   const history = useHistory();
@@ -54,7 +50,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
 
     const result = await axios.request({
       method: 'POST',
-      url: `http://localhost:9000/u/sign-up`,
+      url: `${url}/u/sign-up`,
       headers: { "Content-Type": "application/json" },
       data
     });

@@ -8,7 +8,7 @@ import axios from 'axios';
 import './SignInForm.scss';
 
 
-const url = true ? 'http://localhost:9000': 'https://parasocial-media.com';
+const url = false ? 'http://localhost:9000': 'https://wellcani.com';
 
 const instance = axios.create({
   proxyHeaders: false,
