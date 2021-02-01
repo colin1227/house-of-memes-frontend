@@ -4,6 +4,7 @@ const Nav = (props) => {
   const history = useHistory();
   return (
     <div>
+      <button onClick={() => history.push("/m/upload")}>Sign up</button>
       <button onClick={() => history.push("/u/sign-up")}>Sign up</button>
       <button onClick={() => history.push("/m/")}>Memes</button>
   </div>

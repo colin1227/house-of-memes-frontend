@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
+import Nav from "../../components/tempNav/Nav";
 // import constants from '../../constants/vars.json';
 import axios from 'axios';
 
@@ -128,6 +129,7 @@ const Upload = (props) => {
             <input className={`sendit${!Boolean(meme) ? ' disabled': ''}`} disabled={!Boolean(meme)} type='submit' value='Send It!'/>
         </div>
       </form>
+      <Nav />
     </div>
   ) 
 }

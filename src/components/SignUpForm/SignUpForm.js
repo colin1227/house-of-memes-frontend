@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 
 import './SignUpForm.scss';
+import Nav from '../tempNav/Nav';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 
@@ -123,6 +124,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
             <input className='formButton col-50' type="submit" value="observe memes" />
           </div>
         </form>
+        <Nav/>
     </div>
   )
 }

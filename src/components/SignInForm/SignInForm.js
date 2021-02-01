@@ -6,6 +6,7 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 
 import './SignInForm.scss';
+import Nav from '../tempNav/Nav';
 
 
 const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
@@ -78,6 +79,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
             </div>
           </div>
         </form>
+        <Nav />
     </div>
   )
 }
