@@ -59,7 +59,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
 
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
-
+      history.push('/m/');
       logUsername(result.data.username);
       changeStatus(result.data.status);
     } else {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, /* useEffect */ } from 'react';
 // import { Redirect } from 'react-router';
 // import constants from '../../constants/vars.json';
 // import axios from 'axios';
@@ -10,15 +10,15 @@ import { useHistory } from 'react-router';
 
 const Landing = ({ props }) => {
   let history = useHistory();
-  let [choose, makeChoice] = useState(false);
+  let [choose, ] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('This will run after 16 seconds!');
-      makeChoice(true);
-    }, 13500);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     console.log('This will run after 16 seconds!');
+  //     makeChoice(true);
+  //   }, 13500);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return(
     <div className='landing'>
@@ -28,13 +28,18 @@ const Landing = ({ props }) => {
             <h1>Create User</h1>
             <ul>
               <li>Comment</li>
-              <li>Create Group's</li>
-              <li>Get an "N-Word" Pass</li>
+              <li>Post</li>
+              <li>Random Question Tournement</li>
+              <li>Create</li>
+              {/* <li>Get an "N-Word" Pass</li> */}
               <li>etc.</li>
             </ul>
           </div>
-          <div className="memes">
+          <div onClick={() => history.push("/m/")} className="memes">
             <h1>Observe memes</h1>
+            <span>
+              👁 👄 👁
+            </span>
           </div>
         </div>
       :

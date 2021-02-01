@@ -23,9 +23,9 @@ const Upload = (props) => {
 
   const submittens = async(e) => {
     await sendFile(e).then((res) => {
-      console.log(res.data);
-      // console.log(`widePeepoHappy forwarding to: /m/${res}`);
-      // history.push(`/m/${res}`);
+      console.log(res && res.data && res.data.meme);
+      // console.log(`widePeepoHappy forwarding to: /m/${res.data.meme}`);
+      history.push(`/m/`);
     });
   }
 
