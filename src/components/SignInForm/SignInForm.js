@@ -72,14 +72,9 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
             <input className='formButton' type="submit" value="observe memes"/>
           </div>
             { error ? <span className='red'>{error}</span> : <span></span>}
-            <div>
-              <button onClick={() => history.push("/u/sign-up")}>Sign up</button>
-              <button onClick={() => history.push("/m/")}>Memes</button>
-              {/* <button prop="/u/fogot">Forgot somethin'</button> */}
-            </div>
+            <Nav />
           </div>
         </form>
-        <Nav />
     </div>
   )
 }
