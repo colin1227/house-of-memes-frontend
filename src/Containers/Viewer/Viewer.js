@@ -8,7 +8,7 @@ import "./Viewer.scss";
 // should this be here?
 import "../../components/Media/allStyle.scss";
 
-import constants from '../../constants/vars';
+import constants from '../../constants/vars.json';
 // import url from "../../photos/popicon.gif";
 import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
@@ -21,7 +21,7 @@ const instance = axios.create({
   credentials: false
 });
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Viewer = ({ props }) => {  
 

@@ -4,11 +4,12 @@ import {
   Switch,
   Route,
   useHistory,
+  Redirect
 } from "react-router-dom";
 
 import Viewer from "./Containers/Viewer/Viewer";
 import Upload from "./Containers/Upload/Upload";
-import Landing  from "./Containers/Landing/Landing";
+// import Landing  from "./Containers/Landing/Landing";
 import { SignInForum, SignUpForum } from "./components/index";
 
 import "./App.scss";
@@ -26,7 +27,8 @@ const App = () => {
         <div className="fadeIn" />
         <Router>
           <Switch>
-            <Route exact path="/" component={ () => <Landing username={username} status={status} />} />
+            {/* <Route exact path="/" component={ () => <Landing username={username} status={status} />} /> */}
+            <Redirect exact from="/" to="/m/" />
             <Route exact path="/m/" component={ () => <Viewer username={username} status={status} />} />
             <Route exact path="/m/upload" component={ () => <Upload username={username} status={status} />} />
             {/* <Route exact path="/m/category" /> */}

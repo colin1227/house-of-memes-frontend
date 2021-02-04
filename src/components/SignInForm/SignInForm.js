@@ -4,12 +4,13 @@ import { useHistory } from 'react-router';
 
 
 import axios from 'axios';
+import constants from '../../constants/vars.json';
 
 import './SignInForm.scss';
 import Nav from '../tempNav/Nav';
 
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const instance = axios.create({
   proxyHeaders: false,

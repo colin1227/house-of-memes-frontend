@@ -3,8 +3,8 @@ import axios from "axios";
 // import ImageViewer from "./../subCompMemes/ImageViewer";
 import "./Manage.scss";
 import "../Media/allStyle.scss";
-import constants from '../../constants/vars';
-// import url from "../../photos/popicon.gif";
+import constants from '../../constants/vars.json';
+
 import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
 
@@ -16,7 +16,9 @@ const instance = axios.create({
   credentials: false
 });
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+
+
+const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Manage = ({ props }) => {  
 

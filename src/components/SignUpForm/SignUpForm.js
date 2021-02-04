@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 
 import './SignUpForm.scss';
 import Nav from '../tempNav/Nav';
+import constants from '../../constants/vars.json';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 
@@ -12,7 +13,7 @@ let emailRegEx = new RegExp(`(?:[a-z0-9!#$%&'*+/=?^_\`{|}~-]+(?:\\.[a-z0-9!#$%&'
 
 const myStorage = window.localStorage;
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const SignUpForm = ({ logUsername, changeStatus }) => {
   const history = useHistory();

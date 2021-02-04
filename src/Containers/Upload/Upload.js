@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 import Nav from "../../components/tempNav/Nav";
-// import constants from '../../constants/vars.json';
+import constants from '../../constants/vars.json';
 import axios from 'axios';
 
 import './Upload.scss';
 
 const myStorage = window.localStorage;
 
-const url = false ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Upload = (props) => {
   const history = useHistory();
