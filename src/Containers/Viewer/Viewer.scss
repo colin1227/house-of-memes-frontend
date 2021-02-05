@@ -65,9 +65,16 @@
   flex-direction: column;
   width: 85%;
   height: 85%;
+  .innestViewer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .space {
-  height: 50%;
-  width: auto;
+  max-height: 50%;
+  height: 7.5%;
 }
