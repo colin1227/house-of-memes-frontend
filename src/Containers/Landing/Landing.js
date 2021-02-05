@@ -1,24 +1,11 @@
 import { useState, /* useEffect */ } from 'react';
-// import { Redirect } from 'react-router';
-// import constants from '../../constants/vars.json';
-// import axios from 'axios';
 
 import './Landing.scss';
 import { useHistory } from 'react-router';
 
-// import Waves from ' ../../components/Waves/Waves';
-
 const Landing = ({ props }) => {
   let history = useHistory();
   let [choose, ] = useState(true);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     console.log('This will run after 16 seconds!');
-  //     makeChoice(true);
-  //   }, 13500);
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   return(
     <div className='landing'>

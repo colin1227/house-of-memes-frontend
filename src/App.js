@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,9 +8,11 @@ import {
   Redirect
 } from "react-router-dom";
 
+import TopNav from "./components/TopNav/TopNav";
 import Viewer from "./Containers/Viewer/Viewer";
 import Upload from "./Containers/Upload/Upload";
-// import Landing  from "./Containers/Landing/Landing";
+
+/* Tags <Route exact path="/m/tags" /> */
 import { SignInForum, SignUpForum } from "./components/index";
 
 import "./App.scss";
@@ -24,14 +27,13 @@ const App = () => {
 
   return (
       <div className="App">
-        <div className="fadeIn" />
         <Router>
+          <TopNav className='topNavApp' />
           <Switch>
-            {/* <Route exact path="/" component={ () => <Landing username={username} status={status} />} /> */}
             <Redirect exact from="/" to="/m/" />
+            
             <Route exact path="/m/" component={ () => <Viewer username={username} status={status} />} />
             <Route exact path="/m/upload" component={ () => <Upload username={username} status={status} />} />
-            {/* <Route exact path="/m/category" /> */}
             <Route exact path="/u/sign-in" component={ () => <SignInForum username={username} status={status} logUsername={logUsername} changeStatus={changeStatus} />} />
             <Route exact path="/u/sign-up" component={ () => <SignUpForum username={username} status={status} logUsername={logUsername} changeStatus={changeStatus} />} />   
           </Switch>

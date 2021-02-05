@@ -2,13 +2,11 @@ import { useState } from 'react';
 
 import { useHistory } from 'react-router';
 
-
 import axios from 'axios';
 import constants from '../../constants/vars.json';
 
 import './SignInForm.scss';
-import Nav from '../tempNav/Nav';
-
+import BottomNav from '../BottomNav/BottomNav';
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
@@ -73,7 +71,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
             <input className='formButton' type="submit" value="observe memes"/>
           </div>
             { error ? <span className='red'>{error}</span> : <span></span>}
-            <Nav />
+            <BottomNav />
           </div>
         </form>
     </div>

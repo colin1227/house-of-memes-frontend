@@ -1,8 +1,8 @@
-
+@import "../../stylesheets/variables.scss";
 
 .uppy {
   display: block;
-  $skin: #4db6ac;
+  background-color: $skin;
   max-width: 85%;
   max-height: 85%;
   height: 85%;

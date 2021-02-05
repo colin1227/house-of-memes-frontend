@@ -1,8 +1,8 @@
 
 import SignUpForum from "./SignUpForm/SignUpForm";
 import SignInForum from "./SignInForm/SignInForm";
-import Nav from "./tempNav/Nav";
+import BottomNav from "./BottomNav/BottomNav";
 import Waves from "./Waves/Waves";
 
 
-export { SignUpForum, SignInForum, Waves, Nav };
+export { SignUpForum, SignInForum, Waves, BottomNav };

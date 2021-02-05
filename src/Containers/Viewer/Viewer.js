@@ -1,7 +1,6 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
-// import ImageViewer from "./../subCompMemes/ImageViewer";
-import { Nav } from "./../../components/index";
+
 
 import "./Viewer.scss";
 
@@ -9,9 +8,13 @@ import "./Viewer.scss";
 import "../../components/Media/allStyle.scss";
 
 import constants from '../../constants/vars.json';
-// import url from "../../photos/popicon.gif";
-import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
+
+import renderMemes from "../../components/Media/index";
+
+// import ImageViewer from "../../components/Media/ImageViewer";
+// import loading from "../../photos/loading.gif";
+import { BottomNav } from "./../../components/index";
 
 const myStorage = window.localStorage;
 myStorage.setItem('lastCategory', '');
@@ -157,27 +160,40 @@ const Viewer = ({ props }) => {
 
   // let TopViewer = document.getElementsByClassName('viewer');
   return(
-  <div className='viewer'>
-    {
-      memeUrls.length
-        && memeUrls[viewIndex.count]
-        && viewIndex.count <= lastViewed.count
-      ?
-        renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
-      :
-        null // ImageViewer(url, 69420)
-    }
-    {/* { 
-      constants.formats.PHOTO.indexOf(formatList[viewIndex.count]) >= 0
-      ?
-      TopViewer && TopViewer.classList.add(categoryList[viewIndex.count])
-      :
-        null
-    } */}
-    <div>
-      <button onClick={() => handleClick()} > widepeepoHappy </button>
+  <div className="viewer">
+    <div className="innerViewer">
+      {
+        memeUrls.length
+          && memeUrls[viewIndex.count]
+          && viewIndex.count <= lastViewed.count
+          && false
+        ?
+          renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
+        :
+        <div className="loader loader--style8 head5" title="7">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            width="24px" height="30px" viewBox="0 0 24 30" namename='svgLoad' xmlSpace="preserve">
+            <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+              <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+            <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+              <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+            <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+              <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+              <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+            </rect>
+          </svg>
+        </div>
+      }
+      <div className="space" />
+      <BottomNav className="bottomNav" buttons={[<button key={'toe'} onClick={() => handleClick()}> widepeepoHappy </button>]} />
     </div>
-    <Nav />
   </div>
   )
 };

@@ -1,14 +1,16 @@
 import { useHistory } from 'react-router-dom';
 
-const Nav = (props) => {
+import "./BottomNav.scss";
+
+const BottomNav = (props) => {
   const history = useHistory();
   return (
-    <div>
+    <div className="bottomNav">
       <button onClick={() => history.push("/m/upload")}>Upload</button>
-      <button onClick={() => history.push("/u/sign-up")}>Sign up</button>
+      {props && props.buttons && props.buttons.map(btn => btn)}
       <button onClick={() => history.push("/m/")}>Memes</button>
-  </div>
+    </div>
   )
 }
 
-export default Nav;
+export default BottomNav;

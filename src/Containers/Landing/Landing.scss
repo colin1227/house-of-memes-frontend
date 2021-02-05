@@ -1,98 +1,19 @@
+@import '../../stylesheets/variables.scss';
 
 .red {
   color: red;
 }
 
-
-@font-face {
-  font-family: "titling";
-  src: url('../../fonts/bench\ grinder\ titling.ttf');
-}
-
 h1 {
-  font-family: titling;
+  font-family: helmet;
 }
 
 li {
-  font-family: titling;
+  font-family: helmet;
 }
-
-
-
-
-
-@keyframes frenchOnion {
-  0% {
-    background-position:100% 100%; /*OR bottom right*/
-  }
-  25% {
-    background-position:0 0; /*OR top left*/
-  }
-
-  100% {
-    background-position:0 0; /*OR top left*/
-  }
-}
-
-@keyframes fadeInB {
-  0% {
-    color: transparent;
-    background-color: transparent;
-  }
-
-  to {
-    color: black;
-    background-color: rgba($color: blue, $alpha: 0.6);
-  }
-}
-
-@keyframes fadeInOR {
-  0% {
-    color: transparent;
-    background-color: transparent;
-  }
-
-  to {
-    color: black;
-    background-color: rgba($color: orangered, $alpha: 0.6);
-  }
-}
-
-
-@keyframes fadeInOut {
-  0% {
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  75%{
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-
-@font-face {
-  font-family: "titling";
-  src: url('../../fonts/bench\ grinder\ titling.ttf');
-}
-
 
 .landing {
-  z-index: 6;
-  // animation-name: frenchOnion;
-  animation-iteration-count: 2;
-  animation-direction: alternate;
-  animation-duration: 7s;
-  // background: 
-  // linear-gradient(to bottom, #E8C547 0 50%, maroon 100%);
-
-  // background-size: 1000% 1000%;
-  // background-position:100% 100%;
-
+  z-index: 1;
   position: absolute;
   min-height: 80%;
   min-width: 80%;
@@ -112,26 +33,7 @@ li {
     width: 85%;
     height: 85%;
     border-radius: 5%;
-    
-    // .part1 {
-    //   animation-name: fadeInOut;
-    //   animation-fill-mode: forwards;
-    //   animation-iteration-count: 1;
-    //   animation-delay: 2s;
-    //   animation-duration: 9s;
-    //   opacity: 0;
-    // }
-    // .part2 {
-    //   animation-name: fadeInOut;
-    //   animation-fill-mode: forwards;
-    //   animation-iteration-count: 1;
-    //   animation-delay: 7s;
-    //   animation-duration: 6s;
-    //   opacity: 0;
-    // }
   }
-
-
 }
 
 .bigg {
@@ -143,7 +45,6 @@ li {
   width: auto;
   .memes {
     opacity: 1;
-    // animation-name: fadeInB;
     border-radius: 0 5% 5% 0;
     animation-duration: 4s;
     width: 50%;
@@ -155,16 +56,9 @@ li {
     padding: 0;
   }
 
-  // .memes {
-  //   background-color: rgba($color: blue, $alpha: 0.85);
-  // }
-
   .user {
-    // animation: delay 13.5s;
     opacity: 1;
     border-radius: 5% 0 0 5%;
-
-    // animation-name: fadeInOR;
     animation-duration: 4s;
     animation-fill-mode: forwards;
     width: 50%;
@@ -176,9 +70,4 @@ li {
     padding: 0;
     transition: 0.5s;
   }
-
-  // .user:hover {
-  //   background-color: rgba($color: orangered, $alpha: 0.85);
-  // }
 }
-
