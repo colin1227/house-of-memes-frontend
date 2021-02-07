@@ -209,30 +209,32 @@
 
 
   .popatity {
-    display: block;
 
+    position: relative;
     .desc {
       height: 5rem;
     }
-    /* Style inputs */
+    /* Style inputs .desc .rename */
     input[type=text], select {
-      width: 25rem;
+
+      width: 50%;
       padding: 12px 20px;
       margin: 8px 0;
-      display: inline-block;
+      // left: 50%;
+      // display: inline-block;
       border: 1px solid #ccc;
       border-radius: 4px;
       box-sizing: border-box;
     }
     
-    /* Style the submit button */
+    /* Style the submit button .sendit */
     input[type=submit] {
       width: 25rem;
       background-color: #4CAF50;
       color: white;
       padding: 14px 20px;
       margin: 8px 0;
-      border: none;
+      border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
     }

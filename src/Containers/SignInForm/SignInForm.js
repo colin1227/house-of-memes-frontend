@@ -1,13 +1,12 @@
 import { useState } from 'react';
-
 import { useHistory } from 'react-router';
-
 import axios from 'axios';
-import constants from '../../constants/vars.json';
 
 import './SignInForm.scss';
-import BottomNav from '../BottomNav/BottomNav';
 
+import { BottomNav } from '../../components/index';
+
+import constants from '../../constants/vars.json';
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const instance = axios.create({
@@ -25,7 +24,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
 
   if (pusername) history.push('/m/');
 
-  const verifyForum = async(e) => {
+  const verifyForm = async(e) => {
     e.preventDefault();
     if (username.length < 3) {
       changeError('username must be at a minimum 3 characters');
@@ -52,7 +51,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
 
   return (
     <div className="container">
-        <form onSubmit={(e) => verifyForum(e)} className="formParent">
+        <form onSubmit={(e) => verifyForm(e)} className="formParent">
           <div className="row form-username">
             <label htmlFor="username">Username</label>
             <input className='formInputs col-75' onChange={(e) => changeUsername(e.target.value)} type="text" name="username" id="username" required />

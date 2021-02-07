@@ -1,7 +1,9 @@
 import Landing from "./Landing/Landing";
 import Viewer from "./Viewer/Viewer";
 import Upload from "./Upload/Upload";
+import SignInForm from "./SignInForm/SignInForm";
+import SignUpForm from "./SignUpForm/SignUpForm";
 
-const all = { Landing, Viewer, Upload };
+/* import Manage from "./Manage/Manage"; */
 
-export default all;
+export { SignInForm, SignUpForm, Landing, Viewer, Upload };

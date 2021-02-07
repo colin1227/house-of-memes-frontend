@@ -1,7 +1,8 @@
-const VideoPlayer = (memeUrl, format, key) => {
+import "./Video.scss";
+
+const Video = (memeUrl, format, key) => {
   return (
     <div className="VideoViewer">
-      {/* look in to modding out this video player */}
       <video key={key} controls className="video-container video-container-overlay" autoPlay={true} loop muted={true}>
         <source id="_video" src={memeUrl} type={'video/' + format}/>
       </video>
@@ -9,4 +10,4 @@ const VideoPlayer = (memeUrl, format, key) => {
   )
 }
 
-export default VideoPlayer;
+export default Video;

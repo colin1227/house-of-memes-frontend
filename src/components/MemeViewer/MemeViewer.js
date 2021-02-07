@@ -1,18 +1,17 @@
-import VideoPlayer from "./VideoPlayer";
-import ImageViewer from "./ImageViewer";
-import AudionOnlyPlayer from "./AudioPlayer";
+import Video from "../Video/Video";
+import Image from "../Image/Image";
+import Audio from "../Audio/Audio";
 
 import constants from '../../constants/vars.json';
-import "./allStyle.scss";
 
 const renderMemes = (url, format, index) => {
   let meme = null;
   if (constants.formats.VIDEO.includes(format)) {
-    meme = VideoPlayer(url, format, index);
+    meme = Video(url, format, index);
   } else if (constants.formats.PHOTO.includes(format)) {
-    meme = ImageViewer(url, index);
+    meme = Image(url, index);
   } else if (constants.formats.AUDIO.includes(format)) {
-    meme = AudionOnlyPlayer(url, format, index);
+    meme = Audio(url, format, index);
   } else {
     meme = "incompatible";
   }
@@ -20,4 +19,3 @@ const renderMemes = (url, format, index) => {
 }
 
 export default renderMemes;
-

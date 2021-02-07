@@ -9,6 +9,4 @@ function reducer(state, action) {
   }
 }
 
-
-
 export { reducer };

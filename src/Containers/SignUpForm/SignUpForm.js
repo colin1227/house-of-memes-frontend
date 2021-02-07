@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 
-import { useHistory } from 'react-router';
-
 import './SignUpForm.scss';
-import BottomNav from '../BottomNav/BottomNav';
+
+import { TopNav, BottomNav } from '../../components/index';
+
 import constants from '../../constants/vars.json';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
@@ -25,7 +26,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
   const [error, changeError] = useState('');
 
 
-  const verifyForum = async(e) => {
+  const verifyForm = async(e) => {
     e.preventDefault();
     if (!username.length || !password.length || !confirmPassword.length) {
       changeError('verfiy all required fields are filled');
@@ -77,7 +78,9 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
 
   return (
     <div className="container">
-        <form onSubmit={(e) => verifyForum(e)} className="formParent">
+      <TopNav className='topNavApp' />
+      <div className="signUp">
+        <form onSubmit={(e) => verifyForm(e)} className="formParent">
           <div className="row form-username">
             <label htmlFor="username">Username</label>
             <input className='formInputs col-75' onChange={(e) => changeUsername(e.target.value)} type="text" name="username" id="username" required />
@@ -126,6 +129,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
           </div>
         </form>
         <BottomNav />
+      </div>
     </div>
   )
 }

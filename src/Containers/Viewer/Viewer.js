@@ -4,17 +4,12 @@ import axios from "axios";
 
 import "./Viewer.scss";
 
-// should this be here?
-import "../../components/Media/allStyle.scss";
-
 import constants from '../../constants/vars.json';
 import { reducer } from "../../helper/index";
 
-import renderMemes from "../../components/Media/index";
+import renderMemes from "../../components/MemeViewer/MemeViewer";
 
-// import ImageViewer from "../../components/Media/ImageViewer";
-// import loading from "../../photos/loading.gif";
-import { BottomNav } from "./../../components/index";
+import { /* TopNav, */ BottomNav } from "./../../components/index";
 
 const myStorage = window.localStorage;
 myStorage.setItem('lastCategory', '');

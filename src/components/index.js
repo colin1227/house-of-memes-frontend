@@ -1,8 +1,6 @@
-
-import SignUpForum from "./SignUpForm/SignUpForm";
-import SignInForum from "./SignInForm/SignInForm";
-import BottomNav from "./BottomNav/BottomNav";
 import Waves from "./Waves/Waves";
+import TopNav from "./TopNav/TopNav";
+import BottomNav from "./BottomNav/BottomNav";
+import MemeViewer from "./MemeViewer/MemeViewer";
 
-
-export { SignUpForum, SignInForum, Waves, BottomNav };
+export { MemeViewer, Waves, TopNav,  BottomNav };

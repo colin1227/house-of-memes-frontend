@@ -1,8 +1,7 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
-// import ImageViewer from "./../subCompMemes/ImageViewer";
+// import Image from "./../subCompMemes/Image";
 import "./Manage.scss";
-import "../Media/allStyle.scss";
 import constants from '../../constants/vars.json';
 
 import renderMemes from "../../components/Media/index";
@@ -163,7 +162,7 @@ const Manage = ({ props }) => {
       ?
         renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
       :
-        null // ImageViewer(url, 69420)
+        null // Image(url, 69420)
     }
     { 
       constants.formats.PHOTO.indexOf(formatList[viewIndex.count]) >= 0

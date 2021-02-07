@@ -1,7 +1,7 @@
 
 // /* ".a.mp4" to be included */
 
-const AudionOnlyPlayer = (memeUrl, format, viewIndex) => {
+const Audio = (memeUrl, format, viewIndex) => {
   return (
     <figure key={viewIndex}>
         <figcaption>Listen to {memeUrl.split(".")[0]}</figcaption>
@@ -16,4 +16,4 @@ const AudionOnlyPlayer = (memeUrl, format, viewIndex) => {
   )
 }
 
-export default AudionOnlyPlayer;
+export default Audio;
