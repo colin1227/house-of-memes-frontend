@@ -1,0 +1,18 @@
+.bottomNav {
+  width: 85%;
+  display: flex;
+  justify-content: space-around;
+  margin: 8px 0;
+  button {
+    width: 35%;
+    font-family: helmet;
+    font-size: 14px;
+
+  }
+  input[type=submit].disabled {
+    width: 35%;
+  }
+  input[type=submit].abled {
+    width: 35%;
+  }
+}

@@ -1,373 +1,408 @@
 @import "../../stylesheets/variables.scss";
 
+textarea {
+  resize: none;
+}
+
 .uppy {
-  display: block;
-  background-color: $skin;
-  max-width: 85%;
-  max-height: 85%;
-  height: 85%;
-  width: auto;
-  html,
-  body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(to top, #4F6072, #8699AA);
+  font-family: helmet;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height: auto;
+  // width: 55%;
+  border-radius: 5%;
+  box-shadow: 10px 5px 5px black;
+  animation: fadeup .5s .5s ease both;
+  transform: translateY(20px);
+  opacity: 0;
+  background: radial-gradient(ellipse at top, white, orange),
+  radial-gradient(ellipse at bottom, white, orange);
+  .upload-nav {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
   }
-  
-  //upload component
-  .upload {
-    position: relative;
-    width: 25rem;
-    min-height: 445px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(black, .2);
-    padding-bottom: 20px;
-    background: #fff;
-    animation: fadeup .5s .5s ease both;
-    transform: translateY(20px);
-    opacity: 0;
-    margin: 0 auto;
-    .upload-files {
-      header {
-        background: $skin;
-            border-top-left-radius: 5px;
-             border-top-right-radius: 5px;
-        text-align: center;
-        p {
-          color: #fff;
-          font-size: 40px;
-          margin: 0;
-          padding: 50px 0;
-          i {
-            transform: translateY(20px);
-            opacity: 0;
-            font-size: 30px;
-            animation: fadeup .5s 1s ease both;
-          }
-          .up {
-            font-weight: bold;
-            transform: translateX(-20px);
-            display: inline-block;
-            opacity: 0;
-            animation: faderight .5s 1.5s ease both;
-          }
-          .load {
-            display: inline-block;
-            font-weight: 100;
-            margin-left: -8px;
-            transform: translateX(-20px);
-            opacity: 0;
-            animation: faderight 1s 1.5s ease both;
-          }
-        }
-      }
-      .body {
-        text-align: center;
-        padding: 50px 0;
-        padding-bottom: 30px;
-        &.hidden {
-          display: none;
-        }
-        input {
-          visibility: hidden;
-        }
-        i {
-          font-size: 65px;
-          color: lightgray;
-        }
-        p {
-          font-size: 14px;
-          padding-top: 15px;
-          line-height: 1.4;
-          b,
-          a {
-            color: $skin;
-          }
-        }
-        &.active {
-          border: dashed 2px $skin;
-          i {
-            box-shadow: 0 0 0 -3px #fff,
-            0 0 0 lightgray,
-            0 0 0 -3px #fff,
-            0 0 0 lightgray;
-            animation: file .5s ease both;
-          }
-          @keyframes file {
-            50% {
-              box-shadow: -8px 8px 0 -3px #fff,
-              -8px 8px 0 lightgray,
-              -8px 8px 0 -3px #fff,
-              -8px 8px 0 lightgray;
-            }
-            75%,
-            100% {
-              box-shadow: -8px 8px 0 -3px #fff,
-              -8px 8px 0 lightgray,
-              -16px 16px 0 -3px #fff,
-              -16px 16px 0 lightgray;
-            }
-          }
-          .pointer-none{
-            pointer-events: none;
-          }
-        }
-      }
-      footer {
-        width: 100%;
-        margin: 0 auto;
-        height: 0;
-        .divider {
-          margin: 0 auto;
-          width: 0;
-          border-top: solid 4px darken($skin, 3.5%);
-          text-align: center;
-          overflow: hidden;
-          transition: width .5s ease;
-          span {
-            display: inline-block;
-            transform: translateY(-25px);
-            font-size: 12px;
-            padding-top: 8px;
-          }
-        }
-        &.hasFiles {
-          height: auto;
-          .divider {
-            width: 100%;
-            span {
-              transform: translateY(0);
-              transition: transform .5s .5s ease;
-            }
-          }
-        }
-        .importar {
-          outline: none;
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 20px;
-          margin: auto;
-          border: solid 1px $skin;
-          color: $skin;
-          background: transparent;
-          padding: 8px 15px;
-          font-size: 12px;
-          border-radius: 4px;
-          font-family: Roboto;
-          line-height: 1;
-          cursor: pointer;
-          transform: translateY(15px);
-          opacity: 0;
-                 visibility: hidden;
-          margin-left: calc(50% - 40px);
-          &.active {
-            transition: transform .5s 1.5s ease, opacity .5s 1.5s ease, background;
-            transform: translateY(0);
-            opacity: 1;
-                     visibility: visible;
-          }
-          &:hover{
-            background: $skin;
-            color: #fff;
-          }
-        }
-      }
-    }
-    @keyframes fadeup {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    @keyframes faderight {
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    @keyframes fade {
-      to {
-        opacity: 1;
-      }
-    }
-    @media (max-width: 400px){
+
+  .meme-forum {
+    // border-radius: 25%;
+    font-family: helmet;
+    .file-form {
+      position: relative;
       width: 100%;
-      height: 100%;
-    }
-  }
-  
-
-
-
-  .popatity {
-
-    position: relative;
-    .desc {
-      height: 5rem;
-    }
-    /* Style inputs .desc .rename */
-    input[type=text], select {
-
-      width: 50%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      // left: 50%;
-      // display: inline-block;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      min-height: 445px;
       box-sizing: border-box;
-    }
-    
-    /* Style the submit button .sendit */
-    input[type=submit] {
-      width: 25rem;
-      background-color: #4CAF50;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    input[type=submit].disabled {
-      color: darkgray;
-      background-color: whitesmoke;
-    }
-
-    /* Add a background color to the submit button on mouse-over */
-    input[type=submit]:hover {
-      background-color: #45a049;
-    }
-
-    input[type=submit].disabled:hover {
-      color: darkgray;
-      background-color: whitesmoke;
-    }
-  }
-
-  .list-files {
-    width: 320px;
-    margin: 0 auto;
-    margin-top: 15px;
-    padding-left: 5px;
-    text-align: center;
-    overflow-x: hidden;
-    overflow-y: auto;
-    max-height: 210px;
-    &::-webkit-scrollbar-track {
-        background-color: rgba(lightgray, .25);
-    }
-    &::-webkit-scrollbar {
-        width: 4px;
-        background-color: rgba(lightgray, .25);
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba($skin, .5);
-    }
-    .file {
-      width: 300px;
-      min-height: 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0;
-      animation: fade .35s ease both;
-      .name {
-        font-size: 12px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        width: 80px;
-        text-align: left;
-      }
-      .progress {
-        width: 175px;
-        height: 5px;
-        border: solid 1px lightgray;
-        border-radius: 2px;
-        background: linear-gradient(to left, rgba($skin, .2), rgba($skin, .8)) no-repeat;
-        background-size: 100% 100%;
-        &.active {
-          animation: progress 30s linear;
-        }
-      }
-
-      @keyframes progress {
-        from {
-          background-size: 0 100%;
-        }
-        to {
-          background-size: 100% 100%;
-        }
-      }
-
-      .done {
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        background: $skin;
-        border-radius: 50%;
-        margin-left: -10px;
-        transform: scale(0);
-        position: relative;
-        &:before {
-          content: "View";
-          position: absolute;
-          top: 0;
-          left: -5px;
-          font-size: 24px;
-          opacity: 0;
-        }
-        &:hover:before {
-          transition: all .25s ease;
-          top: -30px;
-          opacity: 1;
-        }
-        &.anim {
-          animation: done1 .5s ease forwards;
-          #path {
-            animation: done2 2.5s .5s ease forwards;
+      border-radius: 5%;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 0 2px 5px rgba(black, .2);
+      padding-bottom: 20px;
+      background: #fff;
+      margin: 0;
+      
+      .upload-files {
+        header {
+          border-radius: 5%/15%;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+          text-align: center;
+          p {
+          background: radial-gradient(circle, orange, white),
+          radial-gradient(ellipse at bottom, orange, white);
+          border-radius: 5%/15%;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            color: #fff;
+            font-size: 40px;
+            margin: 0;
+            padding: 50px 0;
+            i {
+              transform: translateY(20px);
+              opacity: 0;
+              font-size: 30px;
+              animation: fadeup .5s 1s ease both;
+            }
+            .up {
+              font-weight: bold;
+              transform: translateX(-20px);
+              display: inline-block;
+              opacity: 0;
+              animation: faderight .5s 1.5s ease both;
+            }
+            .load {
+              display: inline-block;
+              font-weight: 100;
+              margin-left: -8px;
+              transform: translateX(-20px);
+              opacity: 0;
+              animation: faderight .5s .65s ease both;
+            }
           }
         }
-        #path {
-          stroke-dashoffset: 7387.59423828125;
-          stroke-dasharray: 7387.59423828125 7387.59423828125;
-          stroke: #fff;
-          fill: transparent;
-          stroke-width: 50px;
+        .file-prompt {
+          text-align: center;
+          padding: 50px 0;
+          padding-bottom: 30px;
+          &.hidden {
+            display: none;
+          }
+          input {
+            visibility: hidden;
+          }
+          i {
+            font-size: 65px;
+            color: lightgray;
+          }
+          p {
+            font-size: 14px;
+            padding-top: 15px;
+            line-height: 1.4;
+            b,
+            a {
+              color: orangered;
+            }
+          }
+          &.active {
+            border: dashed 2px $blue;
+            i {
+              box-shadow: 0 0 0 -3px #fff,
+              0 0 0 lightgray,
+              0 0 0 -3px #fff,
+              0 0 0 lightgray;
+              animation: file .5s ease both;
+            }
+            .pointer-none{
+              pointer-events: none;
+            }
+          }
+        }
+        footer {
+
+          width: 100%;
+          margin: 0 auto;
+          height: 0;
+          .divider {
+            margin: 0 auto;
+            width: 0;
+            border-top: solid 4px #3D9CC0;
+            text-align: center;
+            overflow: hidden;
+            transition: width .5s ease;
+            span {
+              display: inline-block;
+              transform: translateY(-25px);
+              font-size: 12px;
+              padding-top: 8px;
+            }
+          }
+          &.hasFiles {
+            height: auto;
+            .divider {
+              width: 100%;
+              span {
+                transform: translateY(0);
+                transition: transform .5s .5s ease;
+              }
+            }
+          }
+          .importar {
+            font-family: helmet;
+            outline: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+            margin: auto;
+            border: solid 1px $bluish;
+            color: $blue;
+            background: transparent;
+            padding: 8px 15px;
+            font-size: 12px;
+            border-radius: 4px;
+            line-height: 1;
+            cursor: pointer;
+            transform: translateY(15px);
+            opacity: 0;
+            visibility: hidden;
+            &.active {
+              transition: transform .5s 1.5s ease, opacity .5s 1.5s ease, background;
+              transform: translateY(0);
+              opacity: 1;
+                      visibility: visible;
+            }
+            &:hover{
+              background: $bluish;
+              color: #fff;
+            }
+          }
         }
       }
-      @keyframes done2 {
-        to {
-          stroke-dashoffset: 0;
-        }
+      @media (max-width: 400px){
+        width: 100%;
+        height: 100%;
       }
-      @keyframes done1 {
-        50% {
-          transform: scale(.5);
-          opacity: 1;
+    }
+
+    .list-files {
+      width: 320px;
+      margin: 0 auto;
+      margin-top: 15px;
+      padding-left: 5px;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 210px;
+      &::-webkit-scrollbar-track {
+          background-color: rgba(lightgray, .25);
+      }
+      &::-webkit-scrollbar {
+          width: 4px;
+          background-color: rgba(lightgray, .25);
+      }
+      &::-webkit-scrollbar-thumb {
+          background-color: $blue
+      }
+      .file {
+        width: 300px;
+        min-height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0;
+        animation: fade .35s ease both;
+        .name {
+          font-size: 12px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          width: 80px;
+          text-align: left;
         }
-        80% {
-          transform: scale(.25);
-          opacity: 1;
+        .progress {
+          width: 175px;
+          height: 5px;
+          border: solid 1px lightgray;
+          background: linear-gradient(to left, rgba( 0,172,193, .2), rgba(84,58,183, .8)) no-repeat;          background-size: 100% 100%;
+          &.active {
+            animation: progress 30s linear;
+          }
         }
-        100% {
-          transform: scale(.5);
-          opacity: 1;
+
+        .done {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          background: $bluish;
+          border-radius: 50%;
+          margin-left: -10px;
+          transform: scale(0);
+          position: relative;
+          &:before {
+            content: "View";
+            position: absolute;
+            top: 0;
+            left: -5px;
+            font-size: 24px;
+            opacity: 0;
+          }
+          &:hover:before {
+            transition: all .25s ease;
+            top: -30px;
+            opacity: 1;
+          }
+          &.anim {
+            animation: done1 .5s ease forwards;
+            #path {
+              animation: done2 2.5s .5s ease forwards;
+            }
+          }
+          #path {
+            stroke-dashoffset: 7387.59423828125;
+            stroke-dasharray: 7387.59423828125 7387.59423828125;
+            stroke: #fff;
+            fill: transparent;
+            stroke-width: 50px;
+          }
         }
+                
       }
     }
   }
+}
+
+.popatity {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+  opacity: 1;
+  min-width: 100%;
+  width: 100%;
+  height: auto;
+  background-color: radial-gradient(#e66465, #9198e5);
+  .rename {
+    border-color: transparent;
+    outline: none;
+    border-radius: 1rem;
+    font-size: 20px;
+    margin: 8px 0;
+    min-width: 85%;
+    font-family: helmet;
+    width: 85%;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+  }
+  .desc-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 8px 0;
+    .desc {
+      // TODO: change to be actually responsive
+      font-size: 16px;
+      border-radius: 1rem;
+      border-color: transparent;
+      outline: none;
+      text-indent: 5%;
+      font-family: helmet;
+      width: auto;
+      min-width: 85%;
+      max-width: 85%;
+    }
+    ::placeholder {
+      // color: peachpuff;
+      font-size: 20px;
+    }
+  }
+  .sendit {
+    width: 35%;
+    right: 0;
+    width: 75%;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  /* Style the submit button .sendit */
+  input[type=submit].disabled {
+    width: 35%;
+    color: darkgray;
+    background-color: whitesmoke;
+  }
+  input[type=submit].abled {
+    width: 35%;
+  }
+
+  input[type=submit].disabled:hover {
+    color: darkgray;
+    background-color: whitesmoke;
+  }
+}
 
 
+
+@keyframes file {
+  50% {
+    box-shadow: -8px 8px 0 -3px #fff,
+    -8px 8px 0 lightgray,
+    -8px 8px 0 -3px #fff,
+    -8px 8px 0 lightgray;
+  }
+  // 75%,
+  100% {
+    box-shadow: -8px 8px 0 -3px #fff,
+    -8px 8px 0 lightgray,
+    -16px 16px 0 -3px #fff,
+    -16px 16px 0 lightgray;
+  }
+}
+
+@keyframes progress {
+  from {
+    background-size: 0 100%;
+  }
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes fadeup {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes faderight {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes done2 {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes done1 {
+  50% {
+    transform: scale(.5);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(.5);
+    opacity: 1;
+  }
 }

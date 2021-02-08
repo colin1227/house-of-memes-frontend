@@ -9,4 +9,12 @@ function reducer(state, action) {
   }
 }
 
-export { reducer };
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+  }
+}
+
+
+
+export { reducer, removeAllChildNodes };

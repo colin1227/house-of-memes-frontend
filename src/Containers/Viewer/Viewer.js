@@ -1,6 +1,7 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 
+import { useHistory } from 'react-router-dom';
 
 import "./Viewer.scss";
 
@@ -10,6 +11,8 @@ import { reducer } from "../../helper/index";
 import renderMemes from "../../components/MemeViewer/MemeViewer";
 
 import { /* TopNav, */ BottomNav } from "./../../components/index";
+
+// use arrow pads to direct around as well, keyCode fucntion I think
 
 const myStorage = window.localStorage;
 myStorage.setItem('lastCategory', '');
@@ -22,7 +25,7 @@ const instance = axios.create({
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Viewer = ({ props }) => {  
-
+  const history = useHistory();
   // Lifecycle
   const [mounted, mountState] = useState(false);
 
@@ -188,7 +191,7 @@ const Viewer = ({ props }) => {
         }
       </div>
       <div className="space" />
-      <BottomNav className="bottomNav" buttons={[<button key={'toe'} onClick={() => handleClick()}> widepeepoHappy </button>]} />
+      <BottomNav className="bottomNav" buttons={[<button key={"cap"} onClick={() => history.push("/m/upload")}>Upload</button>,<button key={'toe'} onClick={() => handleClick()}> Next Meme </button>]} />
     </div>
   </div>
   )
