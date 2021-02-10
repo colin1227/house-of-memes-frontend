@@ -1,3 +1,5 @@
+import { formats } from "../constants/vars.json";
+
 function reducer(state, action) {
   switch (action.type) {
     case 'increment':
@@ -9,12 +11,15 @@ function reducer(state, action) {
   }
 }
 
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-  }
+const allowedFormats = () => {
+  let allFormats = [];
+  Object.keys(formats).forEach(group => {
+    formats[group].forEach(type => {
+      allFormats.push(type);
+    })
+  })
+  return allFormats;
 }
 
 
-
-export { reducer, removeAllChildNodes };
+export { reducer, allowedFormats };

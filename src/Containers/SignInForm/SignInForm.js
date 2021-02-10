@@ -69,7 +69,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
           <div className="form-submit">
             <input className='formButton' type="submit" value="observe memes"/>
           </div>
-            { error ? <span className='red'>{error}</span> : <span></span>}
+            { error ? <span className='error'>{error}</span> : <span></span>}
             <BottomNav />
           </div>
         </form>

@@ -12,14 +12,6 @@ const Waves = (props) => {
               preserveAspectRatio="none"
               shapeRendering="auto">
               <div className="rslt kiddies">
-                {/* {
-                  props.children
-                ||
-                  <div>
-                    <span className="part1">If you are so <span className='red'>decrepit</span> popped off(got excited) for new airings of the Brady bunch or
-                    worse, You were literally in middle school 5 years ago,</span><span className="part2"> this app is <span className="red">not</span> for you.</span>
-                  </div>
-                } */}
               </div>
               <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />

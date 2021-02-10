@@ -269,7 +269,7 @@ textarea {
   }
 }
 
-.popatity {
+.bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -326,16 +326,10 @@ textarea {
   /* Style the submit button .sendit */
   input[type=submit].disabled {
     width: 35%;
-    color: darkgray;
     background-color: whitesmoke;
   }
   input[type=submit].abled {
     width: 35%;
-  }
-
-  input[type=submit].disabled:hover {
-    color: darkgray;
-    background-color: whitesmoke;
   }
 }
 

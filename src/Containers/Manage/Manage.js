@@ -47,7 +47,7 @@ const Manage = ({ props }) => {
 
         changeFormat([
           ...formatList,
-          ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
+          ...result.data.memeExport.formats]);
         
         changeCategoryList([
           ...categoryList,
@@ -99,10 +99,10 @@ const Manage = ({ props }) => {
 
             /* update state */
             changeMemes([...memeUrls,
-              ...result.data.memeExport.map((name) => `${url}/m/meme/${name}`)]);
+              ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)]);
 
             changeFormat([...formatList,
-              ...result.data.memeExport.map((name) => name.split('.')[name.split('.').length - 1])]);
+              ...result.data.memeExport.formats]);
 
             changeCategoryList([
               ...categoryList,
