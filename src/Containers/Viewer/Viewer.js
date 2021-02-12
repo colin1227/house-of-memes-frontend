@@ -12,19 +12,19 @@ import renderMemes from "../../components/MemeViewer/MemeViewer";
 
 import { /* TopNav, */ BottomNav } from "./../../components/index";
 
-// use arrow pads to direct around as well, keyCode fucntion I think
-
-const myStorage = window.localStorage;
-myStorage.setItem('lastCategory', '');
+// TODO: use arrow pads to direct around as well, keyCode fucntion I think
 
 const instance = axios.create({
   proxyHeaders: false,
-  credentials: false
+  credentials: false,
+  headers: {
+    contentType: 'application/json'
+  }
 });
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
-const Viewer = ({ props }) => {  
+const Viewer = () => {  
   const history = useHistory();
   // Lifecycle
   const [mounted, mountState] = useState(false);
@@ -32,15 +32,10 @@ const Viewer = ({ props }) => {
   // data
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
-  const [categoryList, changeCategoryList] =
-    useState(['Twitter', 'Twitter', 'Facebook', 'Intagram', 'Pintrest', 'None', 'N/A'])
-
-  // locally stored data
-  const lastCategory = myStorage.getItem('lastCategory') || 'N/A';
+  // ranks
 
   // index of data
   const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
-  const [lastViewed, dViewed] = useReducer(reducer, { count: 0 });
   
   const handleImportMemes = useCallback(async(n=2) => {
     try {
@@ -53,43 +48,11 @@ const Viewer = ({ props }) => {
         changeFormat([
           ...formatList,
           ...result.data.memeExport.formats]);
-        
-        changeCategoryList([
-          ...categoryList,
-          'Twitter'
-        ])
+
       } catch(err) {
         console.log(err);
      }
-  },[memeUrls, formatList, categoryList]);
-
-  // debug
-  useEffect(() => {
-    let gate = false;
-
-    // Current view index
-    if (viewIndex.count > lastViewed.count) {
-      dViewed({ type: 'increment' });
-      console.log(viewIndex.count);
-      gate = true;
-    }
-
-    if ((!gate && viewIndex.count !== lastViewed.count) ||
-      (gate &&
-        memeUrls.length &&
-        formatList.length &&
-        memeUrls.length === formatList.length)
-    ) {
-      console.log(`
-        url: ${memeUrls[viewIndex.count]},
-        format: ${formatList[viewIndex.count]}; 
-        ${Object.keys(constants.formats).filter((formi) => {
-          return constants.formats[formi].includes(formatList[viewIndex.count])
-        })[0]} --
-      `);
-    }
-  }, [viewIndex, formatList, memeUrls, lastViewed.count]);
-
+  },[memeUrls, formatList]);
 
   /* -~-~-~-~-~-~- Component MOUNTED, State DEFINED -~-~-~-~-~-~- */
 
@@ -97,66 +60,22 @@ const Viewer = ({ props }) => {
     if (!mounted) {
       console.log("Viewer Mounted")
       mountState(true);
-      const handleImportMemes = async(n=2) => {
-        try {
-            // get memes
-            const result = await instance.get(`${url}/m/imports/${n}?category=${lastCategory}`);
-
-            /* update state */
-            changeMemes([...memeUrls,
-              ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)]);
-
-            changeFormat([...formatList,
-              ...result.data.memeExport.formats]);
-
-            changeCategoryList([
-              ...categoryList,
-              'Twitter'
-            ])
-        } catch(err) {
-            console.log(err);
-        }
-      };
-      handleImportMemes(); // 5)
+      handleImportMemes(5);
     }
-  }, [mounted, memeUrls, formatList, categoryList, lastCategory]);
+  }, [mounted, memeUrls, formatList, handleImportMemes]);
 
 
   /* -~-~-~-~-~-~- Component/State will UPDATE -~-~-~-~-~-~- */
   useEffect(() => {
-    let gate = false;
-
-    // Current index
-    if (viewIndex.count > lastViewed.count) {
-      dViewed({ type: 'increment' });
-      console.log(viewIndex.count);
-      gate = true;
-    };
-
-    if (categoryList[viewIndex.count] !== categoryList) {
-      document.querySelector('.viewer').classList.remove(constants.MainStream.filter((r) => {
-        return r !== categoryList[viewIndex.count]
-      }
-      ))
-      myStorage.setItem('lastCategory', categoryList[viewIndex.count]);
+    if (memeUrls.length <= viewIndex.count + 1 && memeUrls.length) {
+      handleImportMemes(4);
     }
-
-    if (memeUrls.length <= viewIndex.count /* + 5 */ && ((viewIndex.count === lastViewed.count) || gate)) {
-      handleImportMemes();
-
-    }
-  }, [categoryList, memeUrls, lastViewed.count, viewIndex.count, formatList, handleImportMemes]);
+  }, [memeUrls, viewIndex.count, formatList, handleImportMemes]);
 
   const handleClick = async() => {
     dIndex({ type: 'increment' });
-    if (constants.MainStream[constants.MainStream.length - 1] &&
-      memeUrls.length <= viewIndex.count // + 5
-      && memeUrls.length) {
-        handleImportMemes(2);
-    }
   }
 
-  // let TopViewer = document.getElementsByClassName('viewer');
   return(
   <div className="viewer">
     <div className="innerViewer">
@@ -164,7 +83,6 @@ const Viewer = ({ props }) => {
         {
           memeUrls.length
             && memeUrls[viewIndex.count]
-            && viewIndex.count <= lastViewed.count
           ?
             renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
           :

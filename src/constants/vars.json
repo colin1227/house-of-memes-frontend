@@ -5,5 +5,5 @@
     "PHOTO": ["image/gif", "image/png", "image/jpg", "image/jpeg"]
   },
   "MainStream": ["Twitter", "TikTok", "Facebook", "Intagram", "Pintrest", "None", "N/A"],
-  "local": false
+  "local": true
 }
