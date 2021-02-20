@@ -67,10 +67,10 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
               <li><b>Password</b> are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in 'merican</li>
             </ul>
           <div className="form-submit">
-            <input className='formButton' type="submit" value="observe memes"/>
+            <input className='formButton' type="submit" value="Sign In"/>
           </div>
             { error ? <span className='error'>{error}</span> : <span></span>}
-            <BottomNav />
+            <BottomNav buttons={[<button onClick={() => history.push('/u/sign-up')} value='sign up Here'/>,<button onClick={() => history.push('/m/')} value='to memes'/>]} />
           </div>
         </form>
     </div>

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import './SignUpForm.scss';
 
-import { TopNav, BottomNav } from '../../components/index';
+import { BottomNav } from '../../components/index';
 
 import constants from '../../constants/vars.json';
 
@@ -78,7 +78,6 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
 
   return (
     <div className="container">
-      <TopNav className='topNavApp' />
       <div className="signUp">
         <form onSubmit={(e) => verifyForm(e)} className="formParent">
           <div className="row form-username">

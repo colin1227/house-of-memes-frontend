@@ -2,19 +2,14 @@
   padding: 0px;
   margin: 0px;
   width: auto;
-  height: auto;
-  max-width: 70%;
-  max-height: 70%;
+  height: 100%;
+  // max-width: 70%;
+  // max-height: 70%;
+  margin: 0;
   border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
   video {
     border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
-    margin: 0;
-    padding: 0;
-    width: 100%;
+    width: auto;
     height: 100%;
-    max-width: 1000px;
-    max-height: 1000px;
-    display: block;
-    box-shadow: 0;
   }
 }

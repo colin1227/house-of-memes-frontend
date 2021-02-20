@@ -10,7 +10,7 @@ import {
 
 /* (hash)Tags == Categories <Route exact path="/m/tags" /> */
 import { SignInForm, SignUpForm, Upload, Viewer } from "./Containers/index";
-
+import { TopNav } from "./components/index";
 import "./App.scss";
 
 const App = () => {

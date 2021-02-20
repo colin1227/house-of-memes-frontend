@@ -2,11 +2,8 @@
 .App {
   min-width: 100%;
   min-height: 100%;
-  height: auto;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: auto;
   background: linear-gradient(33deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
 }
 
