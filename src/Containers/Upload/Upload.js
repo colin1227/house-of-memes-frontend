@@ -43,27 +43,32 @@ const Upload = (props) => {
 
   const submittens = async(e) => {
     await sendFile(e).then((res) => {
-      // res.data.meme
-      // history.push(`/m/`);
-    }).catch(err => changeError(err.message));
+      if (res.status === 201){
+        history.push(`/m/`);
+      }
+    })
+    .catch(() => {
+      changeError('something didn\'t work');
+    });
   }
 
   const handleMeme = async(val) => {
     let files = [];
     let invalid = false;
-    let c = 0;
-    // conditional on the basis that it's not explicit or malicious
-    // - image clasifier; RapidAPI
+    let r = 0;
+
+    // TODO: conditional on the basis that it's not explicit or malicious
+    //  - image clasifier; RapidAPI
 
     // check that all files submitted are valid.
-    while (c < val.target.files.length) {
-      if (allowedFormats.filter( fmt => val.target.files[c].type.includes(fmt)).length > 0) {
-        files[c] = val.target.files[c];
+    while (r < val.target.files.length) {
+      if (allowedFormats.filter( fmt => val.target.files[r].type.includes(fmt)).length > 0) {
+        files[r] = val.target.files[r];
       } else {
         invalid = true;
         break;
       }
-      c++;
+      r++;
     }
 
     if(!invalid) {
@@ -87,25 +92,6 @@ const Upload = (props) => {
 
       if (!props.username && !myStorage.getItem("loggedIn")) history.push("/u/sign-in");
 
-
-      /*
-        2/9/21
-
-        I just spent an entire day trying to figure out why the FUCK my files stoped sending.
-        What I was negecting to acknoledge was I was sending a diffrent data type for multiple files.
-        I was too concerned with moving on I couldn't move.
-        It is hard to even remember the exact moment things shifted but I will always remember the relief.
-        Thank you god.
-        
-        TL;DR(but not really): sending multipart/form-data to the API requires a package express-fileupload.
-        things worked well at first but when I made the switch to sending multiple files,
-        the original syntax stopped working as I was sending an array.
-      
-        There isn't enough time for me to perfect this idea... and it sucks,
-        but I will inspire and mentor others to finish what I can't.
-
-      */
-
       memes.map((file, indx) => {
         return formData.append(`${indx}`, file);
       })
@@ -121,15 +107,16 @@ const Upload = (props) => {
       let memeSaved = await axios.request({
         method: 'POST',
         url: `${url}/m/upload`,
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { 
+          "Content-Type": "multipart/form-data"
+        },
         data: formData
       });
       return memeSaved;
     } catch (err) {
-      if (false) console.log('err ', err.message);
+      if (err) console.log('err ', err.message);
     }
   }
-
 
   const handleFind = (e) => {
     changeMemes([]);

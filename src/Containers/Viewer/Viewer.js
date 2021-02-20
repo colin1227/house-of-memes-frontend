@@ -16,25 +16,21 @@ import { /* TopNav, */ BottomNav } from "./../../components/index";
 
 const instance = axios.create({
   proxyHeaders: false,
-  credentials: false,
-  headers: {
-    contentType: 'application/json'
-  }
+  credentials: false
 });
+
+// instance.defaults.headers.get.range = ;
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Viewer = () => {  
   const history = useHistory();
-  // Lifecycle
   const [mounted, mountState] = useState(false);
 
-  // data
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
-  // ranks
 
-  // index of data
+  // TODO: useState instead
   const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
   
   const handleImportMemes = useCallback(async(n=2) => {
