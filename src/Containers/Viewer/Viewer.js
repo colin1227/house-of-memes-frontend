@@ -73,21 +73,24 @@ const Viewer = () => {
   }
   // TODO: pre-render memes
   return(
-  <div className='preiver'>
-    <div className="viewer">
-      <div className="memeRend">
-        {
-          memeUrls.length
-            && memeUrls[viewIndex.count]
-          ?
-            renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
-          :
-            loadingSVG()
-        }
+  <div className='viewer'>
+    <TopNav />
+    <div className="memeRend">
+      <div className="comments">
       </div>
-      <div className="space" />
-      {/* <BottomNav className="bottomNav" buttons={[<button key={"cap"} onClick={() => history.push("/m/upload")}>Upload</button>,<button key={'toe'} onClick={() => handleClick()}> Next Meme </button>]} /> */}
+      {
+        memeUrls.length
+          && memeUrls[viewIndex.count]
+        ?
+          renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
+        :
+          loadingSVG()
+      }
+      <div className="memeInfo">
+      </div>
     </div>
+    {/* <div className="break-space" /> */}
+    {/* <BottomNav className="bottomNav" buttons={[<button key={"cap"} onClick={() => history.push("/m/upload")}>Upload</button>,<button key={'toe'} onClick={() => handleClick()}> Next Meme </button>]} /> */}
   </div>
   )
 };
