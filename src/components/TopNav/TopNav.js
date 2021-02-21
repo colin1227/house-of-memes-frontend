@@ -1,13 +1,9 @@
-
-import { useHistory } from 'react-router-dom';
-
 import "./TopNav.scss";
 
-const TopNav = (props) => {
-  const history = useHistory();
+const TopNav = ({ buttons }) => {
   return (
     <div className="topNavBar">
-      <button onClick={() => history.push("/u/sign-up")}>Sign up</button>
+      {buttons && buttons.map(btn => btn)}
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useCallback } from 'react';
+import { useRef, useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 
 import { useHistory } from 'react-router-dom';
@@ -6,11 +6,11 @@ import { useHistory } from 'react-router-dom';
 import "./Viewer.scss";
 
 import constants from '../../constants/vars.json';
-import { reducer, loadingSVG } from "../../helper/index";
+import { reducer } from "../../helper/index";
 
 import renderMemes from "../../components/MemeViewer/MemeViewer";
 
-import { TopNav, BottomNav } from "./../../components/index";
+import { TopNav, loadingSVG } from "./../../components/index";
 
 // TODO: use arrow pads to direct around as well, keyCode fucntion I think
 
@@ -23,16 +23,18 @@ const instance = axios.create({
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
-const Viewer = () => {  
+const Viewer = ({ username }) => {  
   const history = useHistory();
-  const [mounted, mountState] = useState(false);
-
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
-
   // TODO: useState instead
-  const [viewIndex, dIndex] = useReducer(reducer, { count: 0 });
-  
+  const [viewIndex, ] = useReducer(reducer, { count: 0 });
+
+  const numRendersRef = useRef(1);
+
+  const signIn = [<button key={-1} onClick={() => history.push("/u/sign-in")}>Sign in</button>];
+  const myAccount = [<button key={-1}>{username}</button>];
+
   const handleImportMemes = useCallback(async(n=2) => {
     try {
         const result = await instance.get(`${url}/m/imports/${n}`);
@@ -50,31 +52,33 @@ const Viewer = () => {
      }
   },[memeUrls, formatList]);
 
-  /* -~-~-~-~-~-~- Component MOUNTED, State DEFINED -~-~-~-~-~-~- */
+  // useEffect(() => {
+  //   if (!memeUrls.length){
+  //     handleImportMemes(7);
+  //     return true;
+  //   }
 
+  // }, [memeUrls, handleImportMemes])
+
+
+  // TODO: figure out how to address memory leak
   useEffect(() => {
-    if (!mounted) {
-      console.log("Viewer Mounted")
-      mountState(true);
-      handleImportMemes(5);
+    if (numRendersRef.current < 2){
+      handleImportMemes(6);
     }
-  }, [mounted, memeUrls, formatList, handleImportMemes]);
+    numRendersRef.current++;
+  },[numRendersRef, handleImportMemes]);
 
-
-  /* -~-~-~-~-~-~- Component/State will UPDATE -~-~-~-~-~-~- */
   useEffect(() => {
     if (memeUrls.length <= viewIndex.count + 1 && memeUrls.length) {
       handleImportMemes(4);
     }
   }, [memeUrls, viewIndex.count, formatList, handleImportMemes]);
 
-  const handleClick = async() => {
-    dIndex({ type: 'increment' });
-  }
   // TODO: pre-render memes
   return(
   <div className='viewer'>
-    <TopNav />
+    <TopNav buttons={ username ? myAccount : signIn} />
     <div className="memeRend">
       <div className="comments">
       </div>
@@ -86,11 +90,9 @@ const Viewer = () => {
         :
           loadingSVG()
       }
-      <div className="memeInfo">
+      <div about={numRendersRef} className="memeInfo">
       </div>
     </div>
-    {/* <div className="break-space" /> */}
-    {/* <BottomNav className="bottomNav" buttons={[<button key={"cap"} onClick={() => history.push("/m/upload")}>Upload</button>,<button key={'toe'} onClick={() => handleClick()}> Next Meme </button>]} /> */}
   </div>
   )
 };

@@ -65,7 +65,6 @@ const Manage = ({ props }) => {
     // Current view index
     if (viewIndex.count > lastViewed.count) {
       dViewed({ type: 'increment' });
-      console.log(viewIndex.count);
       gate = true;
     }
 
@@ -75,13 +74,6 @@ const Manage = ({ props }) => {
         formatList.length &&
         memeUrls.length === formatList.length)
     ) {
-      console.log(`
-        url: ${memeUrls[viewIndex.count]},
-        format: ${formatList[viewIndex.count]}; 
-        ${Object.keys(constants.formats).filter((formi) => {
-          return constants.formats[formi].includes(formatList[viewIndex.count])
-        })[0]} --
-      `);
     }
   }, [viewIndex, formatList, memeUrls, lastViewed.count]);
 
@@ -90,7 +82,6 @@ const Manage = ({ props }) => {
 
   useEffect(() => {
     if (!mounted) {
-      console.log("Viewer Mounted")
       mountState(true);
       const handleImportMemes = async(n=2) => {
         try {
@@ -112,7 +103,7 @@ const Manage = ({ props }) => {
             console.log(err);
         }
       };
-      handleImportMemes(5);
+      handleImportMemes(7);
     }
   }, [mounted, memeUrls, formatList, categoryList, lastCategory]);
 
@@ -124,7 +115,6 @@ const Manage = ({ props }) => {
     // Current index
     if (viewIndex.count > lastViewed.count) {
       dViewed({ type: 'increment' });
-      console.log(viewIndex.count);
       gate = true;
     };
 

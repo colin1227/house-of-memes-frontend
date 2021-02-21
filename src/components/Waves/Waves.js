@@ -1,7 +1,6 @@
 import "./Waves.scss";
 
 const Waves = (props) => {
-  console.log(props.children)
   return (
     <div className="top">
         <div className="inner-header flex" />

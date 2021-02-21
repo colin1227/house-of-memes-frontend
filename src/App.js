@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory,
   Redirect
 } from "react-router-dom";
 
 /* (hash)Tags == Categories <Route exact path="/m/tags" /> */
 import { SignInForm, SignUpForm, Upload, Viewer } from "./Containers/index";
-import { TopNav } from "./components/index";
 import "./App.scss";
+
+const myStorage = window.localStorage;
 
 const App = () => {
   const [ username, logUsername] = useState('');
   const [ status, changeStatus] = useState('');
-  const history = useHistory();
+  // if ((username && username.length <= 0 )|| (status && 0 >= status.length)) history.push("/u/sign-in");
 
-  if ((username && username.length <= 0 )|| (status && 0 >= status.length)) history.push("/u/sign-in");
-
+  useEffect(() => {
+    const user = myStorage.getItem("loggedIn");
+    if (user) {
+      logUsername(user);
+    }
+  }, []);
   return (
       <div className="App">
         <Router>

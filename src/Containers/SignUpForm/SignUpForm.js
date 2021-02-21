@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 
@@ -33,11 +33,11 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
     } else if (password !== confirmPassword) {
       changeError('passwords must match');
     } else if (password.length < 8 || !passwordRegEx.test(password)) {
-      console.log('pass >= 8 characters, 1 #, 1 Symbol, 1');
+      changeError('pass >= 8 characters, 1 #, 1 Symbol, 1');
     } else if (username.length < 3) {
       changeError('username must be at a minimum 3 characters');
     } else if (noties && !emailRegEx.test(email)) {
-      console.log(email + ' is not valid');
+      changeError(email + ' is not valid');
     }
 
     let data = {
@@ -58,23 +58,15 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
       data
     });
 
-    console.log(result)
-
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       history.push('/m/');
       logUsername(result.data.username);
       changeStatus(result.data.status);
     } else {
-      console.log(result.error.message);
+      changeError('something didn\'t work');
     }
   }
-
-
-
-  useEffect(() => {
-    console.log('widePeopoLoaded');
-  },[]);
 
   return (
     <div className="container">

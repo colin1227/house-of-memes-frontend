@@ -36,7 +36,6 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
       password
     };
     const result = await instance.post(`${url}/u/sign-in`, reqBody);
-    console.log(result);
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
 
@@ -44,7 +43,6 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
       changeStatus(result.data.status);
       history.push('/m/');
     } else {
-      console.log(result.error.message);
       changeError('username or password didn\'t match');
     }
   }

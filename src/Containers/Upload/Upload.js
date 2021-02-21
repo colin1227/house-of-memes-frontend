@@ -48,7 +48,7 @@ const Upload = (props) => {
       }
     })
     .catch(() => {
-      changeError('something didn\'t work');
+      changeError('something didn\'t work ');
     });
   }
 
@@ -114,7 +114,7 @@ const Upload = (props) => {
       });
       return memeSaved;
     } catch (err) {
-      if (err) console.log('err ', err.message);
+      if (err) changeError('something didn\'t work');
     }
   }
 
