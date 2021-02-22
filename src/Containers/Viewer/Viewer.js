@@ -10,7 +10,7 @@ import { reducer } from "../../helper/index";
 
 import renderMemes from "../../components/MemeViewer/MemeViewer";
 
-import { TopNav, loadingSVG } from "./../../components/index";
+import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
 
 // TODO: use arrow pads to direct around as well, keyCode fucntion I think
 
@@ -32,8 +32,22 @@ const Viewer = ({ username }) => {
 
   const numRendersRef = useRef(1);
 
+  // top buttons
   const signIn = [<button key={-1} onClick={() => history.push("/u/sign-in")}>Sign in</button>];
   const myAccount = [<button key={-1}>{username}</button>];
+
+  // bottom buttons
+  const directionalButtons = [
+    <div key={-1} className={'direct'}>
+      <button>Next</button>
+      <button>Prev</button>
+    </div>
+  ];
+  const comments = [
+    <div key={-1} className={'make-comment'}>
+      <button>Say a thing</button>
+    </div>
+  ];
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
@@ -51,15 +65,6 @@ const Viewer = ({ username }) => {
         console.log(err);
      }
   },[memeUrls, formatList]);
-
-  // useEffect(() => {
-  //   if (!memeUrls.length){
-  //     handleImportMemes(7);
-  //     return true;
-  //   }
-
-  // }, [memeUrls, handleImportMemes])
-
 
   // TODO: figure out how to address memory leak
   useEffect(() => {
@@ -81,6 +86,7 @@ const Viewer = ({ username }) => {
     <TopNav buttons={ username ? myAccount : signIn} />
     <div className="memeRend">
       <div className="comments">
+        <BottomNav buttons={directionalButtons} />
       </div>
       {
         memeUrls.length
@@ -90,7 +96,8 @@ const Viewer = ({ username }) => {
         :
           loadingSVG()
       }
-      <div about={numRendersRef} className="memeInfo">
+      <div className="memeInfo">
+        <BottomNav buttons={comments} />
       </div>
     </div>
   </div>

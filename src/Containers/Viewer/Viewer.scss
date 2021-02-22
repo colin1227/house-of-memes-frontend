@@ -49,29 +49,31 @@
   margin: 0 auto;
   .memeRend {
     position: absolute;
-    display: flex;
     width: 100%;
     height: 95%;
     margin: 0;
+    display: flex;
     justify-content: center;
     .comments {
+      background-color: transparent;
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
-      background-color: transparent;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-evenly;
     }
+
     .memeInfo {
       background-color: transparent;
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-evenly;
     }
   }
-}
-
-.break-space {
-  max-height: 50%;
-  height: 7.5%;
 }
