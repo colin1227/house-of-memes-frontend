@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   object-fit: contain;
-  background-color: black;
+  animation: initVideo 5s 1;
   video {
     box-sizing: border-box;
     height: 100%;
@@ -16,5 +16,26 @@
     width: auto;
     outline: none;
     margin: 0;
+  }
+}
+
+@keyframes initVideo {
+  0% {
+    background-color: black;
+    width: 1%;
+    bottom: 0;
+    opacity: 1;
+  }
+
+  50% {
+    top: 100%;
+    width: 1%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 1;
+    background-color: black;
   }
 }
