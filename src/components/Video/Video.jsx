@@ -1,5 +1,5 @@
 import "./Video.scss";
-import { useEffect, useCallback, useRef } from "react";
+// import { useEffect, useCallback, useRef } from "react";
 
 const videoElement = (memeUrl, format, key) => {
   return (
@@ -10,13 +10,21 @@ const videoElement = (memeUrl, format, key) => {
 }
 
 const Video = (memeUrl, format, key, initalMeme) => {
-  // const vcRef = useRef({});
   let video = videoElement(memeUrl,format,key);
-
-
 
   return (
     <div className="VideoViewer">
+      <div className="dawgs">
+        <div className="tdawg" />
+        <div className="ddawg" />
+      </div>
+      {
+        memeUrl ?
+          video
+        :
+        <div className="white-text">No video :(</div>
+
+      }
       {/* {initalMeme ? video : video} */}
     </div>
   )

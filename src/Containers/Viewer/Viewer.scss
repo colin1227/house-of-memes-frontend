@@ -4,41 +4,6 @@
   enable-background: new 0 0 50 50;
 }
 
-.Twitter {
-  z-index: 1;
-  animation: initTwitter 5s 1;
-  transition-delay: 1750ms;
-  background-color: $Twitter;
-  min-height: 100%;
-  min-width: 100%;
-  margin: 0px;
-  padding: 0px;
-}
-
-.reddit {
-  position: fixed; 
-  z-index: 1; 
-  animation: initTwitter 5s 1;
-  transition-delay: 1000ms;
-  background-color: $Twitter;
-}
-
-@keyframes initTwitter {
-  from {
-    background-color: white;
-    padding: 0;
-    margin: 0;
-  }
-  50%  { background-color: $Twitter; }
-  to   { background-color: $Twitter; }
-}
-
-@keyframes Twitter2reddit {
-  from { background-color: $Twitter; }
-  50%  { background-color: white;  }
-  to   { background-image: $reddit;  }
-}
-
 .viewer {
   display: inline-block;
   position: absolute;
@@ -57,6 +22,7 @@
     justify-content: center;
 
     .memeInfo {
+      opacity: 0;
       .description {
         color: white;
         width: 100%;
@@ -64,39 +30,55 @@
         font-family: Quicksand;
       }
 
+      .slider {
+        margin: 5px;
+      }
+
+      .space-taker-uper {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
       .other-vids {
         width: 100%;
         height: 100%;
         margin: 0;
-  
         .popular {
           width: 50%;
           height: 25%;
-          background-color: orangered;
+          background: radial-gradient(white, lightslategray);
           margin-right: 45%;
           margin-left: 5%;
+          margin-bottom: 2.5px;
+          animation: fadeIn .5s 1;
         }
   
         .otherUserStuff {
           width: 50%;
           height: 25%;
-          background-color: green;
+          background: radial-gradient(white, lightslategray);
           margin-left: 45%;
+          margin-bottom: 2.5px;
+          animation: fadeIn .5s 1;
         }
   
         .rising {
           width: 50%;
           height: 25%;
-          background-color: blue;
+          background: radial-gradient(white, lightslategray);
           margin-right: 45%;
           margin-left: 5%;
+          margin-bottom: 2.5px;
+          animation: fadeIn .5s 1;
         }
   
         .interactions {
           width: 50%;
           height: 25%;
-          background-color: purple;
+          background: radial-gradient(white, lightslategray);
           margin-left: 45%;
+          animation: fadeIn .5s 1;
         }
       }
 
@@ -104,12 +86,6 @@
     }
 
     .memeDiv {
-      border-left: 1px;
-      border-right: 1px;
-      border-top: 0;
-      border-bottom: 0;
-      border-color: black;
-      border-style: solid;
       box-sizing: border-box;
       width: 100%;
       height: 100%;
@@ -117,9 +93,11 @@
       padding: 0;
       display: flex;
       justify-content: space-around;
+      position: relative;
     }
 
     .comments {
+      opacity: 0;
       display: block;
       height: 100%;
       width: 100%;
@@ -147,6 +125,13 @@
         overflow: scroll;
         margin: 0 10px;
         border-radius: 15px;
+      }
+      .comment-object:hover {
+        .triple div {
+          animation: fadeIn .35s 1;
+          opacity: 1;
+          z-index: 1;
+        }
       }
 
       .comment-object {
@@ -178,6 +163,7 @@
             color: white;
             text-align: center;
           }
+
         }
         .comment {
           font-family: Quicksand;
@@ -186,13 +172,42 @@
           height: auto;
           padding: 1% 0;
         }
+        
+        .triple {
+          margin: 5px;
+        }
+
+        .triple div {
+          z-index: -1;
+          opacity: 0;
+          width: 5px;
+          height: 5px;
+          border-radius: 3px;
+          background-color: white;
+          margin: 1px;
+        }
       }
 
 
       .make-comment {
         display: block;
-        height: 100%;
+        height: auto;
         width: 100%;
+        /*
+          TODO: fade bottom of comment section.
+            The idea I have for doing that would be to make another div the size
+            of the screen where the blue gradient is and put that div inside the
+            the comment section then use this linear gradient code:
+              .the-class-name {
+                background: linear-gradient(to bottom,
+                  transparent,
+                  {blueGradient} 90%
+                );
+                bottom: 0;
+                right: 0;
+              }
+        */
+        margin: 10px;
 
       }
     }
@@ -214,5 +229,20 @@
       border-radius: 5px;
       box-sizing: border-box;
     }
+  }
+}
+
+.fade-in {
+  animation: fadeIn .5s 0s 3.5s 1;
+  opacity: 1 !important;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

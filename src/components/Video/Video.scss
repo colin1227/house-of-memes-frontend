@@ -1,14 +1,36 @@
 .VideoViewer {
   padding: 0;
   margin: 0;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   object-fit: contain;
-  animation: initVideo 5s 1;
+  .dawgs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    animation: toBlack 3s 1;
+    background-color: #000;
+    .tdawg {
+      height: 100%;
+      width: 100%;
+      animation: initVideoB 2.5s 1;
+      background-color: #000;
+    }
+    .ddawg {
+      height: 100%;
+      width: 100%;
+      animation: initVideoT 2.5s 1;
+      background-color: #000;
+    }
+  }
+
   video {
     box-sizing: border-box;
     height: 100%;
@@ -19,16 +41,21 @@
   }
 }
 
-@keyframes initVideo {
+.white-text {
+  color: white;
+}
+
+@keyframes initVideoT {
   0% {
     background-color: black;
+    height: 0%;
     width: 1%;
-    bottom: 0;
     opacity: 1;
+    top: 0;
   }
 
-  50% {
-    top: 100%;
+  30% {
+    height: 50%;
     width: 1%;
     opacity: 1;
   }
@@ -37,5 +64,41 @@
     width: 100%;
     opacity: 1;
     background-color: black;
+  }
+}
+
+@keyframes initVideoB {
+  0% {
+    background-color: black;
+    height: 0%;
+    width: 1%;
+    opacity: 1;
+    bottom: 0;
+  }
+
+  30% {
+    height: 50%;
+    width: 1%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 1;
+    background-color: black;
+  }
+}
+
+
+@keyframes toBlack {
+  0% {
+    background-color: transparent;
+  }
+
+  99% {
+    background-color: transparent;
+  }
+  100% {
+    background: #000;
   }
 }
