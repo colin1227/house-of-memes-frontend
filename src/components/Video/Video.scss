@@ -15,18 +15,24 @@
     position: relative;
     height: 100%;
     width: 100%;
-    animation: toBlack 3s 1;
-    background-color: #000;
+    animation-name: toBlack;
+    animation-duration: 3s;
+    animation-delay: 3s;
+    animation-iteration-count: 1;
     .tdawg {
       height: 100%;
       width: 100%;
-      animation: initVideoB 2.5s 1;
+      animation-name: initVideoB;
+      animation-duration: 1.5s;
+      animation-iteration-count: 1;
       background-color: #000;
     }
     .ddawg {
       height: 100%;
       width: 100%;
-      animation: initVideoT 2.5s 1;
+      animation-name: initVideoT;
+      animation-duration: 1.5s;
+      animation-iteration-count: 1;
       background-color: #000;
     }
   }
