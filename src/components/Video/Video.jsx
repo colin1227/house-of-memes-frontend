@@ -1,21 +1,35 @@
 import "./Video.scss";
-// import { useEffect, useCallback, useRef } from "react";
+import { useState } from "react";
 
-const videoElement = (memeUrl, format, key, muted, autoplay) => {
+const VideoViewer = (props) => {
+  const { memeUrl, format, indx, muted, autoplay, loaded } = props;
+  let length = 0;
+  const [, setCurrentVideo] = useState({});
+
+  const [currentTime, setCurrentTime] = useState(0);
+  const [currentLength, setCurrentLength] = useState(0);
+  const [playing, togglePlayBack]  = useState(autoplay);
+
+  const handleCurrentTime = (e) => {
+    setCurrentTime(e.target.currentTime);
+  }
+
+  const handlePlayState = (e) => {
+    if (playing) {
+      togglePlayBack(false);
+      console.log('pausing');
+      e.target.pause();
+    } else {
+      togglePlayBack(true);
+      console.log('playing');
+      e.target.play();
+    }
+  }
+
   return (
-    <video key={key} className="video-container video-container-overlay" autoPlay={autoplay} loop muted={muted}>
-      <source id="_video" src={memeUrl} type={format}/>
-    </video>
-  )
-}
-
-const VideoViewer = (memeUrl, format, key, muted, autoplay, initalMeme) => {
-  let video = videoElement(memeUrl,format,key, muted, autoplay);
-
-  return (
-    <div className="VideoViewer">
+    <div key={indx} v={length} className={`VideoViewer${loaded ? ' black': ''}`}>
       {
-        initalMeme ?
+        !loaded ?
           <div className="dawgs">
             <div className="tdawg" />
             <div className="ddawg" />
@@ -23,11 +37,36 @@ const VideoViewer = (memeUrl, format, key, muted, autoplay, initalMeme) => {
         :
           false
       }
+      {!playing && false && <img alt="pause symbol" className="paused" />}
       {
-        memeUrl ?
-          video
+        loaded && memeUrl ?
+          <video
+            onTimeUpdate={(e) => handleCurrentTime(e)}
+            onCanPlay={(e) => {
+              length = length + 1;
+              setCurrentVideo(e.target);
+              setCurrentLength(e.target.duration);
+            }}
+            onClick={(e) => handlePlayState(e)}
+            className="x video-container video-container-overlay"
+            autoPlay={autoplay}
+            loop
+            muted={muted}
+          >
+            <source id="_video" src={memeUrl} type={format}/>
+          </video>
         :
-        <div className="white-text">No video :(</div>
+          false
+      }
+      {
+        loaded &&
+        <div className="playback-container">
+          <div className="playback-bar"/>
+          <div className="playback-black-bar" style={{
+            background: "rgb(20, 20, 20)",
+            width: `${currentTime ? String(100 - (currentTime/currentLength * 100)) : "100"}%`
+            }} />
+        </div>
       }
     </div>
   )

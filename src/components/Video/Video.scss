@@ -6,6 +6,7 @@
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   object-fit: contain;
   .dawgs {
     display: flex;
@@ -23,7 +24,7 @@
       height: 100%;
       width: 100%;
       animation-name: initVideoB;
-      animation-duration: 1.5s;
+      animation-duration: 1s;
       animation-iteration-count: 1;
       background-color: #000;
     }
@@ -31,20 +32,46 @@
       height: 100%;
       width: 100%;
       animation-name: initVideoT;
-      animation-duration: 1.5s;
+      animation-duration: 1s;
       animation-iteration-count: 1;
       background-color: #000;
     }
   }
 
   video {
+    position: absolute;
     box-sizing: border-box;
     height: 100%;
     max-width: min-content;
-    width: auto;
+    width: 100%;
     outline: none;
     margin: 0;
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
   }
+  .playback-container {
+    position: relative;
+    width: 100%;
+    height: 2%;
+    .playback-bar {
+      position: absolute;
+      background: linear-gradient(94deg, rgba(255,139,0,1) 75%, rgba(255,0,119,1) 100%);
+      height: 100%;
+      width: 100%;
+    }
+    .playback-black-bar {
+      position: absolute;
+      background: rgb(20, 20, 20);
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.black {
+  background-color: #000;
 }
 
 .white-text {
@@ -106,5 +133,19 @@
   }
   100% {
     background: #000;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

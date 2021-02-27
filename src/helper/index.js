@@ -1,13 +1,18 @@
 import { formats, lorem } from "../constants/vars.json";
+const myStorage = window.localStorage;
 
-function reducer(state, action) {
+const signOut = () => {
+  myStorage.removeItem('username');
+}
+
+const reducer = (state, action) => {
   switch (action.type) {
     case 'increment':
       return {count: state.count + 1};
     case 'decrement':
       return {count: state.count - 1};
     default:
-      throw new Error();
+      throw new Error('shit');
   }
 }
 
@@ -25,4 +30,4 @@ const allowedFormats = () => {
   return allFormats;
 }
 
-export { reducer, allowedFormats, loremArray };
+export { reducer, allowedFormats, signOut, loremArray };
