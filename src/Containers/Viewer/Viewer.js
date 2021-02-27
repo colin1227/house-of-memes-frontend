@@ -25,6 +25,18 @@ const instance = axios.create({
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
+document.addEventListener("keyup", (e) => {
+  const video = document.querySelector('.x');
+  console.log(!video.paused);
+  if (e.key === " " && video) {
+    if (!video.paused) {
+      video.pause();
+    } else if (video.paused) {
+      video.play();
+    }
+  }
+});
+
 const Viewer = ({ username }) => {  
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
@@ -36,10 +48,9 @@ const Viewer = ({ username }) => {
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
   const [signingOut, isHovering] = useState(false);
-  const [play, startPlayBack] = useState(initalMeme);
-
+  const [play, changePlayback] = useState(initalMeme);
   const [loaded, loadVid] = useState(false);
-
+  
   const changeMeme = (dir) => {
     if (dir === 1 && memeUrls.length - 1 > viewIndex.count) {
       changeIndex({type: 'increment' });
@@ -121,18 +132,16 @@ const Viewer = ({ username }) => {
     url: memeUrls[viewIndex.count],
     format: formatList[viewIndex.count], 
     muted,
-    play,
     autoplay: !initalMeme,
-    loaded,
-    startPlayBack
+    loaded
   }
+
   return(
   <div className='viewer'>
     <TopNav variant='contained' buttons={ username ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
         <h1 className="description">
-          The funny decription someone wrote
         </h1>
         <div className="space-taker-uper"/>
         <BottomNav variant='contained' buttons={directionalButtons} />
