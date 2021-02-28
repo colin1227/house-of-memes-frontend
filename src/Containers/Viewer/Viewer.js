@@ -90,7 +90,7 @@ const Viewer = ({ username }) => {
   },[initalMeme, viewIndex.count, memeUrls])
 
   useEffect(() => {
-    if (memeUrls.length <= viewIndex.count + 1) {
+    if (memeUrls.length <= viewIndex.count + 1 && memeUrls.length > 0) {
       handleImportMemes(4);
     }
   }, [memeUrls, viewIndex.count, formatList, handleImportMemes]);
