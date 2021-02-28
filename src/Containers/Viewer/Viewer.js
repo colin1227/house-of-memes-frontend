@@ -27,7 +27,6 @@ const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuap
 
 document.addEventListener("keyup", (e) => {
   const video = document.querySelector('.x');
-  console.log(!video.paused);
   if (e.key === " " && video) {
     if (!video.paused) {
       video.pause();
@@ -41,6 +40,7 @@ const Viewer = ({ username }) => {
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
+  const [descriptions, changeDescription] = useState([]);
   const [initalMeme, isInitial] = useState(true);
   const [currentComment, updateComment] = useState('');
   const [commenting, toggleComments] = useState(false);
@@ -48,8 +48,8 @@ const Viewer = ({ username }) => {
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
   const [signingOut, isHovering] = useState(false);
-  const [play, changePlayback] = useState(initalMeme);
   const [loaded, loadVid] = useState(false);
+
   
   const changeMeme = (dir) => {
     if (dir === 1 && memeUrls.length - 1 > viewIndex.count) {
@@ -65,16 +65,23 @@ const Viewer = ({ username }) => {
 
         changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)]);
+          ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
+        ]);
 
         changeFormat([
           ...formatList,
-          ...result.data.memeExport.formats]);
+          ...result.data.memeExport.formats
+        ]);
+
+        changeDescription([
+          ...descriptions,
+          ...result.data.memeExport.description
+        ]);
 
       } catch(err) {
         console.log(err);
      }
-  },[memeUrls, formatList]);
+  },[memeUrls, formatList, descriptions]);
 
   useEffect(() => {
     if (initalMeme && viewIndex.count === 1 && memeUrls.length > 0){
@@ -142,6 +149,7 @@ const Viewer = ({ username }) => {
     <div className="memeRend">
       <div className="memeInfo">
         <h1 className="description">
+          {descriptions[viewIndex.count]}
         </h1>
         <div className="space-taker-uper"/>
         <BottomNav variant='contained' buttons={directionalButtons} />

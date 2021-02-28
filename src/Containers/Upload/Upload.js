@@ -6,6 +6,7 @@ import { allowedFormats as af } from "../../helper/index";
 import constants from '../../constants/vars.json';
 import axios from 'axios';
 import './Upload.scss';
+import { Button } from 'semantic-ui-react';
 
 const myStorage = window.localStorage;
 const allowedFormats = af();
@@ -24,7 +25,6 @@ const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuap
 
 const Upload = (props) => {
   const history = useHistory();
-  let [rename, changeName] = useState(''); // rename
   let [desc, changeDesc] = useState(''); // description
   let [memes, changeMemes] = useState([]); // files
   let [error, changeError] = useState(''); // error
@@ -57,12 +57,17 @@ const Upload = (props) => {
     let invalid = false;
     let r = 0;
 
-    // TODO: conditional on the basis that it's not explicit or malicious
-    //  - image clasifier; RapidAPI
 
-    // check that all files submitted are valid.
+    if (val.target.files.length > 1) {
+      changeError('one file at a time');
+      return null;
+    }
+
     while (r < val.target.files.length) {
-      if (allowedFormats.filter( fmt => val.target.files[r].type.includes(fmt)).length > 0) {
+      if (allowedFormats.filter(fmt => { 
+        return val.target.files[r].type.includes(fmt)
+        }).length > 0
+      ) {
         files[r] = val.target.files[r];
       } else {
         invalid = true;
@@ -77,7 +82,6 @@ const Upload = (props) => {
     } else changeError('Invalid File type');
   };
 
-  const handleName = (val) => changeName(val);
   const handleDesc = (val) => changeDesc(val);
 
   const sendFile = async(e) => {
@@ -99,10 +103,6 @@ const Upload = (props) => {
       if (desc) {
         formData.append("description", desc);
       }
-      if (rename) {
-        formData.append("memeRename", rename);
-      }
-
 
       let memeSaved = await axios.request({
         method: 'POST',
@@ -125,13 +125,13 @@ const Upload = (props) => {
   }
 
   return (
-    <div className='uppy'>
+    <div className='upload-web-page'>
       <form className="meme-forum" onSubmit={(e) => submittens(e)}>
-        <div className="file-form">
+        <div className="file-display">
           <div className="upload-files">
             <header>
               <p>
-                <i className="fa fa-cloud-upload" aria-hidden="true"></i>
+                <i className="fa fa-cloud-upload" aria-hidden="true"/>
                 <span className="load">upload</span> 
               </p>
             </header>
@@ -150,7 +150,7 @@ const Upload = (props) => {
                   <div className="list-files" >
                     {memes.length >= 1 && memes.map((file, i) => {
                     return (
-                      <div key={i} className={`file file--${i}`}>
+                      <div key={i} className={`files file--${i}`}>
                         <div className="name"><span>{file.name}</span></div>
                         <div className="progress active"></div>
                         <div className="done">
@@ -166,26 +166,20 @@ const Upload = (props) => {
                   <button onClick={(e) => handleFind(e) && changeValue('')}  className={`importar${memes.length >= 1 ? ' active' : ''}`}>UPDATE FILES</button>
                 </footer>
               :
-                <span className="error">{error}</span>
+                <span className="upload-error">{error}</span>
             }
           </div>
         </div>
-
-        <div className='bottom'>
-          <input type='text' className='rename' cols="40" rows="2" name='rename' onChange={(e) => handleName(e.target.value)} placeholder='Rename meme?' />
-          {/* <div className='tag-container'>
-            <textarea type='text' className='tags' cols="40" rows="5" name='tags' onChange={(e) => handleTags(e.target.value)} placeholder='Tagsription?' />
-          </div> */}
+        <div className='meme-details'>
           <div className='desc-container'>
             <textarea type='text' className='desc' cols="40" rows="5" name='desc' onChange={(e) => handleDesc(e.target.value)} placeholder='Description?' />
           </div>
         </div>
-        <div className="bottomNav">
-        <button /* are you sure modal */ onClick={() => history.push("/m/")}>Cancel</button>
-          <input className={`sendit${!Boolean(memes.length) ? ' disabled': ' abled'}`} disabled={!Boolean(memes.length)} type='submit' value='submit meme'/>
-      </div>
+        <div className="upload-buttons">
+          <Button className="cancel" onClick={() => history.push("/m/")}>Cancel</Button>
+          <Button className={`sendit${!Boolean(memes.length) ? ' disabled': ' abled'}`} disabled={!Boolean(memes.length)} type='submit'>Upload Meme</Button>
+        </div>
       </form>
-      {/* <BottomNav className="upload-nav" buttons={[<input key={1} className={`sendit${!Boolean(meme) ? ' disabled': ' abled'}`} disabled={!Boolean(meme)} type='submit' value='Send It!'/>]} /> */}
     </div>
   ) 
 }
