@@ -39,6 +39,7 @@ document.addEventListener("keyup", (e) => {
 
 const Viewer = ({ username }) => {  
   const history = useHistory();
+  // const ac = new AbortController();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
   const [descriptions, changeDescription] = useState([]);
@@ -64,7 +65,7 @@ const Viewer = ({ username }) => {
     <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' key={-2} onClick={() => history.push("/u/sign-in")}>Sign in</Button>
     </div>,
-    <div className="mobile-buttons" >
+    <div key={-3} className="mobile-buttons" >
       {muteButton}
       <div className="mobile-direct">
         <IconButton disabled={viewIndex.count <= 0} onClick={() => changeMeme(-1)}>
@@ -82,7 +83,7 @@ const Viewer = ({ username }) => {
       <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
       <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => signOut()} className="main-nav-button">{signingOut ? "sign out?" : username}</Button>
     </div>,
-    <div className="mobile-buttons" >
+    <div key={-1} className="mobile-buttons" >
       {muteButton}
       <div className="mobile-direct">
         <IconButton disabled={viewIndex.count <= 0} onClick={() => changeMeme(-1)}>
@@ -126,8 +127,13 @@ const Viewer = ({ username }) => {
   },[initalMeme, viewIndex.count, memeUrls])
 
   useEffect(() => {
-    if (memeUrls.length <= viewIndex.count + 1) {
-      handleImportMemes(4);
+    try {
+      if (memeUrls.length <= viewIndex.count + 1) {
+        handleImportMemes(4);
+      }
+    } catch(err) {
+      console.log('shit:', err.message);
+      // return ac.abort();
     }
   }, [memeUrls, viewIndex.count, formatList, handleImportMemes]);
 

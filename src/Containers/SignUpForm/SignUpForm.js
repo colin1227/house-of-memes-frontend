@@ -7,8 +7,6 @@ import { styled } from '@material-ui/core/styles';
 
 import './SignUpForm.scss';
 
-// import { BottomNav } from '../../components/index';
-
 import constants from '../../constants/vars.json';
 import { BottomNav } from '../../components';
 
@@ -24,7 +22,6 @@ const SecondaryButton = styled(Button)({
   color: 'white'
 });
 
-
 const SignUpForm = ({ logUsername, changeStatus }) => {
   const history = useHistory();
   const [username, changeUsername] = useState('');
@@ -33,7 +30,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
   const [error, changeError] = useState('');
 
   const signUpButtons = [
-    <div className="sign-up-buttons">
+    <div key={-1} className="sign-up-buttons">
       <SecondaryButton onClick={() => history.push("/u/sign-in")}>Sign in Page</SecondaryButton>
       <Button variant="contained" color="primary" type="submit">Finish</Button>
     </div>
@@ -71,7 +68,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
       myStorage.setItem('loggedIn', result.data.username);
       history.push('/m/');
       logUsername(result.data.username);
-      changeStatus(result.data.status);
+      myStorage.setItem('cryptoMiner', result.data.token);
     } else {
       changeError('something didn\'t work');
     }

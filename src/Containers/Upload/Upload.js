@@ -1,16 +1,34 @@
 /* eslint-disable no-loop-func */
 import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
 import { allowedFormats as af } from "../../helper/index";
 import constants from '../../constants/vars.json';
 import axios from 'axios';
 import './Upload.scss';
 import { Button } from 'semantic-ui-react';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import { loadingSVG } from '../../components';
 
 const myStorage = window.localStorage;
 const allowedFormats = af();
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 /* TODO'S: 
   - CSS upgrades
@@ -24,11 +42,14 @@ const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuap
 
 
 const Upload = (props) => {
+  const classes = useStyles();
   const history = useHistory();
   let [desc, changeDesc] = useState(''); // description
   let [memes, changeMemes] = useState([]); // files
   let [error, changeError] = useState(''); // error
   let [theValue, changeValue] = useState('');  // sometimes if the same file is uploaded onChange doesn't fire
+  let [uploading, isUploading] = useState(false);
+  let [timeToUpload, updateTime] = useState(69);
 
   useEffect(() => {
     if(memes.length > 0) {
@@ -44,6 +65,7 @@ const Upload = (props) => {
   const submittens = async(e) => {
     await sendFile(e).then((res) => {
       if (res.status === 201){
+        isUploading(false);
         history.push(`/m/`);
       }
     })
@@ -92,21 +114,24 @@ const Upload = (props) => {
       const formData = new FormData();
 
       if (props.username) formData.append("username", props.username);
-      else if (myStorage.getItem("loggedIn")) formData.append("username", myStorage.getItem("loggedIn"));
-
-      if (!props.username && !myStorage.getItem("loggedIn")) history.push("/u/sign-in");
-
+      else if (myStorage.getItem("loggedIn")) {
+        formData.append("username", myStorage.getItem("loggedIn"));
+      }
+      if (!props.username && !myStorage.getItem("loggedIn")) {
+        history.push("/u/sign-in");
+      }
       memes.map((file, indx) => {
+        console.log(file);
         return formData.append(`${indx}`, file);
       })
 
       if (desc) {
         formData.append("description", desc);
       }
-
+      isUploading(true);
       let memeSaved = await axios.request({
         method: 'POST',
-        url: `${url}/m/upload`,
+        url: `${url}/m/upload?token=${myStorage.getItem("cryptoMiner")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },
@@ -126,6 +151,25 @@ const Upload = (props) => {
 
   return (
     <div className='upload-web-page'>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={uploading}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={uploading}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">Uploading..</h2>
+            {loadingSVG()}
+            <p id="transition-modal-description">ETA based on the file size: {timeToUpload} seconds, give or take</p>
+          </div>
+        </Fade>
+      </Modal>
       <form className="meme-forum" onSubmit={(e) => submittens(e)}>
         <div className="file-display">
           <div className="upload-files">

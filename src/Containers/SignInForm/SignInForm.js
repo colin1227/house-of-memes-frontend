@@ -29,7 +29,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
   let history = useHistory();
 
   const signInButtons = [
-    <div className="sign-in-buttons">
+    <div key={-1} className="sign-in-buttons">
       <SecondaryButton className="back-sign-in" variant="contained" onClick={() => history.push('/u/sign-up')}>sign up Here</SecondaryButton>
       <Button className="log-in" variant="contained" color="primary" type="submit">Log in</Button>
     </div>
@@ -50,9 +50,8 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
     const result = await instance.post(`${url}/u/sign-in`, reqBody);
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
-
+      myStorage.setItem('cryptoMiner', result.data.token);
       logUsername(result.data.username);
-      changeStatus(result.data.status);
       history.push('/m/');
     } else {
       changeError('username or password didn\'t match');

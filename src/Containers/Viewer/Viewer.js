@@ -118,8 +118,8 @@ const Viewer = ({ username }) => {
   ];
   const myAccount = [
     <div key={-2} className="myAccount-options">
-      <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
-      <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : username}</Button>
+      <Button key={-4} color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
+      <Button key={-5} color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : username}</Button>
     </div>,
     muteButton
   ];
@@ -135,7 +135,7 @@ const Viewer = ({ username }) => {
     </div>
   ];
   const commentInput = [
-    <div className='make-comment'>
+    <div key={-1} className='make-comment'>
       <input type="text" value={currentComment} onChange={(e) => updateComment(e)} />
     </div>
   ];
