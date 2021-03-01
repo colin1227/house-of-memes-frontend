@@ -4,6 +4,32 @@ textarea {
   resize: none;
 }
 
+.quicksand {
+  font-family: Quicksand;
+}
+
+.upload-modal {
+  height: auto;
+  width: 50%;
+  display: block;
+
+  h2 {
+    margin: 0 auto;
+    text-align: center;
+
+  }
+
+  .loader svg {
+    height: auto;
+    margin: 0 auto;
+  }
+
+  p {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
 .upload-web-page {
   font-family: Quicksand;
   display: flex;

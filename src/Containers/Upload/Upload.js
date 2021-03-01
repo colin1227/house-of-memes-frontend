@@ -48,8 +48,7 @@ const Upload = (props) => {
   let [memes, changeMemes] = useState([]); // files
   let [error, changeError] = useState(''); // error
   let [theValue, changeValue] = useState('');  // sometimes if the same file is uploaded onChange doesn't fire
-  let [uploading, isUploading] = useState(false);
-  let [timeToUpload, updateTime] = useState(69);
+  let [initalTime, setInitalTime] = useState(0);
 
   useEffect(() => {
     if(memes.length > 0) {
@@ -60,12 +59,12 @@ const Upload = (props) => {
         }, Math.random() / 2 * 350 + 1000);
       });
     }
-  },[memes])
+  },[memes]);
 
   const submittens = async(e) => {
     await sendFile(e).then((res) => {
       if (res.status === 201){
-        isUploading(false);
+        setInitalTime(0);
         history.push(`/m/`);
       }
     })
@@ -121,14 +120,13 @@ const Upload = (props) => {
         history.push("/u/sign-in");
       }
       memes.map((file, indx) => {
-        console.log(file);
+        setInitalTime(c => c + Math.round(file.size / 288619 * 100) / 100);
         return formData.append(`${indx}`, file);
       })
 
       if (desc) {
         formData.append("description", desc);
       }
-      isUploading(true);
       let memeSaved = await axios.request({
         method: 'POST',
         url: `${url}/m/upload?token=${myStorage.getItem("cryptoMiner")}`,
@@ -155,18 +153,18 @@ const Upload = (props) => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes.modal}
-        open={uploading}
+        open={Boolean(initalTime)}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={uploading}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">Uploading..</h2>
+        <Fade in={Boolean(initalTime)}>
+          <div className={classes.paper + " upload-modal"}>
+            <h2 className="quicksand" id="transition-modal-title">Uploading..</h2>
             {loadingSVG()}
-            <p id="transition-modal-description">ETA based on the file size: {timeToUpload} seconds, give or take</p>
+            <p className="quicksand" id="transition-modal-description">Rough ETA: {initalTime} seconds, give or take</p>
           </div>
         </Fade>
       </Modal>
