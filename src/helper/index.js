@@ -2,7 +2,7 @@ import { formats, lorem } from "../constants/vars.json";
 const myStorage = window.localStorage;
 
 const signOut = () => {
-  myStorage.removeItem('username');
+  myStorage.removeItem('loggedIn');
 }
 
 const reducer = (state, action) => {

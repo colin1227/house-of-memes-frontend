@@ -4,6 +4,60 @@
   height: 5%;
   margin: 0;
   background: linear-gradient(332deg, rgba(208,208,208,1) 0%, rgba(135,135,135,1) 100%);
+  .mobile-buttons {
+    top: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    width: auto;
+    height: 100%;
+    .sound-toggle {
+      position: relative;
+      height: auto;
+      width: auto;
+    }  
+    .mobile-direct {
+      position: relative;
+      display: inline;
+      button:nth-child(1) {
+        margin-left: 2%;
+      }
+      button:nth-child(2) {
+        margin-right: 2%;
+      }
+    }
+    button {
+      width: auto;
+    }
+  }
+
+  .myAccount-options {
+    position: relative;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    .username {
+      cursor: pointer;
+      width: auto;
+      height: auto;
+      margin-right: .75%;
+      z-index: 4;
+    }
+    .upload {
+      cursor: pointer;
+      width: auto;
+      height: auto;
+      margin-right: .75%;
+      z-index: 400;
+    }
+  }
+
   button {
     font-family: Quicksand;
     font-size: medium;
@@ -20,27 +74,6 @@
     max-width:100%;
     max-height:100%;
   }
-
-  .myAccount {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin: 0;
-    .username {
-      width: auto;
-      height: auto;
-      margin-right: .75%;
-    }
-    .upload {
-      width: auto;
-      height: auto;
-      margin-right: .75%;
-    }
-  }
   .main-nav-button {
     width: auto;
     height: auto;
@@ -49,3 +82,14 @@
 
 }
 
+.MuiButtonBase-label {
+  width: auto;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.MuiIconButton-root {
+  width: auto;
+  padding: 0 !important;
+  margin: 0 !important;
+}
