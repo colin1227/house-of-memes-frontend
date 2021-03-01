@@ -104,7 +104,7 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
           <div>
             <ul>
               <li><b>Username</b>'s are 3 characters or more</li>
-              <li><b>Password</b> are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in 'merican</li>
+              <li><b>Password</b> are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in 'Merican English</li>
               <li><b>Email</b>(optional)</li>
             </ul>
             { error ? <span>{error}</span> : <span></span>}
