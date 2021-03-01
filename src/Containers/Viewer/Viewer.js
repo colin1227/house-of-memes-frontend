@@ -99,13 +99,13 @@ const Viewer = ({ username }) => {
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
 
   const signIn = [
-    <div key={-2} className="myAccount">
+    <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' key={-2} onClick={() => history.push("/u/sign-in")}>Sign in</Button>
     </div>,
     muteButton
   ];
   const myAccount = [
-    <div key={-2} className="myAccount">
+    <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
       <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => signOut()} className="main-nav-button">{signingOut ? "sign out?" : username}</Button>
     </div>,
