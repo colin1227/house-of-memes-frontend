@@ -1,48 +1,42 @@
 @import '../../stylesheets/variables.scss';
 
-
-.nav {
-  display: flex;
-  align-items: center;
+.error {
+  color: red;
 }
 
-.container {
+.big-label {
+  color: rgb(63, 58, 58);
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  font-family: QuickSand;
+  font-size: xx-large;
+}
+
+/* Style the container */
+.sign-up-page {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* Style the container */
-.signUp {
-  max-width: 100%;
-  max-height: 100%;
-  width: 85%;
-  height: 85%;
-  border-radius: 5%;
-  background-color: #f2f2f283;
-  padding: 20px;
-  // display: flex;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 3px solid green;
-
-  /* Style inputs, select elements and textareas */
-  input[type=password], select, textarea{
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: vertical;
+  .form-parent {
+    max-width: 45%;
+    width: auto;
+    height: auto;
+    border-radius: 5%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    .form-confirmPassword {
+      position: relative;
+      display: block;
+      label {
+        padding-top: 12px !important;
+        padding: 0;
+      }
+    }
   }
 
-  label {
-    font-family: Quicksand;
-  }
   li {
     font-family: Quicksand;
   }
@@ -54,17 +48,14 @@
   }
 
   /* Style the submit button */
-    input[type=submit] {
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      font-size: inherit;
-      text-align: center;
-      text-indent: 0;
-      border-radius: 4px;
-      cursor: pointer;
-      float: right;
-    }
+  input[type=submit] {
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
 
   /* Floating column for labels: 25% width */
   .col-25 {
@@ -75,42 +66,42 @@
 
   /* Floating column for inputs: 75% width */
   .col-75 {
-    float: left;
     width: 75%;
     margin-top: 6px;
   }
 
-  .col-50 {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-  }
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  // /* Clear floats after the columns */
+  // .row:after {
+  //   content: "";
+  //   display: table;
+  //   clear: both;
+  // }
+
+  .form-inputs {
+    width: 75% !important;
+    height: 100%;
   }
 
-  /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-  @media screen and (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
-      width: 100%;
-      margin-top: 0;
+
+
+  .account-requirements {
+    height: auto;
+    width: 100%;
+  }
+}
+
+@media(max-width: 600px) {
+  .form-parent {
+    width: 75%;
+    height: auto;
+    border-radius: 20%;
+
+    .form-confirmPassword {
+      display: block;
     }
   }
 }
 
-.formParent {
-
-  width: 85%;
-  height: 85%;
-  max-width: 85%;
-  max-height: 85%;
-}
-
-.formButton {
-  font-size: 6%;
-  width: auto;
-  height: 100%;
+label {
+  font-family: QuickSand;
 }

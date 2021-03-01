@@ -47,9 +47,14 @@ const Viewer = ({ username }) => {
   const [muted, toggleMute] = useState(true);
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
-  const [signingOut, isHovering] = useState(false);
+  const [hovering, isHovering] = useState(false);
+  const [signingOut, isSigningOut] = useState(false);
   const [loaded, loadVid] = useState(false);
 
+  const handleSignOut = () => {
+    signOut();
+    isSigningOut(true);
+  }
   
   const changeMeme = (dir) => {
     if (dir === 1 && memeUrls.length - 1 > viewIndex.count) {
@@ -84,6 +89,13 @@ const Viewer = ({ username }) => {
   },[memeUrls, formatList, descriptions]);
 
   useEffect(() => {
+    if (signingOut) {
+      isSigningOut(false);
+      window.location.reload(false);
+    }
+  }, [signingOut])
+
+  useEffect(() => {
     if (initalMeme && viewIndex.count === 1 && memeUrls.length > 0){
       isInitial(false);
     }
@@ -107,7 +119,7 @@ const Viewer = ({ username }) => {
   const myAccount = [
     <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
-      <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => signOut()} className="main-nav-button">{signingOut ? "sign out?" : username}</Button>
+      <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : username}</Button>
     </div>,
     muteButton
   ];

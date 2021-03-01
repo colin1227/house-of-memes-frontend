@@ -28,7 +28,7 @@
     margin: 0 7%;
   }
 
-  .sign-in-buttons {
+  .sign-in-buttons, .sign-up-buttons {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -62,6 +62,15 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
+  }
+
+  .sign-up-buttons button {
+    margin: auto;
+    height: 25%;
+    width: auto;
+    white-space: nowrap;
+    font-size: 12px;
+    font-size: 3vw;
   }
 
   .sign-in-buttons button {

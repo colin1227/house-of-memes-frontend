@@ -30,7 +30,7 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
 
   const signInButtons = [
     <div className="sign-in-buttons">
-      <SecondaryButton className="back-sign-in bad-practice-color-change" variant="contained" onClick={() => history.push('/u/sign-up')}>sign up Here</SecondaryButton>
+      <SecondaryButton className="back-sign-in" variant="contained" onClick={() => history.push('/u/sign-up')}>sign up Here</SecondaryButton>
       <Button className="log-in" variant="contained" color="primary" type="submit">Log in</Button>
     </div>
   ];
