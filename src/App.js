@@ -2,7 +2,8 @@
 import React from 'react';
 
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
+  HashRouter,
   Switch,
   Route,
   Redirect
@@ -21,7 +22,7 @@ window.mobileCheck = function() {
 const App = () => {
   return (
       <div className="App">
-        <Router>
+        <HashRouter>
           <Switch>
             <Redirect exact from="/" to="/m/" />
             
@@ -30,7 +31,7 @@ const App = () => {
             <Route exact path="/u/sign-in" component={ () => <SignInForm />} />
             <Route exact path="/u/sign-up" component={ () => <SignUpForm />} />   
           </Switch>
-        </Router>
+        </HashRouter>
       </div>
   );
 }
