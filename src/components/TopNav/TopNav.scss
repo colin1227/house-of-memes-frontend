@@ -76,7 +76,7 @@
     max-height:100%;
   }
   .main-nav-button {
-    width: auto;
+    width: 20%;
     height: auto;
     margin-right: .75%;
   }
@@ -93,4 +93,10 @@
   width: auto;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+@media(max-width: 600px) {
+  .main-nav-button {
+    width: auto;
+  }
 }

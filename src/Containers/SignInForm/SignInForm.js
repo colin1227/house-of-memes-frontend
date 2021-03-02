@@ -22,7 +22,9 @@ const instance = axios.create({
 
 const myStorage = window.localStorage;
 
-const SignInForm = ({ pusername, logUsername, changeStatus }) => {
+// TODO: back button
+
+const SignInForm = () => {
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
   const [error, changeError] = useState('');
@@ -34,7 +36,6 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
       <Button className="log-in" variant="contained" color="primary" type="submit">Log in</Button>
     </div>
   ];
-  if (pusername) history.push('/m/');
 
   const verifyForm = async(e) => {
     e.preventDefault();
@@ -51,7 +52,6 @@ const SignInForm = ({ pusername, logUsername, changeStatus }) => {
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       myStorage.setItem('cryptoMiner', result.data.token);
-      logUsername(result.data.username);
       history.push('/m/');
     } else {
       changeError('username or password didn\'t match');

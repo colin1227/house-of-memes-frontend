@@ -22,7 +22,9 @@ const SecondaryButton = styled(Button)({
   color: 'white'
 });
 
-const SignUpForm = ({ logUsername, changeStatus }) => {
+// TODO: back button
+
+const SignUpForm = () => {
   const history = useHistory();
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
@@ -67,7 +69,6 @@ const SignUpForm = ({ logUsername, changeStatus }) => {
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       history.push('/m/');
-      logUsername(result.data.username);
       myStorage.setItem('cryptoMiner', result.data.token);
     } else {
       changeError('something didn\'t work');

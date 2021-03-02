@@ -1,7 +1,10 @@
 import { useEffect, useState, useReducer, useCallback } from 'react';
 import axios from "axios";
 import { Button } from '@material-ui/core';
-
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 import { useHistory } from 'react-router-dom';
 
 import "./Viewer.scss";
@@ -18,6 +21,23 @@ import unmutedImg from "../../media/unmutedImg.png";
 // TODO: use arrow pads to direct to new memes, keyCode fucntion I think
 // TODO: figure out how to address memory leak
 // TODO: pre-render memes
+
+const myStorage = window.localStorage;
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
 const instance = axios.create({
   proxyHeaders: false,
   credentials: false
@@ -25,31 +45,28 @@ const instance = axios.create({
 
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
-document.addEventListener("keyup", (e) => {
-  const video = document.querySelector('.x');
-  if (e.key === " " && video) {
-    if (!video.paused) {
-      video.pause();
-    } else if (video.paused) {
-      video.play();
-    }
-  }
-});
-
-const Viewer = ({ username }) => {  
+const Viewer = () => {  
+  const classes = useStyles();
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
   const [descriptions, changeDescription] = useState([]);
+
   const [initalMeme, isInitial] = useState(true);
+
   const [currentComment, updateComment] = useState('');
   const [commenting, toggleComments] = useState(false);
+
   const [muted, toggleMute] = useState(true);
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
+
   const [hovering, isHovering] = useState(false);
+
   const [signingOut, isSigningOut] = useState(false);
   const [loaded, loadVid] = useState(false);
+  const [capped, isCapped] = useState(false);
+
 
   const handleSignOut = () => {
     signOut();
@@ -66,8 +83,9 @@ const Viewer = ({ username }) => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`${url}/m/imports/${n}`);
-
+        const result = await instance.get(`${url}/m/imports/${n}${myStorage.getItem('cryptoMiner') ? `?token=${myStorage.getItem('cryptoMiner')}` : ''}`);
+        if (result.status === 204 && result.data.memeExport.names) isCapped(true);
+        if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
         changeMemes([
           ...memeUrls, 
           ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
@@ -119,7 +137,7 @@ const Viewer = ({ username }) => {
   const myAccount = [
     <div key={-2} className="myAccount-options">
       <Button key={-4} color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
-      <Button key={-5} color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : username}</Button>
+      <Button key={-5} color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : myStorage.getItem("loggedIn")}</Button>
     </div>,
     muteButton
   ];
@@ -157,7 +175,25 @@ const Viewer = ({ username }) => {
 
   return(
   <div className='viewer'>
-    <TopNav variant='contained' buttons={ username ? myAccount : signIn} />
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      className={classes.modal}
+      open={capped}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={capped}>
+        <div className={classes.paper + " upload-modal"}>
+          <h2 className="quicksand" id="transition-modal-title">FeelsBadMan</h2>
+          <p className="quicksand" id="transition-modal-description">you've seen it all so far</p>
+        </div>
+      </Fade>
+    </Modal>
+    <TopNav variant='contained' buttons={ myStorage.getItem('loggedIn') ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
         <h1 className="description">

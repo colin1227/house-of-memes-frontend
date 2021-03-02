@@ -17,11 +17,9 @@ const VideoViewer = (props) => {
   const handlePlayState = (e) => {
     if (playing) {
       togglePlayBack(false);
-      console.log('pausing');
       e.target.pause();
     } else {
       togglePlayBack(true);
-      console.log('playing');
       e.target.play();
     }
   }

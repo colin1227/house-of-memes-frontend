@@ -51,6 +51,12 @@ const Upload = (props) => {
   let [initalTime, setInitalTime] = useState(0);
 
   useEffect(() => {
+    if (!myStorage.getItem("cryptominer")) {
+      history.push('/u/sign-in');
+    }
+  }, [history])
+
+  useEffect(() => {
     if(memes.length > 0) {
       memes.forEach((_, i) => {
         setTimeout(() => {

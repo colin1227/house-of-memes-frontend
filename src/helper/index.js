@@ -3,6 +3,8 @@ const myStorage = window.localStorage;
 
 const signOut = () => {
   myStorage.removeItem('loggedIn');
+  myStorage.removeItem('cryptoMiner');
+
 }
 
 const reducer = (state, action) => {
