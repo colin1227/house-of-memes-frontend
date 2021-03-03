@@ -30,7 +30,7 @@ const Viewer = () => {
   const [muted, toggleMute] = useState(true);
   const [hovering, isHovering] = useState(false);
   const [loaded, loadVid] = useState(false);
-  const [loggedIn, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
   const [username] = useState(myStorage.getItem('loggedIn'));
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
@@ -51,7 +51,7 @@ const Viewer = () => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`${url}/m/imports/${n}${loggedIn ? `?token=${loggedIn}` : ''}`);
+        const result = await instance.get(`${url}/m/imports/${n}${token ? `?token=${token}` : ''}`);
         if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
         changeMemes([
           ...memeUrls, 
@@ -71,7 +71,7 @@ const Viewer = () => {
       } catch(err) {
         console.log(err);
      }
-  },[memeUrls, formatList, descriptions, loggedIn]);
+  },[memeUrls, formatList, descriptions, token]);
 
   useEffect(() => {
     if (initalMeme && viewIndex.count === 1 && memeUrls.length > 0){
@@ -122,7 +122,7 @@ const Viewer = () => {
 
   return(
   <div className='viewer'>
-    <TopNav variant='contained' buttons={loggedIn ? myAccount : signIn} />
+    <TopNav variant='contained' buttons={token ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
         <h1 className="description">
