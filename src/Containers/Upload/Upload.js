@@ -118,7 +118,7 @@ const Upload = () => {
 
       const formData = new FormData();
 
-      if (!myStorage.getItem("loggedIn")) {
+      if (myStorage.getItem("loggedIn")) {
         formData.append("username", myStorage.getItem("loggedIn"));
       } else {
         history.push("/u/sign-in");
