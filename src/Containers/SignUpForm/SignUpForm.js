@@ -22,6 +22,11 @@ const SecondaryButton = styled(Button)({
   color: 'white'
 });
 
+const BackButton = styled(Button)({
+  background: 'rgb(119,136,153)',
+  color: 'white'
+});
+
 // TODO: back button
 
 const SignUpForm = () => {
@@ -34,6 +39,7 @@ const SignUpForm = () => {
   const signUpButtons = [
     <div key={-1} className="sign-up-buttons">
       <SecondaryButton onClick={() => history.push("/u/sign-in")}>Sign in Page</SecondaryButton>
+      <BackButton className="back-button" variant="contained" onClick={() => history.push('/m/')}>Back</BackButton>
       <Button variant="contained" color="primary" type="submit">Finish</Button>
     </div>
   ]

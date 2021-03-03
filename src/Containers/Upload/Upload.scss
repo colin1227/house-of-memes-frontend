@@ -35,12 +35,12 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100% !important;
-  width: 100% !important;
+  height: 100%;
+  width: 100%;
   .meme-forum {
     font-family: Quicksand;
-    height: 65%;
-    width: 65%;
+    height: 60%;
+    width: auto;
     border-radius: 5%;
     box-shadow: 10px 5px 5px black;
     animation: fadeup .5s .5s ease both;
@@ -51,7 +51,7 @@ textarea {
     
     .file-display {
       position: relative;
-      height: 60%;
+      height: 50%;
       width: 100%;
       box-sizing: border-box;
       border-radius: 5%;
@@ -275,12 +275,13 @@ textarea {
       opacity: 1;
       min-width: 100%;
       width: 100%;
-      height: 20%;
-      max-height: 20%;
+      height: auto;
+      margin: auto 0;
       .desc-container {
         display: flex;
         justify-content: space-around;
-        height: 100%;
+        // height: 50%;
+        max-height: 20%;
         width: 100%;
         margin: 8px 0;
         .desc {
@@ -306,7 +307,6 @@ textarea {
       height: 20%;
       max-height: 20%;
       width: 65%;
-    
       .cancel {
         height: 40%;
         width: 35%;
@@ -314,6 +314,7 @@ textarea {
         border: 1px solid #ccc;
         cursor: pointer;
         margin: 0;
+        font-family: Quicksand;
       }
     
       .sendit {
@@ -322,16 +323,26 @@ textarea {
         right: 0;
         cursor: pointer;
         margin: 0;
+        font-family: Quicksand;
       }
     }
   }
 }
 
 @media(max-width: 600px) {
+  .meme-forum {
+    height: 60%;
+    width: 75%;
+  }
+
   .files {
     .progress {
       width: 100px;
     }
+  }
+
+  .cancel, .sendit {
+    border-radius: 20%;
   }
 }
 

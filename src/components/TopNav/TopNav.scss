@@ -44,17 +44,19 @@
     margin: 0;
     .username {
       cursor: pointer;
-      width: auto;
+      width: 20%;
       height: auto;
       margin-right: .75%;
-      z-index: 4;
+      padding: 0 !important;
+      font-size: small;
     }
     .upload {
       cursor: pointer;
-      width: auto;
+      padding: 0 !important;
+      width: 20%;
       height: auto;
       margin-right: .75%;
-      z-index: 400;
+      font-size: small;
     }
   }
 
@@ -76,9 +78,16 @@
     max-height:100%;
   }
   .main-nav-button {
-    width: 20%;
+    height: 100%;
+    padding: 0 !important;
+    width: 30%;
     height: auto;
     margin-right: .75%;
+    font-size: small;
+    span {
+      width: 100%;
+      font-size: small;
+    }
   }
 
 }
@@ -95,8 +104,8 @@
   margin: 0 !important;
 }
 
-@media(max-width: 600px) {
-  .main-nav-button {
-    width: auto;
-  }
-}
+// @media(max-width: 600px) {
+//   .main-nav-button {
+//     width: auto;
+//   }
+// }

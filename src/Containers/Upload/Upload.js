@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 */
 
 
-const Upload = (props) => {
+const Upload = () => {
   const classes = useStyles();
   const history = useHistory();
   let [desc, changeDesc] = useState(''); // description
@@ -51,7 +51,7 @@ const Upload = (props) => {
   let [initalTime, setInitalTime] = useState(0);
 
   useEffect(() => {
-    if (!myStorage.getItem("cryptominer")) {
+    if (!myStorage.getItem("cryptoMiner")) {
       history.push('/u/sign-in');
     }
   }, [history])
@@ -118,11 +118,9 @@ const Upload = (props) => {
 
       const formData = new FormData();
 
-      if (props.username) formData.append("username", props.username);
-      else if (myStorage.getItem("loggedIn")) {
+      if (!myStorage.getItem("loggedIn")) {
         formData.append("username", myStorage.getItem("loggedIn"));
-      }
-      if (!props.username && !myStorage.getItem("loggedIn")) {
+      } else {
         history.push("/u/sign-in");
       }
       memes.map((file, indx) => {

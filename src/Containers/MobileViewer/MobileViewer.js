@@ -4,10 +4,6 @@ import { Button, IconButton } from '@material-ui/core';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useHistory } from 'react-router-dom';
-import Modal from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 
 import "./MobileViewer.scss";
 
@@ -28,39 +24,30 @@ const instance = axios.create({
   credentials: false
 });
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const myStorage = window.localStorage;
 
 const Viewer = () => { 
-  const classes = useStyles(); 
   const history = useHistory();
-  // const ac = new AbortController();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
   const [descriptions, changeDescription] = useState([]);
   const [initalMeme, isInitial] = useState(true);
   const [muted, toggleMute] = useState(true);
-  const [capped, isCapped] = useState(false);
+  const [signingOut, isHovering] = useState(false);
+  const [loggedIn, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [loaded, loadVid] = useState(false);
+  const [username] = useState(myStorage.getItem('loggedIn'));
 
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
-  const [signingOut, isHovering] = useState(false);
-  const [loaded, loadVid] = useState(false);
-  
+
+  const handleSignOut = () => {
+    signOut();
+    changeLogInStatus(false);
+    window.location.reload(false);
+  }
   const changeMeme = (dir) => {
     if (dir === 1 && memeUrls.length - 1 > viewIndex.count) {
       changeIndex({type: 'increment' });
@@ -71,7 +58,6 @@ const Viewer = () => {
 
   const muteButton =
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
-
   const signIn = [
     <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' key={-2} onClick={() => history.push("/u/sign-in")}>Sign in</Button>
@@ -88,11 +74,10 @@ const Viewer = () => {
       </div>
     </div>
   ];
-
   const myMobileAccount = [
     <div key={-2} className="myAccount-options">
       <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
-      <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => signOut()} className="main-nav-button">{signingOut ? "sign out?" : myStorage.getItem('loggedIn')}</Button>
+      <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{signingOut ? "sign out?" : username}</Button>
     </div>,
     <div key={-1} className="mobile-buttons" >
       {muteButton}
@@ -110,7 +95,6 @@ const Viewer = () => {
   const handleImportMemes = useCallback(async(n=2) => {
     try {
         const result = await instance.get(`${url}/m/imports/${n}`);
-        if (result.status === 204 && result.data.memeExport.names) isCapped(true);
         changeMemes([
           ...memeUrls, 
           ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
@@ -143,8 +127,7 @@ const Viewer = () => {
         handleImportMemes(4);
       }
     } catch(err) {
-      console.log('shit:', err.message);
-      // return ac.abort();
+
     }
   }, [memeUrls, viewIndex.count, formatList, handleImportMemes]);
 
@@ -165,25 +148,7 @@ const Viewer = () => {
 
   return(
   <div className='viewer'>
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      className={classes.modal}
-      open={capped}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={capped}>
-        <div className={classes.paper + " upload-modal"}>
-          <h2 className="quicksand" id="transition-modal-title">FeelsBadMan</h2>
-          <p className="quicksand" id="transition-modal-description">you've seen it all so far</p>
-        </div>
-      </Fade>
-    </Modal>
-    <TopNav variant='contained' buttons={myStorage.getItem("loggedIn") ? myMobileAccount : signIn} />
+    <TopNav variant='contained' buttons={loggedIn ? myMobileAccount : signIn} />
     <div className="memeRend">
       <div className="memeDiv">
         {
