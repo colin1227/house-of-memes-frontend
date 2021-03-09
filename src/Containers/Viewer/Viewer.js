@@ -18,6 +18,7 @@ const instance = axios.create({
   proxyHeaders: false,
   credentials: false
 });
+
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 const myStorage = window.localStorage;
 
@@ -112,7 +113,7 @@ const Viewer = () => {
     }, 1250);
   }
   const memeAttributes = {
-    index: viewIndex.count,
+    index: 0 || viewIndex.count,
     url: memeUrls[viewIndex.count],
     format: formatList[viewIndex.count], 
     muted,

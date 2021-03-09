@@ -1,16 +1,16 @@
-.ImageContainer {
-  border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
+.image-container {
   padding: 0px;
   margin: 0px;
-  max-width: 70%;
-  max-height: 70%;
-  display: flex;
-  justify-content: center;
-  .Image {
-    border: 0.225rem solid radial-gradient(#387989, #6dd5ed);
+  width: 100%;
+  height: fit-content;
+  position: absolute;
+  display: block;
+  img {
+    position: relative;
     margin: 0;
     padding: 0;
-    width: auto;
-    height: 100%;
+    height: auto;
+    width: 100%;
+    outline: none;
   }
 }

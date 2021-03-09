@@ -7,7 +7,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  object-fit: contain;
   .dawgs {
     display: flex;
     justify-content: center;
@@ -42,7 +41,6 @@
 
   video {
     position: absolute;
-    box-sizing: border-box;
     height: 100%;
     max-width: min-content;
     width: 100%;

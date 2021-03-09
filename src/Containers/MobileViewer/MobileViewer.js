@@ -139,7 +139,7 @@ const Viewer = () => {
   }
 
   const memeAttributes = {
-    index: viewIndex.count,
+    index: 0 || viewIndex.count,
     url: memeUrls[viewIndex.count],
     format: formatList[viewIndex.count], 
     muted,
@@ -148,7 +148,7 @@ const Viewer = () => {
   }
 
   return(
-  <div className='viewer'>
+  <div className='mobile-viewer'>
     <TopNav variant='contained' buttons={token ? myMobileAccount : signIn} />
     <div className="memeRend">
       <div className="memeDiv">
