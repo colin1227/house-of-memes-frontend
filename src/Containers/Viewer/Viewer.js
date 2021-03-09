@@ -13,6 +13,13 @@ import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+import PublishIcon from '@material-ui/icons/Publish';
+import SettingsIcon from '@material-ui/icons/Settings';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -29,7 +36,6 @@ const Viewer = () => {
   const [descriptions, changeDescription] = useState([]);
   const [initalMeme, isInitial] = useState(true);
   const [muted, toggleMute] = useState(true);
-  const [hovering, isHovering] = useState(false);
   const [loaded, loadVid] = useState(false);
   const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
   const [username] = useState(myStorage.getItem('loggedIn'));
@@ -89,17 +95,50 @@ const Viewer = () => {
   const muteButton =
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
   const signIn = [
-    <div key={-2} className="myAccount-options">
-      <Button color="primary" variant='contained' key={-2} onClick={() => history.push("/u/sign-in")}>Sign in</Button>
-    </div>,
-    muteButton
+    {
+      key: 0,
+      text: "Sign In",
+      iconImg: <VpnKeyIcon />,
+      onClick: () => history.push("/u/sign-in")
+    },
+    {
+      key: 1,
+      text: "Groups",
+      iconImg: <PeopleOutlineIcon />,
+      onClick: () => history.push("/groups")
+    }
   ];
   const myAccount = [
-    <div key={-2} className="myAccount-options">
-      <Button key={-4} color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
-      <Button key={-5} color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{hovering ? "sign out?" : username}</Button>
-    </div>,
-    muteButton
+    {
+      key: 0,
+      text: "Account",
+      iconImg: <PermIdentityIcon />,
+      onClick: () => history.push(`/u/${username}`)
+    },
+    {
+      key: 1,
+      text: "Groups",
+      iconImg: <PeopleOutlineIcon />,
+      onClick: () => history.push("/groups")
+    },
+    {
+      key: 2,
+      text: "Upload",
+      iconImg: <PublishIcon />,
+      onClick: () => history.push('/m/upload')
+    },
+    {
+      key: 3,
+      text: "Settings",
+      iconImg: <SettingsIcon />,
+      onClick: () => history.push('/settings')
+    },
+    {
+      key: 4,
+      text: "Sign Out",
+      iconImg: <ExitToAppIcon />,
+      onClick: () => handleSignOut(),
+    }
   ];
   const directionalButtons = [
     <div key={-1} className='direct'>
@@ -112,6 +151,7 @@ const Viewer = () => {
       loadVid(true);
     }, 1250);
   }
+
   const memeAttributes = {
     index: 0 || viewIndex.count,
     url: memeUrls[viewIndex.count],
@@ -123,7 +163,7 @@ const Viewer = () => {
 
   return(
   <div className='viewer'>
-    <TopNav variant='contained' buttons={token ? myAccount : signIn} />
+    <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
         <h1 className="description">

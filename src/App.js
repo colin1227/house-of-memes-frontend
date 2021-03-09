@@ -25,10 +25,12 @@ const App = () => {
         <HashRouter>
           <Switch>
             <Redirect exact from="/" to="/m/" />
-            
+            <Route exact path="/groups" component={() => <div>the Groups page</div>} />
+            <Route exact path="/settings" component={() => <div>the Settings page</div>} />
             <Route exact path="/m/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
             <Route exact path="/m/upload" component={ () => <Upload />} />
             <Route exact path="/u/sign-in" component={ () => <SignInForm />} />
+            <Route exact path="/u/:userId" component={() => <div>the Account page</div>} />
             <Route exact path="/u/sign-up" component={ () => <SignUpForm />} />   
           </Switch>
         </HashRouter>
