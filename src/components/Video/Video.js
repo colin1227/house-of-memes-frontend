@@ -2,7 +2,7 @@ import "./Video.scss";
 import { useState } from "react";
 
 const VideoViewer = (props) => {
-  const { memeUrl, format, indx, muted, autoplay, loaded } = props;
+  const { memeUrl, format, indx, muted, autoplay, loaded, background } = props;
   let length = 0;
   const [, setCurrentVideo] = useState({});
 
@@ -25,17 +25,20 @@ const VideoViewer = (props) => {
   }
 
   return (
-    <div key={indx} v={length} className={`VideoViewer${loaded ? ' black': ''}`}>
+    <div key={indx} v={length} className={`VideoViewer${background ? ' black': ''}`}>
       {
-        !loaded ?
-          <div className="dawgs">
-            <div className="tdawg" />
-            <div className="ddawg" />
+        loaded ?
+          <div className="bar-container" >
+            <div className="playback-background-bar"/>
+            <div className="playback-black-bar" style={{
+              background: "rgb(20, 20, 20)",
+              width: `${currentTime ? String(100 - (currentTime/currentLength * 100)) : "100"}%`,
+              right: 0
+              }} />
           </div>
         :
           false
       }
-      {!playing && false && <img alt="pause symbol" className="paused" />}
       {
         loaded && memeUrl ?
           <video
@@ -55,16 +58,6 @@ const VideoViewer = (props) => {
           </video>
         :
           false
-      }
-      {
-        loaded &&
-        <div className="playback-container">
-          <div className="playback-bar"/>
-          <div className="playback-black-bar" style={{
-            background: "rgb(20, 20, 20)",
-            width: `${currentTime ? String(100 - (currentTime/currentLength * 100)) : "100"}%`
-            }} />
-        </div>
       }
     </div>
   )

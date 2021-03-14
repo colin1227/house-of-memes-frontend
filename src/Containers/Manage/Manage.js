@@ -4,7 +4,6 @@ import axios from "axios";
 import "./Manage.scss";
 import constants from '../../constants/vars.json';
 
-import renderMemes from "../../components/Media/index";
 import { reducer } from "../../helper/index";
 
 const myStorage = window.localStorage;
@@ -150,7 +149,7 @@ const Manage = ({ props }) => {
         && memeUrls[viewIndex.count]
         && viewIndex.count <= lastViewed.count
       ?
-        renderMemes(memeUrls[viewIndex.count], formatList[viewIndex.count], viewIndex.count)
+        <div>broken</div>
       :
         null // Image(url, 69420)
     }

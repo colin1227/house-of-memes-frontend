@@ -1,0 +1,54 @@
+
+.group-page-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  overflow: scroll;
+
+  .group-container {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    .white-space-height {
+      height: 30px;
+    }
+
+    .meme-container {
+      margin-top: 25px !important;
+      margin-bottom: 25px !important;
+      margin-left: 0;
+      margin-right: 0;
+      color: ivory;
+      background: grey;
+      width: auto;
+      height: 80%;
+      min-height: 80%;
+      object-fit: contain;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      display:block;
+
+
+      .description-header {
+        position: relative;
+        height: 20%;
+        font-size: 36px;
+        font-family: Quicksand;
+        border-style: solid;
+        border-color: black;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 1px;
+      }
+
+      .meme-div {
+        position: relative;
+        height: 80%;
+      }
+    }
+  }
+}

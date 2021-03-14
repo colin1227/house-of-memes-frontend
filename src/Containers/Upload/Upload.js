@@ -41,18 +41,22 @@ const useStyles = makeStyles((theme) => ({
 */
 
 
-const Upload = () => {
+const Upload = (props) => {
   const classes = useStyles();
   const history = useHistory();
-  let [desc, changeDesc] = useState(''); // description
   let [memes, changeMemes] = useState([]); // files
+  let [tags, changeTags] = useState([]);
+  let [desc, changeDesc] = useState(''); // description
   let [error, changeError] = useState(''); // error
   let [theValue, changeValue] = useState('');  // sometimes if the same file is uploaded onChange doesn't fire
   let [initalTime, setInitalTime] = useState(0);
 
   useEffect(() => {
     if (!myStorage.getItem("cryptoMiner")) {
-      history.push('/u/sign-in');
+      history.push({
+        pathname: "/u/sign-in",
+        state: { lastUrl: props.location}
+      });
     }
   }, [history])
 
@@ -71,7 +75,7 @@ const Upload = () => {
     await sendFile(e).then((res) => {
       if (res.status === 201){
         setInitalTime(0);
-        history.push(`/m/`);
+        history.push(`/memes/`);
       }
     })
     .catch(() => {
@@ -222,7 +226,7 @@ const Upload = () => {
           </div>
         </div>
         <div className="upload-buttons">
-          <Button className="cancel" onClick={() => history.push("/m/")}>Cancel</Button>
+          <Button className="cancel" onClick={() => history.push("/memes/")}>Cancel</Button>
           <Button className={`sendit${!Boolean(memes.length) ? ' disabled': ' abled'}`} disabled={!Boolean(memes.length)} type='submit'>Upload Meme</Button>
         </div>
       </form>

@@ -9,8 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-/* (hash)Tags == Categories <Route exact path="/m/tags" /> */
-import { SignInForm, SignUpForm, Upload, MobileViewer, Viewer } from "./Containers/index";
+import { SignInForm, SignUpForm, Upload, MobileViewer, Viewer, Groups, GroupPage } from "./Containers/index";
 import "./App.scss";
 
 window.mobileCheck = function() {
@@ -24,14 +23,21 @@ const App = () => {
       <div className="App">
         <HashRouter>
           <Switch>
-            <Redirect exact from="/" to="/m/" />
-            <Route exact path="/groups" component={() => <div>the Groups page</div>} />
+            <Redirect exact from="/" to="/memes/" />
+            <Route exact path="/groups" component={() => <Groups />} />
+            <Route exact path="/groups/:group" component={() => <GroupPage /> } />
             <Route exact path="/settings" component={() => <div>the Settings page</div>} />
-            <Route exact path="/m/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
-            <Route exact path="/m/upload" component={ () => <Upload />} />
+            <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
+            <Route exact path="/memes/upload" component={ () => <Upload />} />
             <Route exact path="/u/sign-in" component={ () => <SignInForm />} />
+            <Route exact path="/u/sign-up" component={ () => <SignUpForm />} />
             <Route exact path="/u/:userId" component={() => <div>the Account page</div>} />
-            <Route exact path="/u/sign-up" component={ () => <SignUpForm />} />   
+            {
+              /*
+                <Route path='/404' component={My404Component} />
+                <Redirect from='*' to='/404' />
+              */
+            }
           </Switch>
         </HashRouter>
       </div>

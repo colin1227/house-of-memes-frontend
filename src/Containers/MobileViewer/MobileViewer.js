@@ -16,6 +16,7 @@ import { TopNav, loadingSVG } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
+import { getThemeProps } from '@material-ui/styles';
 // TODO: use arrow pads to direct to new memes, keyCode fucntion I think
 // TODO: figure out how to address memory leak
 // TODO: pre-render memes
@@ -28,7 +29,7 @@ const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuap
 
 const myStorage = window.localStorage;
 
-const Viewer = () => { 
+const Viewer = (props) => { 
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
@@ -46,7 +47,7 @@ const Viewer = () => {
   const handleSignOut = () => {
     signOut();
     changeLogInStatus(false);
-    window.location.reload(false);
+    history.push("/memes/");
   }
   const changeMeme = (dir) => {
     if (dir === 1 && memeUrls.length - 1 > viewIndex.count) {
@@ -60,7 +61,7 @@ const Viewer = () => {
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
   const signIn = [
     <div key={-2} className="myAccount-options">
-      <Button color="primary" variant='contained' key={-2} onClick={() => history.push("/u/sign-in")}>Sign in</Button>
+      <Button color="primary" variant='contained' key={-2} onClick={() => history.push({ pathname: "/u/sign-in", state: {lastUrl: props.location}})}>Sign in</Button>
     </div>,
     <div key={-3} className="mobile-buttons" >
       {muteButton}
@@ -144,7 +145,8 @@ const Viewer = () => {
     format: formatList[viewIndex.count], 
     muted,
     autoplay: !initalMeme,
-    loaded
+    loaded,
+    background: false
   }
 
   return(

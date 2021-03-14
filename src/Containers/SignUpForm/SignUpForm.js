@@ -74,7 +74,7 @@ const SignUpForm = () => {
 
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
-      history.push('/m/');
+      history.push('/memes/');
       myStorage.setItem('cryptoMiner', result.data.token);
     } else {
       changeError('something didn\'t work');

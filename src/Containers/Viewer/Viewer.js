@@ -29,7 +29,7 @@ const instance = axios.create({
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 const myStorage = window.localStorage;
 
-const Viewer = () => {  
+const Viewer = (props) => {  
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
@@ -45,7 +45,7 @@ const Viewer = () => {
   const handleSignOut = () => {
     signOut();
     changeLogInStatus(false);
-    window.location.reload(false);
+    history.push("/memes/");
   }
 
   const changeMeme = (dir) => {
@@ -99,7 +99,7 @@ const Viewer = () => {
       key: 0,
       text: "Sign In",
       iconImg: <VpnKeyIcon />,
-      onClick: () => history.push("/u/sign-in")
+      onClick: () => history.push({ pathname: "/u/sign-in", state: props.location })
     },
     {
       key: 1,
@@ -125,7 +125,7 @@ const Viewer = () => {
       key: 2,
       text: "Upload",
       iconImg: <PublishIcon />,
-      onClick: () => history.push('/m/upload')
+      onClick: () => history.push('/memes/upload')
     },
     {
       key: 3,
@@ -158,7 +158,8 @@ const Viewer = () => {
     format: formatList[viewIndex.count], 
     muted,
     autoplay: !initalMeme,
-    loaded
+    loaded,
+    background: false
   }
 
   return(

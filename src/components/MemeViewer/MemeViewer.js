@@ -4,10 +4,10 @@ import Audio from "../Audio/Audio";
 
 import constants from '../../constants/vars.json';
 
-const renderMemes = ({ index, url, format, muted, autoplay, loaded }) => {
+const renderMemes = ({ index, url, format, muted, autoplay, loaded, background }) => {
   let meme = null;
   if (constants.formats.VIDEO.includes(format)) {
-    meme = <VideoViewer memeUrl={url} indx={index} url={url} format={format} muted={muted} autoplay={autoplay} loaded={loaded} />
+    meme = <VideoViewer memeUrl={url} indx={index} url={url} format={format} muted={muted} autoplay={autoplay} loaded={loaded} background={background} />
   } else if (constants.formats.PHOTO.includes(format)) {
     meme = Image(url, index);
   } else if (constants.formats.AUDIO.includes(format)) {

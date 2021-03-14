@@ -40,7 +40,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const TopNav = ({ buttons }) => {
+const TopNav = ({ muteButton, buttons }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -54,6 +54,7 @@ const TopNav = ({ buttons }) => {
     <div 
       className="topNavBar"
     >
+      {muteButton}
       <Button
         key={-3}
         aria-controls="customized-menu"

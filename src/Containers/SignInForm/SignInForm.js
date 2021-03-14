@@ -29,16 +29,16 @@ const myStorage = window.localStorage;
 
 // TODO: back button
 
-const SignInForm = () => {
+const SignInForm = (props, state) => {
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
   const [error, changeError] = useState('');
   let history = useHistory();
-
+  console.log('state', state);
   const signInButtons = [
     <div key={-1} className="sign-in-buttons">
       <SecondaryButton className="back-sign-in" variant="contained" onClick={() => history.push('/u/sign-up')}>sign up Here</SecondaryButton>
-      <BackButton className="back-button" variant="contained" onClick={() => history.push('/m/')}>Back</BackButton>
+      <BackButton className="back-button" variant="contained" onClick={() => history.push({ pathname: props.location })}>Back</BackButton>
       <Button className="log-in" variant="contained" color="primary" type="submit">Log in</Button>
     </div>
   ];
@@ -58,7 +58,7 @@ const SignInForm = () => {
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       myStorage.setItem('cryptoMiner', result.data.token);
-      history.push('/m/');
+      history.push(props.location);
     } else {
       changeError('username or password didn\'t match');
     }
