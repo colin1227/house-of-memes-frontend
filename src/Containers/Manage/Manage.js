@@ -38,11 +38,11 @@ const Manage = ({ props }) => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`${url}/m/imports/${n}`);
+        const result = await instance.get(`${url}/memes/imports/${n}`);
 
         changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.map((name) => `${url}/m/meme/${name}`)]);
+          ...result.data.memeExport.map((name) => `${url}/memes/${name}`)]);
 
         changeFormat([
           ...formatList,
@@ -85,11 +85,11 @@ const Manage = ({ props }) => {
       const handleImportMemes = async(n=2) => {
         try {
             // get memes
-            const result = await instance.get(`${url}/m/imports/${n}?category=${lastCategory}`);
+            const result = await instance.get(`${url}/memes/imports/${n}?category=${lastCategory}`);
 
             /* update state */
             changeMemes([...memeUrls,
-              ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)]);
+              ...result.data.memeExport.names.map((name) => `${url}/memes/${name}`)]);
 
             changeFormat([...formatList,
               ...result.data.memeExport.formats]);

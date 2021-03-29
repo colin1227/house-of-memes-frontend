@@ -58,11 +58,11 @@ const Viewer = (props) => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`${url}/m/imports/${n}${token ? `?token=${token}` : ''}`);
+        const result = await instance.get(`${url}/memes/imports/${n}${token ? `?token=${token}` : ''}`);
         if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
         changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
+          ...result.data.memeExport.names.map((name) => `${url}/memes/${name}`)
         ]);
 
         changeFormat([
@@ -99,7 +99,7 @@ const Viewer = (props) => {
       key: 0,
       text: "Sign In",
       iconImg: <VpnKeyIcon />,
-      onClick: () => history.push({ pathname: "/u/sign-in", state: props.location })
+      onClick: () => history.push({ pathname: "/users/sign-in", state: { lastUrl: window.location.pathname } })
     },
     {
       key: 1,
@@ -113,7 +113,7 @@ const Viewer = (props) => {
       key: 0,
       text: "Account",
       iconImg: <PermIdentityIcon />,
-      onClick: () => history.push(`/u/${username}`)
+      onClick: () => history.push(`/users/${username}`)
     },
     {
       key: 1,

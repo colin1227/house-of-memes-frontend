@@ -16,7 +16,6 @@ import { TopNav, loadingSVG } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
-import { getThemeProps } from '@material-ui/styles';
 // TODO: use arrow pads to direct to new memes, keyCode fucntion I think
 // TODO: figure out how to address memory leak
 // TODO: pre-render memes
@@ -61,7 +60,7 @@ const Viewer = (props) => {
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
   const signIn = [
     <div key={-2} className="myAccount-options">
-      <Button color="primary" variant='contained' key={-2} onClick={() => history.push({ pathname: "/u/sign-in", state: {lastUrl: props.location}})}>Sign in</Button>
+      <Button color="primary" variant='contained' key={-2} onClick={() => history.push({ pathname: "/users/sign-in", state: {lastUrl: window.location.pathname }})}>Sign in</Button>
     </div>,
     <div key={-3} className="mobile-buttons" >
       {muteButton}
@@ -77,7 +76,7 @@ const Viewer = (props) => {
   ];
   const myMobileAccount = [
     <div key={-2} className="myAccount-options">
-      <Button color="primary" variant='contained' onClick={() => history.push('/m/upload')} className="upload">upload</Button>
+      <Button color="primary" variant='contained' onClick={() => history.push('/memes/upload')} className="upload">upload</Button>
       <Button color="primary" variant='contained' onMouseLeave={() => isHovering(false)} onMouseOver={() => isHovering(true)} onClick={() => handleSignOut()} className="main-nav-button">{signingOut ? "sign out?" : username}</Button>
     </div>,
     <div key={-1} className="mobile-buttons" >
@@ -95,11 +94,11 @@ const Viewer = (props) => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-      const result = await instance.get(`${url}/m/imports/${n}${token ? `?token=${token}` : ''}`);
+      const result = await instance.get(`${url}/memes/imports/${n}${token ? `?token=${token}` : ''}`);
       if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
       changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
+          ...result.data.memeExport.names.map((name) => `${url}/memes/${name}`)
         ]);
 
         changeFormat([

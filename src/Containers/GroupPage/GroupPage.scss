@@ -4,7 +4,7 @@
   height: 100%;
   width: 100%;
   padding: 0;
-  margin: 0 auto;
+  margin: 0;
   overflow: scroll;
 
   .group-container {
@@ -47,7 +47,11 @@
 
       .meme-div {
         position: relative;
-        height: 80%;
+        height: 100%;
+      }
+
+      .described {
+        height: 80% !important;
       }
     }
   }

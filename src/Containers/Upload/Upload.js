@@ -1,22 +1,36 @@
 /* eslint-disable no-loop-func */
-import { useState, useEffect } from 'react';
+/* eslint-disable no-use-before-define */
+
+import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { allowedFormats as af } from "../../helper/index";
+import { allowedFormats as af, checkUrl } from "../../helper/index";
 import constants from '../../constants/vars.json';
 import axios from 'axios';
-import './Upload.scss';
 import { Button } from 'semantic-ui-react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { loadingSVG } from '../../components';
 
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+
+import './Upload.scss';
+
 const myStorage = window.localStorage;
 const allowedFormats = af();
 const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles0 = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginTop: theme.spacing(3),
+    },
+  },
+}));
+
+const useStyles1 = makeStyles((theme) => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
@@ -42,24 +56,59 @@ const useStyles = makeStyles((theme) => ({
 
 
 const Upload = (props) => {
-  const classes = useStyles();
+  const classes0 = useStyles0();
+  const classes1 = useStyles1();
   const history = useHistory();
   let [memes, changeMemes] = useState([]); // files
+  let [type, changeType] = useState(true);
   let [tags, changeTags] = useState([]);
+  let [mediaUrl, changeUrl] = useState('');
+  const [firstRender, changeRenderOccurrence] = useState(true);
+  let [publicGroups] = useState([
+    'tiktok',
+    'youtube',
+    'twitter',
+    'other',
+    'nostalgia'
+  ]);
+
+  // let [privateGroups, changePrivate] = useState([]);
+
   let [desc, changeDesc] = useState(''); // description
   let [error, changeError] = useState(''); // error
   let [theValue, changeValue] = useState('');  // sometimes if the same file is uploaded onChange doesn't fire
   let [initalTime, setInitalTime] = useState(0);
 
+  const handleImportPrivateTags = useCallback(async() => {
+    const memeSaved = await axios.request({
+      method: 'GET',
+      url: `${url}/groups?public=${true}&private=${true}&token=${myStorage.getItem("cryptoMiner")}`,
+      headers: { 
+        "Content-Type": "multipart/form-data"
+      }
+    });
+    console.log(memeSaved);
+
+    return true;
+  }, []);
+
+  useEffect(() => {
+    if (firstRender) {
+      changeRenderOccurrence(false);
+      handleImportPrivateTags();
+    }
+  }, [firstRender, handleImportPrivateTags]);
+
   useEffect(() => {
     if (!myStorage.getItem("cryptoMiner")) {
       history.push({
-        pathname: "/u/sign-in",
-        state: { lastUrl: props.location}
+        pathname: "/users/sign-in",
+        state: { lastUrl: window.location.pathname }
       });
     }
   }, [history])
 
+  // show loading bar
   useEffect(() => {
     if(memes.length > 0) {
       memes.forEach((_, i) => {
@@ -71,16 +120,28 @@ const Upload = (props) => {
     }
   },[memes]);
 
-  const submittens = async(e) => {
-    await sendFile(e).then((res) => {
-      if (res.status === 201){
-        setInitalTime(0);
-        history.push(`/memes/`);
-      }
-    })
-    .catch(() => {
-      changeError('something didn\'t work ');
-    });
+  const submittens = async(e) => {   
+    if (type) {
+      await sendFile(e).then((res) => {
+        if (res.status === 201){
+          setInitalTime(0);
+          history.push(`/memes/`);
+        }
+      })
+      .catch(() => {
+        changeError('something didn\'t work ');
+      });
+    } else {
+      await sendLink(e).then((res) => {
+        if (res.status === 201){
+          setInitalTime(0);
+          history.push(`/memes/`);
+        }
+      })
+      .catch(() => {
+        changeError('something didn\'t work ');
+      });
+    }
   }
 
   const handleMeme = async(val) => {
@@ -115,6 +176,8 @@ const Upload = (props) => {
 
   const handleDesc = (val) => changeDesc(val);
 
+
+  // TODO: seperate into diffrent allowed file types
   const sendFile = async(e) => {
     e.preventDefault();
     try {
@@ -125,25 +188,62 @@ const Upload = (props) => {
       if (myStorage.getItem("loggedIn")) {
         formData.append("username", myStorage.getItem("loggedIn"));
       } else {
-        history.push("/u/sign-in");
+        history.push("/users/sign-in");
       }
+      
+
       memes.map((file, indx) => {
-        setInitalTime(c => c + Math.round(file.size / 288619 * 100) / 100);
+        setInitalTime(c => {
+          return c + Math.round(file.size / 288619 * 100) / 100
+        });
         return formData.append(`${indx}`, file);
       })
 
       if (desc) {
         formData.append("description", desc);
       }
-      let memeSaved = await axios.request({
+
+      const memeSaved = await axios.request({
         method: 'POST',
-        url: `${url}/m/upload?token=${myStorage.getItem("cryptoMiner")}`,
+        url: `${url}/memes/upload-meme?token=${myStorage.getItem("cryptoMiner")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },
         data: formData
       });
       return memeSaved;
+    } catch (err) {
+      if (err) changeError('something didn\'t work');
+    }
+  }
+
+  const sendLink = async(e) => {
+    e.preventDefault();
+    try {
+      checkUrl(mediaUrl);
+      const requestData = {};
+      requestData.link = mediaUrl;
+      
+      if (myStorage.getItem("loggedIn")) {
+        requestData.username = myStorage.getItem("loggedIn");
+      } else {
+        history.push("/users/sign-in");
+      }
+      if (tags) {
+        requestData.tags = tags;
+      }
+      if (desc) {
+        requestData.description = desc;
+      }
+
+      const memeSaved = await axios.request({
+        method: 'POST',
+        url: `${url}/memes/upload-link?token=${myStorage.getItem("cryptoMiner")}`,
+        headers: { "Content-Type": "application/json" },
+        data: requestData
+      });
+      return memeSaved;
+
     } catch (err) {
       if (err) changeError('something didn\'t work');
     }
@@ -160,7 +260,7 @@ const Upload = (props) => {
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        className={classes.modal}
+        className={classes0.modal}
         open={Boolean(initalTime)}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -169,7 +269,7 @@ const Upload = (props) => {
         }}
       >
         <Fade in={Boolean(initalTime)}>
-          <div className={classes.paper + " upload-modal"}>
+          <div className={classes1.paper + " upload-modal"}>
             <h2 className="quicksand" id="transition-modal-title">Uploading..</h2>
             {loadingSVG()}
             <p className="quicksand" id="transition-modal-description">Rough ETA: {initalTime} seconds, give or take</p>
@@ -185,14 +285,42 @@ const Upload = (props) => {
                 <span className="load">upload</span> 
               </p>
             </header>
-
-            <div className={`file-prompt${memes.length >= 1 ? ' hidden' : ''}`} id="drop">
-              <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
-              <p className="pointer-none">{/*  <b>Drag and drop</b> files here <br /> or  */ }<a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">browse</a> to begin the upload</p>
-              <input type="file" value={theValue} onChange={(e) => handleMeme(e)} className='ffs' multiple="multiple" />
-            </div>
             {
-              !error.length ?
+              !type ?
+                <div className="link-field">
+                  <TextField
+                    variant="outlined"
+                    type="input"
+                    onChange={(e) => changeUrl(e.target.value)}
+                    className='mediaUrl'
+                    placeholder="enter url"
+                    label="link?"
+                    required
+                    />
+                </div>
+              :
+                <div className={`file-prompt${memes.length >= 1 ? ' hidden' : ''}`} id="drop">
+                  <div>
+                    <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+                    <p className="pointer-none"><a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">browse</a> to begin the upload</p>
+                    <input type="file" value={theValue} onChange={(e) => handleMeme(e)} className='ffs' multiple="multiple" />
+                  </div>
+                </div>
+            }
+            <div className="type-button-container">
+                <Button
+                  variant="contained"
+                  disabled={type}
+                  onClick={() => changeType(!type)}
+                  color="orange">File</Button>
+                <Button
+                  variant="contained"
+                  disabled={!type}
+                  onClick={() => changeType(!type)}
+                  color="orange">Link</Button>
+              </div>
+            {
+              !error.length && type ?
                 <footer className={memes.length >= 1 ? 'hasFiles': ''}>
                   <div className="divider">
                     <span><b>FILES</b></span>
@@ -221,13 +349,30 @@ const Upload = (props) => {
           </div>
         </div>
         <div className='meme-details'>
-          <div className='desc-container'>
+        <Autocomplete
+          className="tags"
+          multiple
+          id="tags-outlined"
+          options={publicGroups}
+          getOptionLabel={(option) => option}
+          onChange={(_, value) => changeTags(value)}
+          filterSelectedOptions
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label="tags"
+              placeholder="describe it"
+            />
+          )}
+        />
+        <div className='desc-container'>
             <textarea type='text' className='desc' cols="40" rows="5" name='desc' onChange={(e) => handleDesc(e.target.value)} placeholder='Description?' />
           </div>
         </div>
         <div className="upload-buttons">
           <Button className="cancel" onClick={() => history.push("/memes/")}>Cancel</Button>
-          <Button className={`sendit${!Boolean(memes.length) ? ' disabled': ' abled'}`} disabled={!Boolean(memes.length)} type='submit'>Upload Meme</Button>
+          <Button className={`sendit${!Boolean(memes.length) && !Boolean(mediaUrl.length) ? ' disabled': ' abled'}`} disabled={!Boolean(memes.length) && !Boolean(mediaUrl.length)} type='submit'>Upload Meme</Button>
         </div>
       </form>
     </div>

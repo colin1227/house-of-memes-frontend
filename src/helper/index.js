@@ -32,4 +32,10 @@ const allowedFormats = () => {
   return allFormats;
 }
 
-export { reducer, allowedFormats, signOut, loremArray };
+const checkUrl = (url) => {
+  if (!url) throw Error('url needed to continue');
+  if (!url.includes("https://")) throw Error('url must be secure; no http.');
+  return true;
+}
+
+export { reducer, allowedFormats, signOut, loremArray, checkUrl };

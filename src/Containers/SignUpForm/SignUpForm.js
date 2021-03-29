@@ -38,8 +38,8 @@ const SignUpForm = () => {
 
   const signUpButtons = [
     <div key={-1} className="sign-up-buttons">
-      <SecondaryButton onClick={() => history.push("/u/sign-in")}>Sign in Page</SecondaryButton>
-      <BackButton className="back-button" variant="contained" onClick={() => history.push('/m/')}>Back</BackButton>
+      <SecondaryButton onClick={() => history.push("/users/sign-in")}>Sign in Page</SecondaryButton>
+      <BackButton className="back-button" variant="contained" onClick={() => history.push('/memes/')}>Back</BackButton>
       <Button variant="contained" color="primary" type="submit">Finish</Button>
     </div>
   ]
@@ -67,7 +67,7 @@ const SignUpForm = () => {
 
     const result = await axios.request({
       method: 'POST',
-      url: `${url}/u/sign-up`,
+      url: `${url}/users/sign-up`,
       headers: { "Content-Type": "application/json" },
       data
     });

@@ -29,9 +29,9 @@ const App = () => {
             <Route exact path="/settings" component={() => <div>the Settings page</div>} />
             <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
-            <Route exact path="/u/sign-in" component={ () => <SignInForm />} />
-            <Route exact path="/u/sign-up" component={ () => <SignUpForm />} />
-            <Route exact path="/u/:userId" component={() => <div>the Account page</div>} />
+            <Route exact path="/users/sign-in" component={ () => <SignInForm />} />
+            <Route exact path="/users/sign-up" component={ () => <SignUpForm />} />
+            <Route exact path="/users/:userId" component={() => <div>the Account page</div>} />
             {
               /*
                 <Route path='/404' component={My404Component} />

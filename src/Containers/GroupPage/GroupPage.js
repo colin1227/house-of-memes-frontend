@@ -33,11 +33,13 @@ const GroupPage = (props) => {
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
+  const [links, changeLinks] = useState([]);
   const [descriptions, changeDescription] = useState([]);
   const [muted, toggleMute] = useState(true);
   const [loaded, loadVid] = useState(false);
   const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
   const [username] = useState(myStorage.getItem('loggedIn'));
+  const [once, makeOnce] = useState(true);
   // TODO: useState instead
 
   const muteButton =
@@ -47,7 +49,7 @@ const GroupPage = (props) => {
       key: 0,
       text: "Sign In",
       iconImg: <VpnKeyIcon />,
-      onClick: () => history.push({ pathname: "/u/sign-in", state: props.locations })
+      onClick: () => history.push({ pathname: "/users/sign-in", state: { lastUrl: window.location.pathname } })
     },
     {
       key: 1,
@@ -61,7 +63,7 @@ const GroupPage = (props) => {
       key: 0,
       text: "Account",
       iconImg: <PermIdentityIcon />,
-      onClick: () => history.push(`/u/${username}`)
+      onClick: () => history.push(`/users/${username}`)
     },
     {
       key: 1,
@@ -90,30 +92,36 @@ const GroupPage = (props) => {
   ];
 
 
-const handleImportMemes = useCallback(async(n=2) => {
+const handleImportMemes = useCallback(async(group) => {
   try {
-      const result = await instance.get(`${url}/m/imports/${n}${token ? `?token=${token}` : ''}`);
+      const result = await instance.get(`${url}/groups/${group}${token ? `?token=${token}` : ''}`);
       if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
       changeMemes([
         ...memeUrls, 
-        ...result.data.memeExport.names.map((name) => `${url}/m/meme/${name}`)
+        ...result.data.memes.map((name) => `${url}/memes/${name}`)
       ]);
 
       changeFormat([
         ...formatList,
-        ...result.data.memeExport.formats
+        ...result.data.formats
       ]);
 
-      changeDescription([
-        ...descriptions,
-        ...result.data.memeExport.description
-      ]);
+      changeLinks([
+        ...links,
+        ...result.data.links
+      ])
 
+      if (result.data && result.data.description) {
+        changeDescription([
+          ...descriptions,
+          ...result.data.description
+        ]);
+      }
       loadVid(true);
     } catch(err) {
       console.log(err);
    }
-},[memeUrls, formatList, descriptions, token]);
+},[memeUrls, formatList, descriptions, token, links]);
 
 
 const handleSignOut = () => {
@@ -123,10 +131,13 @@ const handleSignOut = () => {
 }
 
 useEffect(() => {
-  if (0 >= memeUrls.length) {
-    handleImportMemes(10);
+  if (0 >= memeUrls.length && once) {
+    let group = window.location.href.split('/');
+    group = group[group.length - 1];
+    makeOnce(false);
+    handleImportMemes(group);
   }
-}, [memeUrls, formatList, handleImportMemes]);
+}, [memeUrls, formatList, handleImportMemes, once]);
 
 
 
@@ -135,6 +146,20 @@ useEffect(() => {
       <TopNav muteButton={muteButton} buttons={ token ? myAccount : signIn } />
       <div className="group-container">
         <div className="white-space-height" />
+        {
+          // TODO: for loop of number of links; NOT mapping index; don't use i.
+          // TODO: make a domain function;
+          // TODO: warn user that I am not liable for whatever site they go to.
+          loaded &&
+            links.map((link, i) => {
+              return (
+                <div className="meme-container" key={i}>
+                  <a rel='noreferrer' target='_blank' href={link}>{false ? descriptions[i]: link}</a>
+                </div>
+              )
+            })
+        }
+        
         {
           loaded &&
            memeUrls.map((url, i) => {
@@ -156,8 +181,8 @@ useEffect(() => {
                   :
                     false
                   }
-                  {/* pretty sure this is a bad practice */}
-                  <div className="meme-div">
+                  {/* pretty sure this naming convention is a bad practice */}
+                  <div className={`meme-div ${descriptions[i] ? 'described' : ''}`}>
                     {renderMemes(memeAttributes)}
                   </div>
                 </div>

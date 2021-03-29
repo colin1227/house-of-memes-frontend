@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useLocation } from "react-router-dom";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -29,16 +30,23 @@ const myStorage = window.localStorage;
 
 // TODO: back button
 
-const SignInForm = (props, state) => {
+const SignInForm = (props) => {
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
   const [error, changeError] = useState('');
   let history = useHistory();
-  console.log('state', state);
+  const location = useLocation();
   const signInButtons = [
     <div key={-1} className="sign-in-buttons">
-      <SecondaryButton className="back-sign-in" variant="contained" onClick={() => history.push('/u/sign-up')}>sign up Here</SecondaryButton>
-      <BackButton className="back-button" variant="contained" onClick={() => history.push({ pathname: props.location })}>Back</BackButton>
+      <SecondaryButton className="back-sign-in" variant="contained" onClick={() => history.push('/users/sign-up')}>sign up Here</SecondaryButton>
+      <BackButton className="back-button" variant="contained" onClick={() => {
+
+      return history.push({ 
+        pathname: (location &&
+        location.state &&
+        location.state.lastUrl) || '/memes'
+      })
+      }}>Back</BackButton>
       <Button className="log-in" variant="contained" color="primary" type="submit">Log in</Button>
     </div>
   ];
@@ -54,11 +62,16 @@ const SignInForm = (props, state) => {
       username,
       password
     };
-    const result = await instance.post(`${url}/u/sign-in`, reqBody);
+    const result = await instance.post(`${url}/users/sign-in`, reqBody);
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       myStorage.setItem('cryptoMiner', result.data.token);
-      history.push(props.location);
+      history.push({ pathname:
+        (location &&
+        location.state &&
+        location.state.lastUrl)
+          ||
+        '/memes' });
     } else {
       changeError('username or password didn\'t match');
     }
