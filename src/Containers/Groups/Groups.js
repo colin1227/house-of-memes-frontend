@@ -22,7 +22,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import constants from '../../constants/vars.json';
+import vars from '../../constants/vars.js';
 import loadingSVG from "../../components/loadingSVG/loadingSVG";
 import { signOut } from "../../helper/index";
 import { TopNav } from "../../components/index";
@@ -76,7 +76,6 @@ const useStyles = makeStyles({
   },
 });
 
-const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const Groups = () => {
   const classes = useStyles();
@@ -167,7 +166,7 @@ const Groups = () => {
   }
 
   const initialFetchGroups = useCallback(async() => {
-    const results = await instance.get(`${url}/groups/${token ? `?token=${token}` : ''}`);
+    const results = await instance.get(`${vars.apiURL}/groups/${token ? `?token=${token}` : ''}`);
     if (results.status === 200) {
       changePublicGroups(results.data.public);
       changePrivateGroups(results.data.private);
@@ -185,7 +184,7 @@ const Groups = () => {
   }, [token, availableGroups]);
 
   const searchFetchGroups = useCallback(async() => {
-    const results = await instance.get(`${url}/groups/search/${searchTerm}${token ? `?token=${token}` : ''}`);
+    const results = await instance.get(`${vars.apiURL}/groups/search/${searchTerm}${token ? `?token=${token}` : ''}`);
     if (results.status === 200) {
       changeAllGroups(results.data.allGroups);
     }

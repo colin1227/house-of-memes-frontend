@@ -39,6 +39,10 @@ const VideoViewer = (props) => {
         :
           false
       }
+      {/* <div className='dawgs' >
+        <div className='tdawg' />
+        <div className='ddawg' />
+      </div> */}
       {
         loaded && memeUrl ?
           <video
@@ -49,7 +53,7 @@ const VideoViewer = (props) => {
               setCurrentLength(e.target.duration);
             }}
             onClick={(e) => handlePlayState(e)}
-            className="x video-container video-container-overlay"
+            className={`video-container video-container-overlay ${indx === 0 ? 'fadeIn' : ''}`}
             autoPlay={autoplay}
             loop
             muted={muted}

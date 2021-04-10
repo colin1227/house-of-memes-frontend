@@ -7,15 +7,13 @@ import { styled } from '@material-ui/core/styles';
 
 import './SignUpForm.scss';
 
-import constants from '../../constants/vars.json';
+import vars from '../../constants/vars.js';
 import { BottomNav } from '../../components';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 
 
 const myStorage = window.localStorage;
-
-const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const SecondaryButton = styled(Button)({
   background: 'linear-gradient(145deg, rgba(255,139,0,1) 45%, rgba(255,0,0,1) 100%)',
@@ -67,7 +65,7 @@ const SignUpForm = () => {
 
     const result = await axios.request({
       method: 'POST',
-      url: `${url}/users/sign-up`,
+      url: `${vars.apiURL}/users/sign-up`,
       headers: { "Content-Type": "application/json" },
       data
     });

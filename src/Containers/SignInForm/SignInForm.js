@@ -7,7 +7,7 @@ import axios from 'axios';
 import { styled } from '@material-ui/core/styles';
 import './SignInForm.scss';
 import { BottomNav } from '../../components/index';
-import constants from '../../constants/vars.json';
+import vars from '../../constants/vars';
 
 const SecondaryButton = styled(Button)({
   background: 'linear-gradient(145deg, rgba(255,139,0,1) 45%, rgba(255,0,0,1) 100%)',
@@ -18,8 +18,6 @@ const BackButton = styled(Button)({
   background: 'rgb(119,136,153)',
   color: 'white'
 });
-
-const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -62,7 +60,7 @@ const SignInForm = (props) => {
       username,
       password
     };
-    const result = await instance.post(`${url}/users/sign-in`, reqBody);
+    const result = await instance.post(`${vars.apiURL}/users/sign-in`, reqBody);
     if (String(result.status)[0] === '2') {
       myStorage.setItem('loggedIn', result.data.username);
       myStorage.setItem('cryptoMiner', result.data.token);

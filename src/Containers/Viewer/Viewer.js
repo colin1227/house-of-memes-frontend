@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 
 import "./Viewer.scss";
 
-import constants from '../../constants/vars.json';
+import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
 import renderMemes from "../../components/MemeViewer/MemeViewer";
@@ -26,7 +26,6 @@ const instance = axios.create({
   credentials: false
 });
 
-const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 const myStorage = window.localStorage;
 
 const Viewer = (props) => {  
@@ -58,11 +57,11 @@ const Viewer = (props) => {
 
   const handleImportMemes = useCallback(async(n=2) => {
     try {
-        const result = await instance.get(`${url}/memes/imports/${n}${token ? `?token=${token}` : ''}`);
+        const result = await instance.get(`${vars.apiURL}/memes/imports/${n}${token ? `?token=${token}` : ''}`);
         if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
         changeMemes([
           ...memeUrls, 
-          ...result.data.memeExport.names.map((name) => `${url}/memes/${name}`)
+          ...result.data.memeExport.names.map((name) => `${vars.apiURL}/memes/${name}`)
         ]);
 
         changeFormat([

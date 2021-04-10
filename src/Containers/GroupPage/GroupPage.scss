@@ -12,26 +12,57 @@
     height: 100%;
     margin: auto;
     .white-space-height {
-      height: 30px;
+      height: 5%;
     }
 
     .meme-container {
-      margin-top: 25px !important;
-      margin-bottom: 25px !important;
-      margin-left: 0;
-      margin-right: 0;
       color: ivory;
       background: grey;
       width: auto;
-      height: 80%;
-      min-height: 80%;
-      object-fit: contain;
+      height: auto;
+      max-height: 80%;
       margin: 0;
       padding: 0;
       position: relative;
       display:block;
 
+      .preview-image {
+        width: 100%;
+        margin: 5% 0 2.5% 0;
+      }
 
+      .description-container {
+        color: white;
+        position: absolute;
+        font-family: QuickSand;
+        font-size: xx-large;
+        opacity: 0;
+        height: 100%;
+        margin: 5% 0 10% 0;
+      }
+
+      .hovering {
+        width: 100%;
+        color: white;
+        position: absolute;
+
+        animation-name: fadeIn;
+        animation-duration: .5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;  
+      }
+
+      .unhovered {
+        width: 100%;
+        color: white;
+        position: absolute;
+
+        animation-name: fadeOut;
+        animation-duration: .5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;  
+      }
+      
       .description-header {
         position: relative;
         height: 20%;
@@ -54,5 +85,29 @@
         height: 80% !important;
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    background: transparent;
+  }
+
+  to {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .75) 0%, transparent 60%);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .75) 0%, transparent 60%);
+  }
+
+  to {
+    opacity: 0;
+    background: transparent;
   }
 }

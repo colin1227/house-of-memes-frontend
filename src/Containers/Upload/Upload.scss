@@ -40,317 +40,344 @@ textarea {
   .meme-forum {
     font-family: Quicksand;
     height: auto;
-    width: 35%;
-    
-    border-radius: 5%;
+    width: auto;
+    border-radius: 6.5%;
+    overflow: hidden;
     box-shadow: 10px 5px 5px black;
     animation: fadeup .5s .5s ease both;
     transform: translateY(20px);
     opacity: 0;
-    background: radial-gradient(ellipse at top, white, orange),
-    radial-gradient(ellipse at bottom, white, orange);
     
-    .file-display {
-      position: relative;
-      height: 50%;
-      width: 100%;
-      box-sizing: border-box;
-      border-radius: 5%;
+    .upload-head {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
-      background: #fff;
-      margin: 0;
-      
-      .upload-files {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        align-content: space-around;
-        height: 100%;
-        header {
-          border-radius: 5%/15%;
-          border-bottom-right-radius: 0;
-          border-bottom-left-radius: 0;
-          text-align: center;
-          width: 100%;
-          p {
-            height: 20%;
-            background: radial-gradient(circle, orange, white),
-            radial-gradient(ellipse at bottom, orange, white);
-            border-radius: 5%/15%;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-            color: #fff;
-            font-size: 40px;
-            margin: 0;
-            padding: 50px 0;
-            .load {
-              display: inline-block;
-              font-weight: 100;
-              margin-left: -8px;
-              transform: translateX(-20px);
-              opacity: 0;
-              animation: faderight .5s .65s ease both;
-            }
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      p {
+        height: 20%;
+        background: linear-gradient(to left, orange, white, orange);
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        color: black;
+        font-size: 40px;
+        margin: 0;
+        padding: 50px 0;
+        .load {
+          display: inline-block;
+          font-weight: 100;
+          margin-left: -8px;
+          transform: translateX(-20px);
+          opacity: 0;
+          animation: faderight .5s .65s ease both;
+        }
+      }
+    }
+
+    .upload-files {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      background-color: white;
+      padding-top: 2.5%;
+      padding-bottom: 2.5%;
+
+      .file-prompt {
+        width: 100%;
+        text-align: center;
+        margin: auto;
+        &.hidden {
+          display: none;
+        }
+        input {
+          visibility: hidden;
+        }
+        i {
+          font-size: 65px;
+          color: lightgray;
+        }
+        p {
+          font-size: 14px;
+          line-height: 1.4;
+          b,
+          a {
+            color: orangered;
           }
         }
-        .file-prompt {
-          width: 100%;
-          text-align: center;
-          margin: auto;
-          &.hidden {
-            display: none;
-          }
-          input {
-            visibility: hidden;
-          }
+        &.active {
+          border: dashed 2px $blue;
           i {
-            font-size: 65px;
-            color: lightgray;
+            box-shadow: 0 0 0 -3px #fff,
+            0 0 0 lightgray,
+            0 0 0 -3px #fff,
+            0 0 0 lightgray;
+            animation: file .5s ease both;
           }
-          p {
-            font-size: 14px;
-            line-height: 1.4;
-            b,
-            a {
-              color: orangered;
-            }
-          }
-          &.active {
-            border: dashed 2px $blue;
-            i {
-              box-shadow: 0 0 0 -3px #fff,
-              0 0 0 lightgray,
-              0 0 0 -3px #fff,
-              0 0 0 lightgray;
-              animation: file .5s ease both;
-            }
-            .pointer-none{
-              pointer-events: none;
-            }
-          }
-        }
-
-        .upload-error {
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          color: red;
-        }
-        footer {
-
-          width: 100%;
-          margin: 0 auto;
-          height: 0;
-          .divider {
-            margin: 0 auto;
-            width: 0;
-            border-top: solid 4px #3D9CC0;
-            text-align: center;
-            overflow: hidden;
-            transition: width .5s ease;
-            span {
-              display: inline-block;
-              transform: translateY(-25px);
-              font-size: 12px;
-              padding-top: 8px;
-            }
-          }
-          &.hasFiles {
-            height: auto;
-            .divider {
-              width: 100%;
-              span {
-                transform: translateY(0);
-                transition: transform .5s .5s ease;
-              }
-            }
-            .list-files {
-              width: 100%;
-              margin: 0 auto;
-              margin-top: 15px;
-              padding-left: 5px;
-              text-align: center;
-              overflow-x: hidden;
-              overflow-y: auto;
-              max-height: 210px;
-              .files {
-                width: auto;
-                min-height: 50px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-direction: column;
-                opacity: 0;
-                animation: fade .35s ease both;
-                .name {
-                  font-size: 12px;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
-                  overflow: hidden;
-                  width: auto;
-                  text-align: left;
-                }
-                .progress {
-                  width: 175px;
-                  height: 5px;
-                  border: solid 1px lightgray;
-                  background: linear-gradient(to left, rgba( 0,172,193, .2), rgba(84,58,183, .8)) no-repeat;          background-size: 100% 100%;
-                  &.active {
-                    animation: progress 30s linear;
-                  }
-                }
-        
-                .done {
-                  cursor: pointer;
-                  width: 40px;
-                  height: 40px;
-                  background: $bluish;
-                  border-radius: 50%;
-                  margin-left: -10px;
-                  transform: scale(0);
-                  position: relative;
-                  &:before {
-                    content: "View";
-                    position: absolute;
-                    top: 0;
-                    left: -5px;
-                    font-size: 24px;
-                    opacity: 0;
-                  }
-                  &:hover:before {
-                    transition: all .25s ease;
-                    top: -30px;
-                    opacity: 1;
-                  }
-                  &.anim {
-                    animation: done1 .5s ease forwards;
-                    #path {
-                      animation: done2 2.5s .5s ease forwards;
-                    }
-                  }
-                  #path {
-                    stroke-dashoffset: 7387.59423828125;
-                    stroke-dasharray: 7387.59423828125 7387.59423828125;
-                    stroke: #fff;
-                    fill: transparent;
-                    stroke-width: 50px;
-                  }
-                }
-                        
-              }
-            }
-          }
-          .importar {
-            font-family: Quicksand;
-            outline: none;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 20px;
-            margin: auto;
-            border: solid 1px $bluish;
-            color: $blue;
-            background: transparent;
-            padding: 8px 15px;
-            font-size: 12px;
-            border-radius: 4px;
-            line-height: 1;
-            cursor: pointer;
-            transform: translateY(15px);
-            opacity: 0;
-            visibility: hidden;
-            &.active {
-              transition: transform .5s 1.5s ease, opacity .5s 1.5s ease;
-              transform: translateY(0);
-              opacity: 1;
-                      visibility: visible;
-            }
-            &:hover{
-              background: $bluish;
-              color: #fff;
-            }
+          .pointer-none{
+            pointer-events: none;
           }
         }
       }
 
       .link-field {
-        margin: auto !important;
         width: 80%;
+        text-align: center;
+        margin: auto;
+        &.hidden {
+          display: none;
+        }
+        input {
+          visibility: hidden;
+        }
+        i {
+          font-size: 65px;
+          color: lightgray;
+        }
+        p {
+          font-size: 14px;
+          line-height: 1.4;
+          b,
+          a {
+            color: orangered;
+          }
+        }
+        &.active {
+          border: dashed 2px $blue;
+          i {
+            box-shadow: 0 0 0 -3px #fff,
+            0 0 0 lightgray,
+            0 0 0 -3px #fff,
+            0 0 0 lightgray;
+            animation: file .5s ease both;
+          }
+          .pointer-none{
+            pointer-events: none;
+          }
+        }
         .mediaUrl {
+          font-size: small;
+          border-radius: 2%/30%;
+          border-color: black;
+          outline: none;
+          font-family: Quicksand;
           width: 100%;
         }
       }
 
-      .type-button-container {
-        margin: 0 auto;
-        width: 50%;
-        display: flex;
-        justify-content: space-around;
-      }
-    }
-
-    .meme-details {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      opacity: 1;
-      min-width: 100%;
-      width: 100%;
-      height: auto;
-      margin: auto 0;
-      .tags {
-        margin: 8px 0;
-        max-height: 20%;
-        width: 85%;
-        background-color: white;
-      }
-      .desc-container {
-        display: flex;
-        justify-content: space-around;
-        max-height: 20%;
+      .upload-error {
         width: 100%;
-        margin: 8px 0;
-        .desc {
-          font-size: 16px;
-          border-radius: 1rem;
-          border-color: transparent;
-          outline: none;
-          text-indent: 5%;
+        text-align: center;
+        color: red;
+      }
+      footer {
+
+        width: 100%;
+        margin: 0 auto;
+        height: 0;
+        .divider {
+          margin: 0 auto;
+          width: 0;
+          border-top: solid 4px #3D9CC0;
+          text-align: center;
+          overflow: hidden;
+          transition: width .5s ease;
+          span {
+            display: inline-block;
+            transform: translateY(-25px);
+            font-size: 12px;
+            padding-top: 8px;
+          }
+        }
+        &.hasFiles {
+          height: auto;
+          .divider {
+            width: 100%;
+            span {
+              transform: translateY(0);
+              transition: transform .5s .5s ease;
+            }
+          }
+          .list-files {
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 15px;
+            padding-left: 5px;
+            text-align: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+            max-height: 210px;
+            .files {
+              width: auto;
+              min-height: 50px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              flex-direction: column;
+              opacity: 0;
+              animation: fade .35s ease both;
+              .name {
+                font-size: 12px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                width: auto;
+                text-align: left;
+              }
+              .progress {
+                width: 175px;
+                height: 5px;
+                border: solid 1px lightgray;
+                background: linear-gradient(to left, rgba( 0,172,193, .2), rgba(84,58,183, .8)) no-repeat;          background-size: 100% 100%;
+                &.active {
+                  animation: progress 30s linear;
+                }
+              }
+      
+              .done {
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                background: $bluish;
+                border-radius: 50%;
+                margin-left: -10px;
+                transform: scale(0);
+                position: relative;
+                &:before {
+                  content: "View";
+                  position: absolute;
+                  top: 0;
+                  left: -5px;
+                  font-size: 24px;
+                  opacity: 0;
+                }
+                &:hover:before {
+                  transition: all .25s ease;
+                  top: -30px;
+                  opacity: 1;
+                }
+                &.anim {
+                  animation: done1 .5s ease forwards;
+                  #path {
+                    animation: done2 2.5s .5s ease forwards;
+                  }
+                }
+                #path {
+                  stroke-dashoffset: 7387.59423828125;
+                  stroke-dasharray: 7387.59423828125 7387.59423828125;
+                  stroke: #fff;
+                  fill: transparent;
+                  stroke-width: 50px;
+                }
+              }
+                      
+            }
+          }
+        }
+        .importar {
           font-family: Quicksand;
-          height: 50%;
-          width: 85%;
-          max-width: 85%;
+          outline: none;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 20px;
+          margin: auto;
+          border: solid 1px $bluish;
+          color: $blue;
+          background: transparent;
+          padding: 8px 15px;
+          font-size: 12px;
+          border-radius: 4px;
+          line-height: 1;
+          cursor: pointer;
+          transform: translateY(15px);
+          opacity: 0;
+          visibility: hidden;
+          &.active {
+            transition: transform .5s 1.5s ease, opacity .5s 1.5s ease;
+            transform: translateY(0);
+            opacity: 1;
+                    visibility: visible;
+          }
+          &:hover{
+            background: $bluish;
+            color: #fff;
+          }
         }
       }
     }
-    
-    .upload-buttons {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+
+    .type-button-container {
       margin: 0 auto;
+      width: 100%;
       height: auto;
-      width: 65%;
-      .cancel {
-        height: 100%;
-        width: 35%;
-        right: 0;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        margin: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  .meme-details {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    opacity: 1;
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+    margin: auto 0;
+    background: linear-gradient(to left, orange, white, orange);
+    .tags {
+      margin: 8px 0;
+      max-height: 20%;
+      width: 85%;
+      background-color: white;
+    }
+    .desc-container {
+      display: flex;
+      justify-content: space-around;
+      max-height: 20%;
+      width: 100%;
+      margin: 8px 0;
+      .desc {
+        font-size: 16px;
+        border-radius: 1rem;
+        border-color: transparent;
+        outline: none;
+        text-indent: 5%;
         font-family: Quicksand;
+        height: 50%;
+        width: 85%;
+        max-width: 85%;
       }
-    
-      .sendit {
-        height: 100%;
-        width: 35%;
-        right: 0;
-        cursor: pointer;
-        margin: 0;
-        font-family: Quicksand;
-      }
+    }
+  }
+  
+  .upload-buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to left, orange, white, orange);
+    padding-bottom: 5%;
+    .cancel {
+      height: 100%;
+      width: 35%;
+      right: 0;
+      cursor: pointer;
+      background-color: grey;
+      margin: 0;
+      font-family: Quicksand;
+    }
+    .sendit {
+      height: 100%;
+      width: 35%;
+      right: 0;
+      cursor: pointer;
+      margin: 0;
+      font-family: Quicksand;
+      background-color: rgba(0,172,193,1);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { formats, lorem } from "../constants/vars.json";
+import vars from "../constants/vars.js";
 const myStorage = window.localStorage;
 
 const signOut = () => {
@@ -19,13 +19,13 @@ const reducer = (state, action) => {
 }
 
 const loremArray = () => {
-  return lorem.split('.').map((s) => s);
+  return vars.lorem.split('.').map((s) => s);
 }
 
 const allowedFormats = () => {
   let allFormats = [];
-  Object.keys(formats).forEach(group => {
-    formats[group].forEach(type => {
+  Object.keys(vars.formats).forEach(group => {
+    vars.formats[group].forEach(type => {
       allFormats.push(type);
     })
   })

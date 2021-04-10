@@ -1,13 +1,14 @@
 .VideoViewer {
   padding: 0;
   margin: 0;
-  width: 100%;
+  width: auto;
   height: 100%;
   bottom: 0;
   position: absolute;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background: linear-gradient(black, transparent, black);
   .dawgs {
     display: flex;
     justify-content: center;
@@ -16,10 +17,6 @@
     position: relative;
     height: 100%;
     width: 100%;
-    animation-name: toBlack;
-    animation-duration: 3s;
-    animation-delay: 3s;
-    animation-iteration-count: 1;
     .tdawg {
       height: 100%;
       width: 100%;
@@ -64,9 +61,10 @@
     width: 100%;
     outline: none;
     margin: 0;
-    opacity: 0;
-    transform: translateX(35px);
-    animation: fadeLeft 1.5s ease both;
+  }
+
+  .fadeIn {
+    animation: fadeIn ease 4s;
   }
 }
 
@@ -78,12 +76,11 @@
   color: white;
 }
 
-@keyframes fadeLeft {
-  from {
+@keyframes fadeIn {
+  0% {
     opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  100% {
     opacity: 1;
   }
 }
@@ -132,15 +129,3 @@
   }
 }
 
-@keyframes toBlack {
-  0% {
-    background-color: transparent;
-  }
-
-  99% {
-    background-color: transparent;
-  }
-  100% {
-    background: #000;
-  }
-}

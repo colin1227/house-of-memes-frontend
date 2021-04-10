@@ -5,7 +5,7 @@ import axios from "axios";
 
 import "./GroupPage.scss";
 
-import constants from '../../constants/vars.json';
+import vars from '../../constants/vars.js';
 import { signOut } from "../../helper/index";
 
 import { TopNav } from "./../../components/index";
@@ -26,7 +26,6 @@ const instance = axios.create({
   credentials: false
 });
 
-const url = constants.local ? 'http://localhost:9000': 'https://thingv1.herokuapp.com';
 const myStorage = window.localStorage;
 
 const GroupPage = (props) => {
@@ -34,7 +33,11 @@ const GroupPage = (props) => {
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
   const [links, changeLinks] = useState([]);
-  const [descriptions, changeDescription] = useState([]);
+  const [previewAvailability, changePreviewAvailability] = useState([]);
+  const [previewIds, changePreviewIds] = useState([]);
+  const [descriptions, changeDescriptions] = useState([]);
+  const [mouseOverId, changeMouseOverId] = useState('');
+  const [lastMouseOverId, changeLastMouseOverId] = useState('');
   const [muted, toggleMute] = useState(true);
   const [loaded, loadVid] = useState(false);
   const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
@@ -94,11 +97,11 @@ const GroupPage = (props) => {
 
 const handleImportMemes = useCallback(async(group) => {
   try {
-      const result = await instance.get(`${url}/groups/${group}${token ? `?token=${token}` : ''}`);
+      const result = await instance.get(`${vars.apiURL}/groups/${group}${token ? `?token=${token}` : ''}`);
       if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
       changeMemes([
         ...memeUrls, 
-        ...result.data.memes.map((name) => `${url}/memes/${name}`)
+        ...result.data.memes.map((name) => `${vars.apiURL}/memes/${name}`)
       ]);
 
       changeFormat([
@@ -111,23 +114,39 @@ const handleImportMemes = useCallback(async(group) => {
         ...result.data.links
       ])
 
-      if (result.data && result.data.description) {
-        changeDescription([
+
+      changePreviewAvailability([
+        ...previewAvailability,
+        ...result.data.previews
+      ])
+
+      changePreviewIds([
+        ...previewIds,
+        ...result.data.previewIds
+      ])
+
+      if (result.data && result.data.descriptions) {
+        changeDescriptions([
           ...descriptions,
-          ...result.data.description
+          ...result.data.descriptions
         ]);
       }
       loadVid(true);
     } catch(err) {
       console.log(err);
    }
-},[memeUrls, formatList, descriptions, token, links]);
+},[memeUrls, formatList, descriptions, token, links, previewAvailability, previewIds]);
 
 
 const handleSignOut = () => {
   signOut();
   changeLogInStatus(false);
   history.push("/memes/");
+}
+
+const handleMouseOut = (link) => {
+  changeMouseOverId('');
+  changeLastMouseOverId(link);
 }
 
 useEffect(() => {
@@ -146,15 +165,45 @@ useEffect(() => {
       <TopNav muteButton={muteButton} buttons={ token ? myAccount : signIn } />
       <div className="group-container">
         <div className="white-space-height" />
+        {/* TODO: display memes by order of contenttagging
+            NOTE: at this point it will be helpfull to know sorting algorithms
+            and their Big O notation thing unless they are all in order
+            or a list is given to index the correct values(but still
+            would be helpful to know Big O stuff).
+        */}
         {
-          // TODO: for loop of number of links; NOT mapping index; don't use i.
-          // TODO: make a domain function;
-          // TODO: warn user that I am not liable for whatever site they go to.
+          // TODO: make function to only allow linking to certain domains.
+          // e.g.: youtube, tiktok, instagram, reddit, steam, google.
+          // TODO: modallet users know they are leaving the site.
           loaded &&
             links.map((link, i) => {
               return (
                 <div className="meme-container" key={i}>
-                  <a rel='noreferrer' target='_blank' href={link}>{false ? descriptions[i]: link}</a>
+                  {
+                    previewAvailability[i] ?
+                      <a rel='noreferrer' target='_blank' href={link}>
+                        <div
+                          className={`description-container ${mouseOverId === link ?
+                            'hovering'
+                          : 
+                            lastMouseOverId === link ?
+                              'unhovered'
+                                :
+                              ''}`}
+                          onMouseOver={() => changeMouseOverId(link)}
+                          onMouseLeave={() => handleMouseOut(link)}
+                        >
+                          {descriptions[i]} {`(click to open ${(new URL(link)).hostname} in new tab)`}
+                        </div>
+                        <img 
+                        className="preview-image"
+                        alt="ar-15's for 3 year olds"
+                        src={`${vars.apiURL}/memes/preview/${previewIds[i]}`}
+                        />
+                      </a>
+                    :
+                      <a rel='noreferrer' target='_blank' href={link}>{false ? descriptions[i]: link}</a>
+                  }
                 </div>
               )
             })
@@ -181,7 +230,7 @@ useEffect(() => {
                   :
                     false
                   }
-                  {/* pretty sure this naming convention is a bad practice */}
+                  {/* pretty sure this naming convention is a bad practice; rename mem-div at some point. */}
                   <div className={`meme-div ${descriptions[i] ? 'described' : ''}`}>
                     {renderMemes(memeAttributes)}
                   </div>
