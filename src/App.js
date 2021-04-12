@@ -20,18 +20,19 @@ window.mobileCheck = function() {
 
 const App = () => {
   return (
-      <div className="App">
+      <div 
+      className="App">
         <HashRouter>
           <Switch>
             <Redirect exact from="/" to="/memes/" />
             <Route exact path="/groups" component={() => <Groups />} />
             <Route exact path="/groups/:group" component={() => <GroupPage /> } />
-            <Route exact path="/settings" component={() => <div>the Settings page</div>} />
+            <Route exact path="/settings" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />
             <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
             <Route exact path="/users/sign-in" component={ () => <SignInForm />} />
             <Route exact path="/users/sign-up" component={ () => <SignUpForm />} />
-            <Route exact path="/users/:userId" component={() => <div>the Account page</div>} />
+            <Route exact path="/users/:userId" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />
             {
               /*
                 <Route path='/404' component={My404Component} />

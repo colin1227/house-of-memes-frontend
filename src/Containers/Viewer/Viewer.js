@@ -80,10 +80,23 @@ const Viewer = (props) => {
   },[memeUrls, formatList, descriptions, token]);
 
   useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      // 109 = m, mute
+      // 32 = space, pause
+      // 117 = w, volume up 5%
+      // 115 = s volume down 5%
+      // 97 = a, hold 1 sec for previous meme
+      // 100 = d, hold 1 sec for next meme
+
+      // console.log(e.keyCode);
+    })
+  }, []);
+
+  useEffect(() => {
     if (initalMeme && viewIndex.count === 1 && memeUrls.length > 0){
       isInitial(false);
     }
-  },[initalMeme, viewIndex.count, memeUrls])
+  },[initalMeme, viewIndex.count, memeUrls]);
 
   useEffect(() => {
     if (memeUrls.length <= viewIndex.count + 1) {
@@ -162,7 +175,9 @@ const Viewer = (props) => {
   }
 
   return(
-  <div className='viewer'>
+  <div 
+  onClick={() => console.log('cringe')}
+  className='viewer'>
     <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">

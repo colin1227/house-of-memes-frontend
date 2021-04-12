@@ -136,7 +136,7 @@ const Upload = (props) => {
       await sendLink(e).then((res) => {
         if (res.status === 201){
           setInitalTime(0);
-          // history.push(`/memes/`);
+          history.push(`/memes/`);
         }
       })
       .catch(() => {
@@ -192,7 +192,6 @@ const Upload = (props) => {
   }
 
   const handleDesc = (val) => {
-    console.log(val);
     changeDesc(val);
   }
 
@@ -263,6 +262,9 @@ const Upload = (props) => {
 
       if (preview) {
         requestData.append('preview', preview);
+        setInitalTime(c => {
+          return c + Math.round(preview.size / 288619 * 100) / 100
+        });
       }
       if (tags) {
         requestData.append('tags', tags);

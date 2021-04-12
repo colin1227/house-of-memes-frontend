@@ -6,6 +6,7 @@ import axios from "axios";
 import "./GroupPage.scss";
 
 import vars from '../../constants/vars.js';
+import helperFuncs from '../../constants/helperFuncs';
 import { signOut } from "../../helper/index";
 
 import { TopNav } from "./../../components/index";
@@ -17,9 +18,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import PublishIcon from '@material-ui/icons/Publish';
 import SettingsIcon from '@material-ui/icons/Settings';
+import PanoramaIcon from '@material-ui/icons/Panorama';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+
+
 import renderMemes from '../../components/MemeViewer/MemeViewer';
+import LinkWithPreview from '../../components/LinkWithPreview/LinkWithPreview';
+import LinkWithoutPreview from '../../components/LinkWithoutPreview/LinkWithoutPreview';
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -30,6 +36,7 @@ const myStorage = window.localStorage;
 
 const GroupPage = (props) => {
   const history = useHistory();
+  const [groupName, changeGroupName] = useState('');
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
   const [links, changeLinks] = useState([]);
@@ -70,24 +77,30 @@ const GroupPage = (props) => {
     },
     {
       key: 1,
+      text: "Memes",
+      iconImg: <PanoramaIcon />,
+      onClick: () => history.push("/memes")
+    },
+    {
+      key: 2,
       text: "Groups",
       iconImg: <PeopleOutlineIcon />,
       onClick: () => history.push("/groups")
     },
     {
-      key: 2,
+      key: 3,
       text: "Upload",
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
     {
-      key: 3,
+      key: 4,
       text: "Settings",
       iconImg: <SettingsIcon />,
       onClick: () => history.push('/settings')
     },
     {
-      key: 4,
+      key: 5,
       text: "Sign Out",
       iconImg: <ExitToAppIcon />,
       onClick: () => handleSignOut(),
@@ -99,6 +112,9 @@ const handleImportMemes = useCallback(async(group) => {
   try {
       const result = await instance.get(`${vars.apiURL}/groups/${group}${token ? `?token=${token}` : ''}`);
       if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
+
+      changeGroupName(result.data.groupName);
+
       changeMemes([
         ...memeUrls, 
         ...result.data.memes.map((name) => `${vars.apiURL}/memes/${name}`)
@@ -165,6 +181,9 @@ useEffect(() => {
       <TopNav muteButton={muteButton} buttons={ token ? myAccount : signIn } />
       <div className="group-container">
         <div className="white-space-height" />
+        <div className="group-name">
+          {helperFuncs.capitalizeFirstLetter(groupName)}
+        </div>
         {/* TODO: display memes by order of contenttagging
             NOTE: at this point it will be helpfull to know sorting algorithms
             and their Big O notation thing unless they are all in order
@@ -181,28 +200,20 @@ useEffect(() => {
                 <div className="meme-container" key={i}>
                   {
                     previewAvailability[i] ?
-                      <a rel='noreferrer' target='_blank' href={link}>
-                        <div
-                          className={`description-container ${mouseOverId === link ?
-                            'hovering'
-                          : 
-                            lastMouseOverId === link ?
-                              'unhovered'
-                                :
-                              ''}`}
-                          onMouseOver={() => changeMouseOverId(link)}
-                          onMouseLeave={() => handleMouseOut(link)}
-                        >
-                          {descriptions[i]} {`(click to open ${(new URL(link)).hostname} in new tab)`}
-                        </div>
-                        <img 
-                        className="preview-image"
-                        alt="ar-15's for 3 year olds"
-                        src={`${vars.apiURL}/memes/preview/${previewIds[i]}`}
-                        />
-                      </a>
+                      <LinkWithPreview
+                        link={link}
+                        description={descriptions[i] ? descriptions[i] : link}
+                        preview={`${vars.apiURL}/memes/preview/${previewIds[i]}`}
+                        changeMouseOverId={changeMouseOverId}
+                        handleMouseOut={handleMouseOut}
+                        mouseOverId={mouseOverId}
+                        lastMouseOverId={lastMouseOverId}
+                      />
                     :
-                      <a rel='noreferrer' target='_blank' href={link}>{false ? descriptions[i]: link}</a>
+                      <LinkWithoutPreview
+                        link={link}
+                        description={descriptions[i] ? descriptions[i] : link}
+                      />
                   }
                 </div>
               )
@@ -230,7 +241,7 @@ useEffect(() => {
                   :
                     false
                   }
-                  {/* pretty sure this naming convention is a bad practice; rename mem-div at some point. */}
+                  {/* pretty sure this naming convention is a bad practice; rename mem-div at some point because its used else where. */}
                   <div className={`meme-div ${descriptions[i] ? 'described' : ''}`}>
                     {renderMemes(memeAttributes)}
                   </div>
