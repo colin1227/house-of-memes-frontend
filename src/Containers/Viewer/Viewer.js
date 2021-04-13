@@ -8,7 +8,7 @@ import "./Viewer.scss";
 import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
-import renderMemes from "../../components/MemeViewer/MemeViewer";
+import renderFunctions from "../../components/MemeViewer/MemeViewer";
 import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
@@ -80,10 +80,23 @@ const Viewer = (props) => {
   },[memeUrls, formatList, descriptions, token]);
 
   useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      // 109 = m, mute
+      // 32 = space, pause
+      // 117 = w, volume up 5%
+      // 115 = s volume down 5%
+      // 97 = a, hold 1 sec for previous meme
+      // 100 = d, hold 1 sec for next meme
+
+      // console.log(e.keyCode);
+    })
+  }, []);
+
+  useEffect(() => {
     if (initalMeme && viewIndex.count === 1 && memeUrls.length > 0){
       isInitial(false);
     }
-  },[initalMeme, viewIndex.count, memeUrls])
+  },[initalMeme, viewIndex.count, memeUrls]);
 
   useEffect(() => {
     if (memeUrls.length <= viewIndex.count + 1) {
@@ -162,7 +175,8 @@ const Viewer = (props) => {
   }
 
   return(
-  <div className='viewer'>
+  <div 
+  className='viewer'>
     <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
@@ -175,7 +189,7 @@ const Viewer = (props) => {
       <div className="memeDiv">
         {
           memeUrls && memeUrls.length ? 
-            renderMemes(memeAttributes)
+            renderFunctions.renderMemes(memeAttributes)
           : 
             loadingSVG()
         }
