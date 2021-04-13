@@ -59,20 +59,20 @@ const Upload = (props) => {
   const classes0 = useStyles0();
   const classes1 = useStyles1();
   const history = useHistory();
-  let [memes, changeMemes] = useState([]); // files
+  let [memes, changeMeme] = useState([]); 
   let [preview, changePreviewMedia] = useState();
-  let [type, changeType] = useState(true);
-  let [tags, changeTags] = useState([]);
+  let [isUploadingLink, changeUploadFormat] = useState(true);
+  let [groups, changegroups] = useState([]);
   let [mediaUrl, changeUrl] = useState('');
   const [firstRender, changeRenderOccurrence] = useState(true);
-  let [tagOptions, changeTagOptions] = useState([]);
+  let [groupOptions, changeGroupOptions] = useState([]);
 
-  let [desc, changeDesc] = useState(''); // description
-  let [error, changeError] = useState(''); // error
-  let [theValue, changeValue] = useState('');  // sometimes if the same file is uploaded onChange doesn't fire
+  let [desc, changeDesc] = useState('');
+  let [error, changeError] = useState('');
+  let [theValue, changeValue] = useState('');
   let [initalTime, setInitalTime] = useState(0);
 
-  const handleImportTags = useCallback(async() => {
+  const handleImportgroups = useCallback(async() => {
     const results = await axios.request({
       method: 'GET',
       url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("cryptoMiner")}`,
@@ -81,7 +81,7 @@ const Upload = (props) => {
       }
     });
 
-    changeTagOptions([
+    changeGroupOptions([
       ...results.data.public.map(g => {
         return { title: g, type: 'public' }
       }),
@@ -96,9 +96,9 @@ const Upload = (props) => {
   useEffect(() => {
     if (firstRender) {
       changeRenderOccurrence(false);
-      handleImportTags();
+      handleImportgroups();
     }
-  }, [firstRender, handleImportTags]);
+  }, [firstRender, handleImportgroups]);
 
   useEffect(() => {
     if (!myStorage.getItem("cryptoMiner")) {
@@ -122,7 +122,7 @@ const Upload = (props) => {
   },[memes]);
 
   const submittens = async(e) => {   
-    if (type) {
+    if (isUploadingLink) {
       await sendFile(e).then((res) => {
         if (res.status === 201){
           setInitalTime(0);
@@ -170,7 +170,7 @@ const Upload = (props) => {
     }
 
     if(!invalid) {
-      changeMemes(files);
+      changeMeme(files);
       changeError('');
     } else changeError('Invalid File type');
   };
@@ -195,9 +195,9 @@ const Upload = (props) => {
     changeDesc(val);
   }
 
-  const handleTagChange = (val) => {
-    let newTags = val.map(o => o.title).join(',');
-    changeTags(newTags);
+  const handleGroupChange = (val) => {
+    let newgroups = val.map(o => o.title).join(',');
+    changegroups(newgroups);
   }
 
   // TODO: seperate into diffrent allowed file types
@@ -266,8 +266,8 @@ const Upload = (props) => {
           return c + Math.round(preview.size / 288619 * 100) / 100
         });
       }
-      if (tags) {
-        requestData.append('tags', tags);
+      if (groups) {
+        requestData.append('groups', groups);
       }
       if (desc) {
         requestData.append('description', desc);
@@ -289,9 +289,19 @@ const Upload = (props) => {
   }
 
   const handleFind = (e) => {
-    changeMemes([]);
+    changeMeme([]);
     e.preventDefault();
     document.querySelector('input.ffs').click();
+  }
+
+  const handleSwitchToFile = () => {
+    changeUploadFormat(!isUploadingLink)
+    changePreviewMedia(0);
+  }
+
+  const handleSwitchToLink = () => {
+    changeMeme([]);
+    changeUploadFormat(!isUploadingLink);
   }
 
   return (
@@ -324,7 +334,7 @@ const Upload = (props) => {
         </header>
         <div className="upload-files">
           {
-            !type ?
+            isUploadingLink ?
               <div className="link-field">
                 <textarea
                   rows={1}
@@ -336,11 +346,53 @@ const Upload = (props) => {
                   label="link url here"
                   required
                 />
-                <div>
-                  <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
-                  <p className="pointer-none"><a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">choose</a> a preview image or gif(optional)</p>
-                  <input type="file" value={theValue} onChange={(e) => handlePreviewMedia(e)} className='ffs' multiple="multiple" />
-                </div>
+                {
+                  preview ?
+                    // show preview
+                    // present the option to change the preview
+                    <div
+                      className="inital-preview-display"
+                    >
+                      <img
+                        alt='this is the preview img'
+                        src={URL.createObjectURL(preview)}
+                      />
+                      <input
+                        type="file"
+                        value={theValue}
+                        onChange={(e) => handlePreviewMedia(e)}
+                        className='preview-input'
+                      />
+                      <p
+                        className="pointer-none">
+                        <a
+                          href="nuffinHere"
+                          onClick={(e) => handleFind(e)}
+                          id="triggerFile"
+                        >click here</a>to change preview
+                      </p>
+                    </div>
+                  :
+                    // present the option to choose a preview
+                    <div>
+                      <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
+                      <p 
+                        className="pointer-none"
+                      >
+                        <a
+                          href="nuffinHere"
+                          onClick={(e) => handleFind(e)}
+                          id="triggerFile"
+                        >choose</a> a preview image or gif(optional)
+                      </p>
+                      <input
+                        type="file"
+                        value={theValue}
+                        onChange={(e) => handlePreviewMedia(e)}
+                        className='ffs'
+                      />
+                    </div>
+                }
               </div>
             :
               <div className={`file-prompt${memes.length >= 1 ? ' hidden' : ''}`} id="drop">
@@ -352,7 +404,7 @@ const Upload = (props) => {
               </div>
           }
           {
-            !error.length && type ?
+            !error.length && isUploadingLink ?
               <footer className={`upload-display ${memes.length >= 1 ? 'hasFiles': ''}`}>
                 <div className="divider">
                   <span><b>FILES</b></span>
@@ -379,46 +431,85 @@ const Upload = (props) => {
               <span className="upload-display upload-error">{error}</span>
           }
           <div className="type-button-container">
-            <Button
+          <Button
               variant="contained"
-              disabled={type}
-              onClick={() => changeType(!type)}
-              >File</Button>
-            <Button
-              variant="contained"
-              disabled={!type}
-              onClick={() => changeType(!type)}
+              className="type-link"
+              disabled={isUploadingLink}
+              onClick={() => handleSwitchToLink()}
               >Link</Button>
+            <Button
+              variant="contained"
+              className="type-file"
+              disabled={!isUploadingLink}
+              onClick={() => handleSwitchToFile()}
+              >File</Button>
           </div>
         </div>
         <div className='meme-details'>
           <Autocomplete
-            className="tags"
+            className="groups"
             multiple
-            id="tags-outlined"
-            options={tagOptions}
+            id="groups-outlined"
+            options={groupOptions}
             groupBy={o => o.type}
             getOptionLabel={(option) => option.title}
 
             // wrong somehow, log it out
-            onChange={(_, value) => handleTagChange(value)}
+            onChange={(_, value) => handleGroupChange(value)}
             filterSelectedOptions
             renderInput={(params) => (
               <TextField
                 {...params}
                 variant="outlined"
-                label="tags"
+                label="groups"
                 placeholder="describe it"
               />
             )}
           />
           <div className='desc-container'>
-            <textarea type='text' className='desc' cols="40" rows="5" name='desc' onChange={(e) => handleDesc(e.target.value)} placeholder='Description?' />
+            <textarea
+              type='text'
+              className='desc'
+              cols="40"
+              rows="5"
+              name='desc'
+              onChange={(e) => handleDesc(e.target.value)}
+              placeholder='Description?'
+            />
           </div>
         </div>
-        <div className="upload-buttons-container">
-          <Button className="cancel" onClick={() => history.push("/memes/")}>Cancel</Button>
-          <Button className={`sendit ${!Boolean(memes.length) && !Boolean(mediaUrl.length) ? 'disabled': 'abled'}`} disabled={!Boolean(memes.length) && !Boolean(mediaUrl.length)} type='submit'>Upload Meme</Button>
+        <div className="buttons-container">
+          {
+            preview ?
+              <div className="test-div">
+                <Button
+                  variant="contained"
+                  className="test-meme"
+                  onClick={() => history.push("/memes/")}
+                >Test It
+                </Button>
+              </div>
+            :
+              false
+          }
+          <div className="upload-buttons-container">
+            <Button
+              className="cancel"
+              onClick={() => history.push("/memes/")}
+            >Cancel
+            </Button>
+            <Button
+            className={`sendit ${!Boolean(memes.length)
+              &&
+              !Boolean(mediaUrl.length)
+              ? 'disabled'
+              : 'abled'}`}
+            disabled={!Boolean(memes.length)
+              && !Boolean(mediaUrl.length)}
+            type='submit'
+          >Upload Meme
+          </Button>
+          </div>
         </div>
       </form>
     </div>

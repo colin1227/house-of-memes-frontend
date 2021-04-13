@@ -8,7 +8,7 @@ import "./Viewer.scss";
 import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
-import renderMemes from "../../components/MemeViewer/MemeViewer";
+import renderFunctions from "../../components/MemeViewer/MemeViewer";
 import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
@@ -176,7 +176,6 @@ const Viewer = (props) => {
 
   return(
   <div 
-  onClick={() => console.log('cringe')}
   className='viewer'>
     <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
     <div className="memeRend">
@@ -190,7 +189,7 @@ const Viewer = (props) => {
       <div className="memeDiv">
         {
           memeUrls && memeUrls.length ? 
-            renderMemes(memeAttributes)
+            renderFunctions.renderMemes(memeAttributes)
           : 
             loadingSVG()
         }

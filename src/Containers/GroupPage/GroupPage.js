@@ -23,7 +23,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 
-import renderMemes from '../../components/MemeViewer/MemeViewer';
+import renderFunctions from '../../components/MemeViewer/MemeViewer';
 import LinkWithPreview from '../../components/LinkWithPreview/LinkWithPreview';
 import LinkWithoutPreview from '../../components/LinkWithoutPreview/LinkWithoutPreview';
 
@@ -243,7 +243,7 @@ useEffect(() => {
                   }
                   {/* pretty sure this naming convention is a bad practice; rename mem-div at some point because its used else where. */}
                   <div className={`meme-div ${descriptions[i] ? 'described' : ''}`}>
-                    {renderMemes(memeAttributes)}
+                    {renderFunctions.renderMemes(memeAttributes)}
                   </div>
                 </div>
               )

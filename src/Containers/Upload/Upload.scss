@@ -123,9 +123,16 @@ textarea {
         width: 80%;
         text-align: center;
         margin: auto;
-        &.hidden {
-          display: none;
+        // &.hidden {
+        //   display: none;
+        // }
+        .inital-preview-display {
+          .preview-input {
+            position: absolute;
+          }
         }
+
+
         input {
           visibility: hidden;
         }
@@ -326,7 +333,7 @@ textarea {
     height: auto;
     margin: auto 0;
     background: linear-gradient(to left, orange, white, orange);
-    .tags {
+    .groups {
       margin: 8px 0;
       max-height: 20%;
       width: 85%;
@@ -352,32 +359,51 @@ textarea {
     }
   }
   
-  .upload-buttons-container {
+  .buttons-container {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
     margin: 0 auto;
     height: 100%;
     width: 100%;
     background: linear-gradient(to left, orange, white, orange);
     padding-bottom: 5%;
-    .cancel {
-      height: 100%;
-      width: 35%;
-      right: 0;
-      cursor: pointer;
-      background-color: grey;
-      margin: 0;
-      font-family: Quicksand;
+    .test-div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding-bottom: 5%;
+      .test-meme {
+        background-color: steelblue;
+        width: 35%;
+      }
     }
-    .sendit {
+
+    .upload-buttons-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 0 auto;
       height: 100%;
-      width: 35%;
-      right: 0;
-      cursor: pointer;
-      margin: 0;
-      font-family: Quicksand;
-      background-color: rgba(0,172,193,1);
+      width: 100%;
+      .cancel {
+        height: 100%;
+        width: 35%;
+        right: 0;
+        cursor: pointer;
+        background-color: grey;
+        margin: 0;
+        font-family: Quicksand;
+      }
+      .sendit {
+        height: 100%;
+        width: 35%;
+        right: 0;
+        cursor: pointer;
+        margin: 0;
+        font-family: Quicksand;
+        background-color: rgba(0,172,193,1);
+      }
     }
   }
 }
