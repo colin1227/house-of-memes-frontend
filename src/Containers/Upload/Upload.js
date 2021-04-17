@@ -485,7 +485,7 @@ const Upload = (props) => {
                 <Button
                   variant="contained"
                   className="test-meme"
-                  onClick={() => history.push("/memes/")}
+                  onClick={() => console.log('maybe make a new page for testing what the meme will look like idk rn')}
                 >Test It
                 </Button>
               </div>

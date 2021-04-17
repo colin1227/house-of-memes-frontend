@@ -43,7 +43,7 @@ const StyledMenuItem = withStyles((theme) => ({
 const TopNav = ({ muteButton, buttons }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -61,7 +61,7 @@ const TopNav = ({ muteButton, buttons }) => {
         aria-haspopup="true"
         variant="contained"
         color="primary"
-        onClick={handleClick}
+        onMouseOver={(e) => handleOpen(e)}
         className="main-menu"
       >
         <ListItemIcon>

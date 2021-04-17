@@ -2,6 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+
+import Modal from '@material-ui/core/Modal';
+import Fade from '@material-ui/core/Fade';
+import Backdrop from '@material-ui/core/Backdrop';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -29,6 +33,8 @@ import { TopNav } from "../../components/index";
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import LockIcon from '@material-ui/icons/Lock';
 import PublicIcon from '@material-ui/icons/Public';
+
+import { Button } from '@material-ui/core';
 
 import "./Groups.scss";
 
@@ -59,6 +65,29 @@ const StyledMenu = withStyles({
   />
 ));
 
+const useStyles0 = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginTop: theme.spacing(3),
+    },
+  },
+}));
+
+const useStyles1 = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
+
+
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     '&:focus': {
@@ -79,6 +108,8 @@ const useStyles = makeStyles({
 
 const Groups = () => {
   const classes = useStyles();
+  const classes0 = useStyles0();
+  const classes1 = useStyles1();
   const history = useHistory();
 
   const signIn = [
@@ -138,6 +169,13 @@ const Groups = () => {
   const [privateGroups, changePrivateGroups] = useState([]);
   const [allGroups, changeAllGroups] = useState([]);
 
+  const [isCreatingGroup, changeIsCreatingGroup] = useState(false);
+
+  // TODO: uncomment make this the values of a form for createing a group
+
+  // const [groupName, changeGroupName] = useState('');
+  // const [groupType, changeGroupType] = useState('Public');
+  // const [postAvailability, changePostAvailability] = useState('');
 
   const [loaded, isLoaded] = useState(false);
 
@@ -163,6 +201,27 @@ const Groups = () => {
   const handleSearch = (newTerm) => {
     changeSearchedTerm(newTerm);
     changedTerm(true);
+  }
+
+  const handleCreatingGroup = () => {
+    changeIsCreatingGroup(true);
+    console.log('creating group');
+  }
+
+  const handleCreateGroup = async() => {
+    let reqBody = {};
+
+    // groupName
+
+    //private or public
+
+    // posting rules
+
+
+    if (false) {
+      const results = await instance.post(`${vars.apiURL}/groups/${token ? `?token=${token}` : ''}`, reqBody, false);
+    }
+
   }
 
   const initialFetchGroups = useCallback(async() => {
@@ -212,7 +271,7 @@ const Groups = () => {
   const groupOptions = () => {
     return (
       <StyledMenu
-        className="quicksand"
+        className="quicksand rm-chair"
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -269,98 +328,158 @@ const Groups = () => {
   }
 
   return (
-    <div className="groups-container" >
+    <div
+      className="groups-container"
+    >
       <TopNav variant='contained' buttons={token ? myAccount : signIn} />
-      {/* <div className="create-group" >
-        <Button variant='contained' style={{ background: "orange", color: "#616161" }}>Create Group</Button>
-      </div> */}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className="creating-group"
+        open={Boolean(isCreatingGroup)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={Boolean(isCreatingGroup)}>
+          <div className={classes1.paper + " create-group-modal"}>
+            <h2
+              className="quicksand"
+              id="transition-modal-title"
+            >Create sumthin</h2>
+            <p
+              className="quicksand"
+              id="transition-modal-description"
+            >Form here including following:</p>
+            <ul>
+              <li className="quicksand">Group Name</li>
+              <li className="quicksand">private or public</li>
+              <li className="quicksand">who can post</li>
+            </ul>
+            <div
+              className="create-group-button-container"
+            >
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "peachpuff" }}
+                className="cancel-me"
+                disabled={false}
+                type='submit'
+                onClick={() => changeIsCreatingGroup(false)}
+              >nah
+              </Button>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "lightblue" }}
+                className="sjendit"
+                disabled={false}
+                type='submit'
+                onClick={(e) => handleCreateGroup(e)}
+              >Start it up!
+              </Button>
+            </div>
+          </div>
+        </Fade>
+      </Modal>
 
       <div className="groups">
-      {
-        <div className="dropdown-button-container">
-        <List component="nav" aria-label="Device settings">
-          <ListItem
-            button
-            aria-haspopup="true"
-            onClick={handleClickListItem}
-            className="groups-dropdown-button"
-          >
-            <ListItemText
-              className="quicksand"
-              primary={availableGroups[selectedIndex]} />
-          </ListItem>
-        </List>
-        <TextField
-          className="search-bar"
-          id="outlined-basic"
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search"
-          variant="outlined" />
         {
-          groupOptions()
-        }
-      </div>
-      }
-      {
-        loaded ?
-          <div className="grided-groups">
-            <TableContainer className="f" component={Paper}>
-              <Table
-                className={`${ classes.table} quicksand`}
-                size="small"
-                aria-label="a dense table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <b className="quicksand bold">{availableGroups[selectedIndex]}</b>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {(selectedIndex === 0 && allGroups.length ?
-                    allGroups :
-                    selectedIndex === 1 && publicGroups.length ?
-                    publicGroups: selectedIndex === 2 && privateGroups.length ?
-                    privateGroups : []
-                   ).map((name) => (
-                    <TableRow key={name}>
-                      <TableCell
-                        className="quicksand row-fade"
-                        onClick={() => history.push(`/groups/${name.toLowerCase().split(" ").join("_")}`)}
-                        component="th"
-                        scope="row">
-                        {name}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                  {
-                  selectedIndex === 0 && !allGroups.length ?
-                    <TableRow key={-1}>
-                      <TableCell
-                        className="quicksand center">
-                        Search sumthin'...
-                      </TableCell>
-                    </TableRow>
-                    : false
-                  }
-                  {
-                    searchTermChanged ?
-                    <TableRow key={-1}>
-                      <TableCell
-                        className="quicksand center fader">
-                        Searching...
-                      </TableCell>
-                    </TableRow>
-                    :
-                    false
-                  }
-                </TableBody>
-              </Table>
-            </TableContainer>
+          <div className="dropdown-button-container">
+            <List
+              component="nav"
+              aria-label="Device settings"
+            >
+              <ListItem
+                button
+                aria-haspopup="true"
+                onMouseOver={(e) => handleClickListItem(e)}
+                className="groups-dropdown-button"
+              >
+                <ListItemText
+                  className="quicksand"
+                  primary={availableGroups[selectedIndex]}
+                />
+              </ListItem>
+            </List>
+            <TextField
+              className="search-bar"
+              id="outlined-basic"
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search"
+              variant="outlined"
+            />
+            <Button
+              variant="contained"
+              className="add-group"
+              onClick={() => handleCreatingGroup()}
+            >+</Button>
+            {
+              groupOptions()
+            }
           </div>
-        :
-          loadingSVG()
-      }
+        }
+        {
+          loaded ?
+            <div className="grided-groups">
+              <TableContainer className="f" component={Paper}>
+                <Table
+                  className={`${ classes.table} quicksand`}
+                  size="small"
+                  aria-label="a dense table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <b className="quicksand bold">{availableGroups[selectedIndex]}</b>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {(selectedIndex === 0 && allGroups.length ?
+                      allGroups :
+                      selectedIndex === 1 && publicGroups.length ?
+                      publicGroups: selectedIndex === 2 && privateGroups.length ?
+                      privateGroups : []
+                    ).map((name) => (
+                      <TableRow key={name}>
+                        <TableCell
+                          className="quicksand row-fade"
+                          onClick={() => history.push(`/groups/${name.toLowerCase().split(" ").join("_")}`)}
+                          component="th"
+                          scope="row">
+                          {name}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                    {
+                    selectedIndex === 0 && !allGroups.length ?
+                      <TableRow key={-1}>
+                        <TableCell
+                          className="quicksand center">
+                          <b>Search sumthin'...</b>
+                        </TableCell>
+                      </TableRow>
+                      : false
+                    }
+                    {
+                      searchTermChanged ?
+                      <TableRow key={-1}>
+                        <TableCell
+                          className="quicksand center fader">
+                          Searching...
+                        </TableCell>
+                      </TableRow>
+                      :
+                      false
+                    }
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          :
+            loadingSVG()
+        }
       </div>
     </div>
   );

@@ -3,12 +3,15 @@ import { useState } from "react";
 
 const VideoViewer = (props) => {
   const { memeUrl, format, indx, muted, autoplay, loaded, background } = props;
-  let length = 0;
-  const [, setCurrentVideo] = useState({});
 
+  // playback bar vars
+  let length = 0;
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLength, setCurrentLength] = useState(0);
+
+  // current video info
   const [playing, togglePlayBack]  = useState(autoplay);
+  const [, setCurrentVideo] = useState({});
 
   const handleCurrentTime = (e) => {
     setCurrentTime(e.target.currentTime);
@@ -39,10 +42,6 @@ const VideoViewer = (props) => {
         :
           false
       }
-      {/* <div className='dawgs' >
-        <div className='tdawg' />
-        <div className='ddawg' />
-      </div> */}
       {
         loaded && memeUrl ?
           <video
