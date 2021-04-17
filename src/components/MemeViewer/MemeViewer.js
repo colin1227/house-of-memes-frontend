@@ -55,7 +55,6 @@ const renderMemesv2 = ({ currentIndex, renderCount = 3, memes, descriptions, for
     } else if (vars.formats.AUDIO.includes(formats[i])) {
       memesToDisplay.push(Audio(memes[i], formats[i], i));
     } else if (!memes[i].hostname.includes(vars.apiURL)) {
-      // I dont think this conditional statement works yet..
       if (previews[i]) {
         memesToDisplay.push(
           <LinkWithPreview

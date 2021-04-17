@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useCallback } from 'react';
+import { useEffect, useState, useReducer, useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { Button } from '@material-ui/core';
@@ -34,12 +34,20 @@ const Viewer = (props) => {
   const [formatList, changeFormat] = useState([]);
   const [descriptions, changeDescription] = useState([]);
   const [initalMeme, isInitial] = useState(true);
-  const [muted, toggleMute] = useState(true);
   const [loaded, loadVid] = useState(false);
   const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
   const [username] = useState(myStorage.getItem('loggedIn'));
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
+
+  // Button Changes
+  const [muted, toggleMute] = useState(true);
+  const [buttonsHeldDown, changeButtonsHeldDown] = useState([]);
+  const buttonsHeldDownRef = useRef(buttonsHeldDown);
+
+  // timestamps for buttons
+  const [buttonTimestampsHeldDown, changeButtonTimestampsHeldDown] = useState([]);
+  const buttonTimestampsHeldDownRef = useRef(buttonTimestampsHeldDown);
 
   const handleSignOut = () => {
     signOut();
@@ -79,17 +87,111 @@ const Viewer = (props) => {
      }
   },[memeUrls, formatList, descriptions, token]);
 
+  const handleKeyDown = (code) => {
+    changeButtonsHeldDown(currentlyHeldButtons => [...currentlyHeldButtons, code]);
+    buttonsHeldDownRef.current = [...buttonsHeldDownRef.current, code];
+    changeButtonTimestampsHeldDown(currentlyHeldTimestamps => [ ...currentlyHeldTimestamps, Math.floor(Date.now() / 10) ]);
+    buttonTimestampsHeldDownRef.current = [
+      ...buttonTimestampsHeldDownRef.current,
+      Math.floor(Date.now() / 10)
+    ];
+  }
+
+  const handleKeyUp = (code) => {
+    changeButtonsHeldDown(prvbtns => prvbtns.splice(1, 1));
+    buttonsHeldDownRef.current = buttonsHeldDownRef.current.splice(1, 1);
+    
+    changeButtonTimestampsHeldDown(tStamp => tStamp.splice(1, 1));
+    buttonTimestampsHeldDownRef.current = buttonTimestampsHeldDownRef.current.splice(1, 1);
+  }
+
   useEffect(() => {
     document.addEventListener("keydown", (e) => {
-      // 109 = m, mute
-      // 32 = space, pause
-      // 117 = w, volume up 5%
-      // 115 = s volume down 5%
-      // 97 = a, hold 1 sec for previous meme
-      // 100 = d, hold 1 sec for next meme
+      const pressed = buttonsHeldDownRef.current.includes(e.keyCode);
+      if (!pressed && e.keyCode === 109) {
+        // 109 === m, mute
+        handleKeyDown(109);
 
-      // console.log(e.keyCode);
-    })
+      } else if (!pressed && e.keyCode === 32) {
+          // 32 === space, pause
+          handleKeyDown(32);
+      } else if (!pressed && e.keyCode === 117) {
+        // 117 === w, volume up 5%
+        // 38 === up
+        // TODO: v2
+
+        handleKeyDown(117);
+
+      } else if (!pressed && e.keyCode === 115) {
+        // 115 === s volume down 5%
+        // 40 === down
+        // TODO: v2
+
+      } else if (!pressed && e.keyCode === 97) {
+        handleKeyDown(97);
+        // 97 === a, hold 1 sec for previous meme
+        // 37 === left
+
+      } else if (!pressed && e.keyCode === 68) {
+        handleKeyDown(68);
+        // 68 === d, hold 1 sec for next meme
+        // 39 === right
+      }
+    });
+
+    document.addEventListener("keyup", (e) => {
+
+      const rn = Math.floor(Date.now() / 10);
+
+      const eventButtonIsPressed = buttonsHeldDownRef.current.includes(e.keyCode);
+
+      const eventIndex = buttonsHeldDownRef.current.indexOf(e.keyCode);
+
+      const timeReleased = buttonTimestampsHeldDownRef.current[eventIndex];
+
+      const oneSecondPassed  = rn - timeReleased >= 100 && eventButtonIsPressed;
+
+      // const pointEightFiveSecondPassed  = rn - timeReleased >= 85 && eventButtonIsPressed;
+      // const halfSecondPassed = rn - timeReleased >= 50 && eventButtonIsPressed;
+
+      if (e.keyCode === 109) {
+        // 109 === m, mute
+        handleKeyUp(109);
+      } else if (e.keyCode === 32) {
+        // 32 === space, pause
+        handleKeyUp(32);
+
+      } else if (e.keyCode === 117) {
+        // 117 === w, volume up 5%
+        // 38 === up
+        // TODO: v2
+        handleKeyUp(117);
+
+      } else if (e.keyCode === 115) {
+        // 115 === s volume down 5%
+        // 40 === down
+        // TODO: v2
+        handleKeyUp(115);
+
+      } else if (e.keyCode === 97) {
+        // 97 === a, hold 1 sec for previous meme
+        // 37 === left
+        handleKeyUp(97);
+        if (oneSecondPassed){
+          changeMeme(-1);
+        }
+
+      } else if (e.keyCode === 68) {
+        // 68 === d, hold 1 sec for next meme
+        // 39 === right
+        handleKeyUp(68);
+        if (oneSecondPassed){
+          changeIndex({type: 'increment' });
+        }
+      }
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -164,10 +266,15 @@ const Viewer = (props) => {
     }, 1250);
   }
 
+  // const memeAttributesV2 = {
+  //   currentIndex: viewIndex,
+  //   renderCount: 3,
+  // }
+
   const memeAttributes = {
     index: 0 || viewIndex.count,
     url: memeUrls[viewIndex.count],
-    format: formatList[viewIndex.count], 
+    format: formatList[viewIndex.count],
     muted,
     autoplay: !initalMeme,
     loaded,
