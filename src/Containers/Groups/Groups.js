@@ -65,14 +65,6 @@ const StyledMenu = withStyles({
   />
 ));
 
-const useStyles0 = makeStyles((theme) => ({
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(3),
-    },
-  },
-}));
-
 const useStyles1 = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -108,7 +100,6 @@ const useStyles = makeStyles({
 
 const Groups = () => {
   const classes = useStyles();
-  const classes0 = useStyles0();
   const classes1 = useStyles1();
   const history = useHistory();
 
@@ -206,22 +197,6 @@ const Groups = () => {
   const handleCreatingGroup = () => {
     changeIsCreatingGroup(true);
     console.log('creating group');
-  }
-
-  const handleCreateGroup = async() => {
-    let reqBody = {};
-
-    // groupName
-
-    //private or public
-
-    // posting rules
-
-
-    if (false) {
-      const results = await instance.post(`${vars.apiURL}/groups/${token ? `?token=${token}` : ''}`, reqBody, false);
-    }
-
   }
 
   const initialFetchGroups = useCallback(async() => {
@@ -369,15 +344,6 @@ const Groups = () => {
                 type='submit'
                 onClick={() => changeIsCreatingGroup(false)}
               >nah
-              </Button>
-              <Button
-                variant="contained"
-                style={{ backgroundColor: "lightblue" }}
-                className="sjendit"
-                disabled={false}
-                type='submit'
-                onClick={(e) => handleCreateGroup(e)}
-              >Start it up!
               </Button>
             </div>
           </div>
