@@ -110,16 +110,16 @@ const Upload = (props) => {
   }, [history])
 
   // show loading bar
-  useEffect(() => {
-    if(memes.length > 0) {
-      memes.forEach((_, i) => {
-        setTimeout(() => {
-          document.querySelector(`.file--${i}`).querySelector(".progress").classList.remove('active');
-          document.querySelector(`.file--${i}`).querySelector(".done").classList.add('anim');
-        }, Math.random() / 2 * 350 + 1000);
-      });
-    }
-  },[memes]);
+  // useEffect(() => {
+  //   if(memes.length > 0) {
+  //     memes.forEach((_, i) => {
+  //       setTimeout(() => {
+  //         document.querySelector(`.file--${i}`).querySelector(".progress").classList.remove('active');
+  //         document.querySelector(`.file--${i}`).querySelector(".done").classList.add('anim');
+  //       }, Math.random() / 2 * 350 + 1000);
+  //     });
+  //   }
+  // },[memes]);
 
   const submittens = async(e) => {   
     if (isUploadingLink) {
