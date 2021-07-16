@@ -69,7 +69,6 @@ const Upload = (props) => {
 
   let [desc, changeDesc] = useState('');
   let [error, changeError] = useState('');
-  let [theValue, changeValue] = useState('');
   let [initalTime, setInitalTime] = useState(0);
 
   const handleImportgroups = useCallback(async() => {
@@ -122,14 +121,15 @@ const Upload = (props) => {
   // },[memes]);
 
   const submittens = async(e) => {   
-    if (isUploadingLink) {
+    if (!isUploadingLink) {
       await sendFile(e).then((res) => {
         if (res.status === 201){
           setInitalTime(0);
           history.push(`/memes/`);
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(error);
         changeError('something didn\'t work ');
       });
     } else {
@@ -139,7 +139,8 @@ const Upload = (props) => {
           history.push(`/memes/`);
         }
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         changeError('something didn\'t work ');
       });
     }
@@ -149,7 +150,7 @@ const Upload = (props) => {
     let files = [];
     let invalid = false;
     let r = 0;
-
+    console.log(val.target.files[0]);
 
     if (val.target.files.length > 1) {
       changeError('one file at a time');
@@ -171,8 +172,11 @@ const Upload = (props) => {
 
     if(!invalid) {
       changeMeme(files);
+
       changeError('');
-    } else changeError('Invalid File type');
+    } else {
+      changeError('Invalid File type');
+    }
   };
 
   const handlePreviewMedia = async(val) => {
@@ -235,9 +239,14 @@ const Upload = (props) => {
         },
         data: formData
       });
+
+      console.log(memeSaved);
       return memeSaved;
     } catch (err) {
-      if (err) changeError('something didn\'t work');
+      if (err) { 
+        console.log(err);
+        changeError('something didn\'t work');
+      }
     }
   }
 
@@ -284,6 +293,7 @@ const Upload = (props) => {
       return memeSaved;
 
     } catch (err) {
+      if (err) console.log(err);
       if (err) changeError('something didn\'t work');
     }
   }
@@ -295,13 +305,13 @@ const Upload = (props) => {
   }
 
   const handleSwitchToFile = () => {
-    changeUploadFormat(!isUploadingLink)
+    changeUploadFormat(false);
     changePreviewMedia(0);
   }
 
   const handleSwitchToLink = () => {
     changeMeme([]);
-    changeUploadFormat(!isUploadingLink);
+    changeUploadFormat(true);
   }
 
   return (
@@ -359,7 +369,6 @@ const Upload = (props) => {
                       />
                       <input
                         type="file"
-                        value={theValue}
                         onChange={(e) => handlePreviewMedia(e)}
                         className='preview-input'
                       />
@@ -387,7 +396,6 @@ const Upload = (props) => {
                       </p>
                       <input
                         type="file"
-                        value={theValue}
                         onChange={(e) => handlePreviewMedia(e)}
                         className='ffs'
                       />
@@ -399,7 +407,7 @@ const Upload = (props) => {
                 <div>
                   <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
                   <p className="pointer-none"><a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">browse</a> to begin the upload</p>
-                  <input type="file" value={theValue} onChange={(e) => handleMeme(e)} className='ffs' multiple="multiple" />
+                  <input type="file" onChange={(e) => handleMeme(e)} className='ffs' multiple="multiple" />
                 </div>
               </div>
           }
@@ -425,7 +433,7 @@ const Upload = (props) => {
                     </div>
                     )})}
                 </div>
-                <button onClick={(e) => handleFind(e) && changeValue('')}  className={`importar${memes.length >= 1 ? ' active' : ''}`}>UPDATE FILES</button>
+                <button onClick={(e) => handleFind(e)}  className={`importar${memes.length >= 1 ? ' active' : ''}`}>UPDATE FILES</button>
               </footer>
             :
               <span className="upload-display upload-error">{error}</span>
