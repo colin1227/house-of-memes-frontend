@@ -23,7 +23,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 
-import renderFunctions from '../../components/MemeViewer/MemeViewer';
+import renderFunctions from '../../components/renders/renders';
 import LinkWithPreview from '../../components/LinkWithPreview/LinkWithPreview';
 import LinkWithoutPreview from '../../components/LinkWithoutPreview/LinkWithoutPreview';
 

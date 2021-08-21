@@ -42,13 +42,15 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const TopNav = ({ muteButton, buttons }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [openState, changeOpenState] = useState(false);
   const handleOpen = (event) => {
+    changeOpenState(true);
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    changeOpenState(false);
+    setAnchorEl(false);
   };
   return (
     <div 
@@ -72,12 +74,14 @@ const TopNav = ({ muteButton, buttons }) => {
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={openState}
+        MenuListProps={{ onMouseLeave: handleClose }}
       >
       {buttons && buttons.map(btn => {
         return (
-          <StyledMenuItem key={btn.key} onClick={btn.onClick}>
+          <StyledMenuItem
+            key={btn.key}
+            onClick={btn.onClick}>
             <ListItemIcon>
               {btn.iconImg}
             </ListItemIcon>

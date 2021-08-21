@@ -13,9 +13,6 @@
 
 # misc
 
-Landing.js
-Landing.scss
-
 .eslintcache
 .DS_Store
 .env.local

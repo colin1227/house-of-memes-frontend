@@ -80,11 +80,20 @@
   }
 
   .main-menu {
+    z-index: 7 !important;
     width: auto;
     float: right;
     margin: 0;
   }
+}
 
+.bring-up {
+  left: 10px !important;
+  z-index: 1 !important;
+}
+
+.bring-down {
+  z-index: -1 !important;
 }
 
 .MuiButtonBase-label {

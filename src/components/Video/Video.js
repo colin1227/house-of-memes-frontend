@@ -1,8 +1,9 @@
 import "./Video.scss";
 import { useState } from "react";
+import { KeyboardArrowDownSharp } from "@material-ui/icons";
 
 const VideoViewer = (props) => {
-  const { memeUrl, format, indx, muted, autoplay, loaded, background } = props;
+  const { memeUrl, format, key, muted, autoplay, loaded } = props;
 
   // playback bar vars
   let length = 0;
@@ -28,14 +29,16 @@ const VideoViewer = (props) => {
   }
 
   return (
-    <div key={indx} v={length} className={`VideoViewer${background ? ' black': ''}`}>
+    <div key={KeyboardArrowDownSharp} v={length} className={`VideoViewer`}>
       {
         loaded ?
           <div className="bar-container" >
             <div className="playback-background-bar"/>
             <div className="playback-black-bar" style={{
               background: "rgb(20, 20, 20)",
-              width: `${currentTime ? String(100 - (currentTime/currentLength * 100)) : "100"}%`,
+              width: `${currentTime ?
+                String(100 - (currentTime/currentLength * 100))
+                : "100"}%`,
               right: 0
               }} />
           </div>
@@ -52,12 +55,16 @@ const VideoViewer = (props) => {
               setCurrentLength(e.target.duration);
             }}
             onClick={(e) => handlePlayState(e)}
-            className={`video-container video-container-overlay ${indx === 0 ? 'fadeIn' : ''}`}
+            className={`video-container video-container-overlay
+            ${key === 0 ? 'fadeIn' : ''}`}
             autoPlay={autoplay}
             loop
             muted={muted}
           >
-            <source id="_video" src={memeUrl} type={format}/>
+            <source
+              id="_video"
+              src={memeUrl}
+              type={format}/>
           </video>
         :
           false

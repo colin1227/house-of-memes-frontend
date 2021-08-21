@@ -8,7 +8,7 @@ import "./MobileViewer.scss";
 import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
-import renderFunctions from "../../components/MemeViewer/MemeViewer";
+import renderFunctions from "../../components/renders/renders";
 import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
