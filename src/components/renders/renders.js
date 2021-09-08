@@ -1,7 +1,8 @@
-import VideoViewer from "../Video/Video";
 import MobileVideoViewer from "../MobileVideoViewer/MobileVideoViewer";
-import Image from "../Image/Image";
-import Audio from "../Audio/Audio";
+
+import VideoViewer from "../content/Video/Video";
+import Image from "../content/Image/Image";
+import Audio from "../content/Audio/Audio";
 
 import LinkWithPreview from "../LinkWithPreview/LinkWithPreview";
 import LinkWithoutPreview from "../LinkWithoutPreview/LinkWithoutPreview";

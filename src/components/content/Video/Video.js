@@ -34,7 +34,8 @@ const VideoViewer = (props) => {
         loaded ?
           <div className="bar-container" >
             <div className="playback-background-bar"/>
-            <div className="playback-black-bar" style={{
+            <div className="playback-black-bar"
+            style={{
               background: "rgb(20, 20, 20)",
               width: `${currentTime ?
                 String(100 - (currentTime/currentLength * 100))
