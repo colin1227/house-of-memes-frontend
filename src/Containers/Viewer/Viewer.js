@@ -22,7 +22,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 // removeMe
-import VideoViewer from "../../components/Video/Video";
+import VideoViewer from "../../components/content/Video/Video";
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -157,6 +157,7 @@ const Viewer = (props) => {
   
   const muteButton =
     <img key={-1} alt="sound toggle" className="sound-toggle" onClick={() => toggleMute(!muted)} type="image" src={muted ? muteImg : unmutedImg} />;
+
   const signIn = [
     {
       key: 0,
@@ -174,7 +175,7 @@ const Viewer = (props) => {
   const myAccount = [
     {
       key: 0,
-      text: "Account",
+      text: myStorage.getItem('loggedIn'),
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },

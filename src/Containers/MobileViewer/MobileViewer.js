@@ -123,7 +123,7 @@ const Viewer = (props) => {
   const myAccount = [
     {
       key: 0,
-      text: "Account",
+      text: username,
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },

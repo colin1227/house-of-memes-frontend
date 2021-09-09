@@ -120,7 +120,7 @@ const Groups = () => {
   const myAccount = [
     {
       key: 0,
-      text: "Account",
+      text: myStorage.getItem('loggedIn'),
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },

@@ -77,15 +77,19 @@ const TopNav = ({ muteButton, buttons }) => {
         open={openState}
         MenuListProps={{ onMouseLeave: handleClose }}
       >
-      {buttons && buttons.map(btn => {
+      {buttons && buttons.map((btn, l) => {
+
         return (
           <StyledMenuItem
             key={btn.key}
+            
             onClick={btn.onClick}>
             <ListItemIcon>
               {btn.iconImg}
             </ListItemIcon>
-            <ListItemText primary={btn.text} />
+            <ListItemText
+              primary={btn.text}
+              className={l ? "grey-text" : ""} />
           </StyledMenuItem>
         )
       })}
