@@ -9,7 +9,17 @@ import {
   Redirect
 } from "react-router-dom";
 
-import { SignInForm, SignUpForm, Upload, MobileViewer, Viewer, Groups, GroupPage } from "./Containers/index";
+import {
+  SignInForm,
+  SignUpForm,
+  Upload,
+  MobileViewer,
+  Viewer,
+  // Groups,
+  // GroupPage,
+  // TestContainer,
+  // TestUserPage
+} from "./Containers/index";
 import "./App.scss";
 
 window.mobileCheck = function() {
@@ -25,20 +35,26 @@ const App = () => {
         <HashRouter>
           <Switch>
             <Redirect exact from="/" to="/memes/" />
-            <Route exact path="/groups" component={() => <Groups />} />
-            <Route exact path="/groups/:group" component={() => <GroupPage /> } />
-            <Route exact path="/settings" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />
+            
+            {/* Memes */}
             <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
+
+            {/* Playlists */}
+            {/* <Route exact path="/groups" component={() => <Groups />} />
+            <Route exact path="/groups/:group" component={() => <GroupPage /> } />
+             */}
+            {/* Experimental */}
+            {/* <Route exact path="/test-page" component={() => <TestContainer />} />
+            <Route exact path="/test-user" component={() => <TestUserPage />} />
+ */}
+            {/* Deactivate user */}
+            {/* <Route exact path="/settings" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />    */}
+
+            {/* Users */}
             <Route exact path="/users/sign-in" component={ () => <SignInForm />} />
             <Route exact path="/users/sign-up" component={ () => <SignUpForm />} />
-            <Route exact path="/users/:userId" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />
-            {
-              /*
-                <Route path='/404' component={My404Component} />
-                <Redirect from='*' to='/404' />
-              */
-            }
+            {/* <Route exact path="/users/:userId" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} /> */}
           </Switch>
         </HashRouter>
       </div>

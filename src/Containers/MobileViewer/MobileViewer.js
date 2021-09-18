@@ -8,8 +8,8 @@ import "./MobileViewer.scss";
 import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
-import renderFunctions from "../../components/MemeViewer/MemeViewer";
-import { TopNav, loadingSVG, BottomNav } from "./../../components/index";
+import renderFunctions from "../../components/renders/renders";
+import { TopNav, LoadingSVG, BottomNav } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
@@ -17,9 +17,9 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import PublishIcon from '@material-ui/icons/Publish';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+// import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -113,38 +113,38 @@ const Viewer = (props) => {
       iconImg: <VpnKeyIcon />,
       onClick: () => history.push({ pathname: "/users/sign-in", state: { lastUrl: window.location.pathname } })
     },
-    {
-      key: 1,
-      text: "Groups",
-      iconImg: <PeopleOutlineIcon />,
-      onClick: () => history.push("/groups")
-    }
+    // {
+    //   key: 1,
+    //   text: "Groups",
+    //   iconImg: <PeopleOutlineIcon />,
+    //   onClick: () => history.push("/groups")
+    // }
   ];
   const myAccount = [
     {
       key: 0,
-      text: "Account",
+      text: username,
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },
-    {
-      key: 1,
-      text: "Groups",
-      iconImg: <PeopleOutlineIcon />,
-      onClick: () => history.push("/groups")
-    },
+    // {
+    //   key: 1,
+    //   text: "Groups",
+    //   iconImg: <PeopleOutlineIcon />,
+    //   onClick: () => history.push("/groups")
+    // },
     {
       key: 2,
       text: "Upload",
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
-    {
-      key: 3,
-      text: "Settings",
-      iconImg: <SettingsIcon />,
-      onClick: () => history.push('/settings')
-    },
+    // {
+    //   key: 3,
+    //   text: "Settings",
+    //   iconImg: <SettingsIcon />,
+    //   onClick: () => history.push('/settings')
+    // },
     {
       key: 4,
       text: "Sign Out",
@@ -176,7 +176,7 @@ const Viewer = (props) => {
 
   return(
   <div 
-  className='mobile-viewer'>
+  className='Mobile-viewer'>
     <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
     <div className="memeRend">
       <div className="memeInfo">
@@ -193,7 +193,7 @@ const Viewer = (props) => {
 
 
           : 
-            loadingSVG()
+            <LoadingSVG />
         }
       </div>
       <div className="space-taker-uper" />

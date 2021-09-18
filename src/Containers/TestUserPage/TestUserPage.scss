@@ -1,0 +1,82 @@
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
+
+.User-container {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  .user-data {
+    // background-color: plum;
+    margin-top: 5%;
+    display: block;
+    position: relative;
+    height: 90%;
+    width: 100%;
+    bottom: 0 !important;
+    .line {
+      margin-top: 1%;
+      width: 100%;
+      background: linear-gradient(to right, transparent 0%, grey 50%, transparent 100%);
+      height: 5px;
+    }
+    
+    .profile {
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 5%;
+      .profile-name {
+        position: relative;
+        font-size: 36px;
+        font-family: 'Quicksand';
+        color: white;
+        text-decoration: underline;
+      }
+      
+      .profile-picture {
+        height: 100px;
+        width: 100px;
+        border-radius: 100%;
+        margin: 0;
+        // used for testing
+        background-color: paleturquoise;
+      }
+      
+    }
+    
+    .profile-memes {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    
+      div {
+        height: 35%;
+        width: 19%;
+        margin: 2.5% 1%;
+      }
+      .blue {
+        background-color: blue;
+      }
+      .red {
+        background-color: red;
+      }
+      .yellow {
+        background-color: yellow;
+      }
+      .green {
+        background-color: green;
+      }
+      .purple {
+        background-color: purple;
+      }
+      .orange {
+        background-color: orange;
+      }
+    }
+  }
+}

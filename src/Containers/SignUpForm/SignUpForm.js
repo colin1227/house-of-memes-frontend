@@ -1,49 +1,59 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useLocation } from "react-router-dom";
+
 import axios from 'axios';
+import { styled } from '@material-ui/core/styles';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { styled } from '@material-ui/core/styles';
 
 import './SignUpForm.scss';
 
 import vars from '../../constants/vars.js';
-import { BottomNav } from '../../components';
+import { BottomNav, LoadingSVG } from '../../components';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
-
-
 const myStorage = window.localStorage;
 
-const SecondaryButton = styled(Button)({
-  background: 'linear-gradient(145deg, rgba(255,139,0,1) 45%, rgba(255,0,0,1) 100%)',
-  color: 'white'
-});
-
+// const SecondaryButton = styled(Button)({
+//   background: 'linear-gradient(145deg, rgba(255,139,0,1) 45%, rgba(255,0,0,1) 100%)',
+//   color: 'white'
+// });
 const BackButton = styled(Button)({
   background: 'rgb(119,136,153)',
   color: 'white'
 });
 
-// TODO: back button
-
 const SignUpForm = () => {
   const history = useHistory();
+  const location = useLocation();
   const [username, changeUsername] = useState('');
   const [password, changePassword] = useState('');
   const [confirmPassword, changeConfirmPassword] = useState('');
   const [error, changeError] = useState('');
+  const [animate, changeAnimationClass] = useState('on-render');
 
+  const goBack = () => {
+    changeAnimationClass('on-back-button');
+    setTimeout(() => {
+      return history.push({ 
+        pathname: (location &&
+        location.state &&
+        location.state.lastUrl) || '/memes'
+      })
+    }, 1000)
+  }
   const signUpButtons = [
     <div key={-1} className="sign-up-buttons">
-      <SecondaryButton onClick={() => history.push("/users/sign-in")}>Sign in Page</SecondaryButton>
-      <BackButton className="back-button" variant="contained" onClick={() => history.push('/memes/')}>Back</BackButton>
+      <BackButton className="back-button" variant="contained" onClick={() => goBack()}>Back</BackButton>
       <Button variant="contained" color="primary" type="submit">Finish</Button>
     </div>
   ]
 
-  const verifyForm = async(e) => {
+  const verifySignUpForm = async(e) => {
     e.preventDefault();
+    // field check
     if (!username.length || !password.length || !confirmPassword.length) {
       changeError('verfiy all required fields are filled');
     } else if (password !== confirmPassword) {
@@ -53,7 +63,7 @@ const SignUpForm = () => {
     } else if (username.length < 3) {
       changeError('username must be at a minimum 3 characters');
     }
-
+    changeAnimationClass('on-submit-button');
     let data = {
       username,
       password
@@ -70,19 +80,31 @@ const SignUpForm = () => {
       data
     });
 
-    if (String(result.status)[0] === '2') {
+    // setTimeout
+    if (result.status === '201') {
       myStorage.setItem('loggedIn', result.data.username);
       history.push('/memes/');
       myStorage.setItem('cryptoMiner', result.data.token);
     } else {
       changeError('something didn\'t work');
+      changeAnimationClass('if-failed-login');
     }
   }
 
   return (
     <div className="sign-up-page">
-      <form onSubmit={(e) => verifyForm(e)} className="form-parent">
-      <label className='big-label'>Sign Up Page</label>
+        <div
+          className={`margin-auto ${animate === 'on-submit-button' ? 'fade-in': animate === 'if-failed-login' ? 'fade-out' : ''}`}>
+          <LoadingSVG />
+        </div>
+        <div
+          className={`margin-auto ${animate === 'on-submit-button' ?
+          'fade-in': animate === 'if-failed-login' ?
+          'fade-out' : ''}`}>
+          <LoadingSVG />
+        </div>
+      <form onSubmit={(e) => verifySignUpForm(e)} className={`${animate ? animate : ''} form-parent`}>
+        <label className='big-label'>Sign Up Page</label>
         <div className="row form-username">
           <label htmlFor="username">Username</label>
           <TextField className='form-inputs col-75' onChange={(e) => changeUsername(e.target.value)} type="text" name="username" id="username" required />
@@ -103,10 +125,12 @@ const SignUpForm = () => {
             <li><b>Username</b>'s are 3 characters or more</li>
             <li><b>Password</b> are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in 'Merican English</li>
             <li><b>Email</b>(optional)</li>
+            {error ? <li className="error-text">{error}</li> : false}
           </ul>
-          { error ? <span>{error}</span> : <span></span>}
         </div>
-
+        <div className="sign-up">
+          <div className="sign-in" onClick={() => history.push('/users/sign-in')}>Sign In</div>
+        </div>
         <BottomNav buttons={signUpButtons} />
       </form>
     </div>

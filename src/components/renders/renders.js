@@ -1,21 +1,29 @@
-import VideoViewer from "../Video/Video";
 import MobileVideoViewer from "../MobileVideoViewer/MobileVideoViewer";
-import Image from "../Image/Image";
-import Audio from "../Audio/Audio";
+
+import VideoViewer from "../content/Video/Video";
+import Image from "../content/Image/Image";
+import Audio from "../content/Audio/Audio";
 
 import LinkWithPreview from "../LinkWithPreview/LinkWithPreview";
 import LinkWithoutPreview from "../LinkWithoutPreview/LinkWithoutPreview";
 
 import vars from '../../constants/vars.js';
 
-const renderMemes = ({ index, url, format, muted, autoplay, loaded, background }) => {
+const renderMemes = ({ key, url, format, muted, autoplay, loaded }) => {
   let meme = null;
   if (vars.formats.VIDEO.includes(format)) {
-    meme = <VideoViewer memeUrl={url} indx={index} url={url} format={format} muted={muted} autoplay={autoplay} loaded={loaded} background={background} />
+    meme = <VideoViewer
+      memeUrl={url}
+      key={key}
+      url={url}
+      format={format}
+      muted={muted}
+      autoplay={autoplay}
+      loaded={loaded} />
   } else if (vars.formats.PHOTO.includes(format)) {
-    meme = Image(url, index);
+    meme = Image(url, key);
   } else if (vars.formats.AUDIO.includes(format)) {
-    meme = Audio(url, format, index);
+    meme = Audio(url, format, key);
   } else {
     meme = "incompatible";
   }
@@ -84,14 +92,21 @@ const renderMemesv2 = ({ currentIndex, renderCount = 3, memes, descriptions, for
   return memesToDisplay
 }
 
-const renderMemesMobile = ({ index, url, format, muted, autoplay, loaded, background }) => {
+const renderMemesMobile = ({ key, url, format, muted, autoplay, loaded }) => {
   let meme = null;
   if (vars.formats.VIDEO.includes(format)) {
-    meme = <MobileVideoViewer memeUrl={url} indx={index} url={url} format={format} muted={muted} autoplay={autoplay} loaded={loaded} background={background} />
+    meme = <MobileVideoViewer
+      memeUrl={url}
+      key={key}
+      url={url}
+      format={format}
+      muted={muted}
+      autoplay={autoplay}
+      loaded={loaded} />
   } else if (vars.formats.PHOTO.includes(format)) {
-    meme = Image(url, index);
+    meme = Image(url, key);
   } else if (vars.formats.AUDIO.includes(format)) {
-    meme = Audio(url, format, index);
+    meme = Audio(url, format, key);
   } else {
     meme = "incompatible";
   }

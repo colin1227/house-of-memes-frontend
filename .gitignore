@@ -13,9 +13,6 @@
 
 # misc
 
-Landing.js
-Landing.scss
-
 .eslintcache
 .DS_Store
 .env.local
@@ -23,6 +20,9 @@ Landing.scss
 .env.development.local
 .env.test.local
 .env.production.local
+
+./cplate/*
+./src/components/TestVideoViewer/*
 
 npm-debug.log*
 yarn-debug.log*
