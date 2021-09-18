@@ -16,7 +16,7 @@ import TableRow from '@material-ui/core/TableRow';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PublishIcon from '@material-ui/icons/Publish';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import Menu from '@material-ui/core/Menu';
@@ -27,7 +27,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import vars from '../../constants/vars.js';
-import loadingSVG from "../../components/loadingSVG/loadingSVG";
+import LoadingSVG from "../../components/loadingSVG/loadingSVG";
 import { signOut } from "../../helper/index";
 import { TopNav } from "../../components/index";
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
@@ -136,12 +136,12 @@ const Groups = () => {
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
-    {
-      key: 3,
-      text: "Settings",
-      iconImg: <SettingsIcon />,
-      onClick: () => history.push('/settings')
-    },
+    // {
+    //   key: 3,
+    //   text: "Settings",
+    //   iconImg: <SettingsIcon />,
+    //   onClick: () => history.push('/settings')
+    // },
     {
       key: 4,
       text: "Sign Out",
@@ -246,7 +246,7 @@ const Groups = () => {
   const groupOptions = () => {
     return (
       <StyledMenu
-        className="quicksand rm-chair"
+        className="default-font rm-chair"
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -254,7 +254,7 @@ const Groups = () => {
         onClose={handleClose}
       >
         <StyledMenuItem
-          className="quicksand"
+          className="default-font"
           key={0}
           selected={0 === selectedIndex}
           onClick={(event) => handleMenuItemClick(event, 0)}
@@ -275,7 +275,7 @@ const Groups = () => {
               <PublicIcon fontSize="small" />
             </ListItemIcon>
             <ListItemText
-              className="quicksand"
+              className="default-font"
               primary="Public" />
           </StyledMenuItem>
           :
@@ -292,7 +292,7 @@ const Groups = () => {
                 <LockIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText
-                className="quicksand"
+                className="default-font"
                 primary="Private" />
             </StyledMenuItem>
           :
@@ -304,7 +304,7 @@ const Groups = () => {
 
   return (
     <div
-      className="groups-container"
+      className="Groups-container"
     >
       <TopNav variant='contained' buttons={token ? myAccount : signIn} />
       <Modal
@@ -321,17 +321,17 @@ const Groups = () => {
         <Fade in={Boolean(isCreatingGroup)}>
           <div className={classes1.paper + " create-group-modal"}>
             <h2
-              className="quicksand"
+              className="default-font"
               id="transition-modal-title"
             >Create sumthin</h2>
             <p
-              className="quicksand"
+              className="default-font"
               id="transition-modal-description"
             >Form here including following:</p>
             <ul>
-              <li className="quicksand">Group Name</li>
-              <li className="quicksand">private or public</li>
-              <li className="quicksand">who can post</li>
+              <li className="default-font">Group Name</li>
+              <li className="default-font">private or public</li>
+              <li className="default-font">who can post</li>
             </ul>
             <div
               className="create-group-button-container"
@@ -364,7 +364,7 @@ const Groups = () => {
                 className="groups-dropdown-button"
               >
                 <ListItemText
-                  className="quicksand"
+                  className="default-font"
                   primary={availableGroups[selectedIndex]}
                 />
               </ListItem>
@@ -391,13 +391,13 @@ const Groups = () => {
             <div className="grided-groups">
               <TableContainer className="f" component={Paper}>
                 <Table
-                  className={`${ classes.table} quicksand`}
+                  className={`${ classes.table} default-font`}
                   size="small"
                   aria-label="a dense table">
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <b className="quicksand bold">{availableGroups[selectedIndex]}</b>
+                        <b className="default-font bold">{availableGroups[selectedIndex]}</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -410,7 +410,7 @@ const Groups = () => {
                     ).map((name) => (
                       <TableRow key={name}>
                         <TableCell
-                          className="quicksand row-fade"
+                          className="default-font row-fade"
                           onClick={() => history.push(`/groups/${name.toLowerCase().split(" ").join("_")}`)}
                           component="th"
                           scope="row">
@@ -422,7 +422,7 @@ const Groups = () => {
                     selectedIndex === 0 && !allGroups.length ?
                       <TableRow key={-1}>
                         <TableCell
-                          className="quicksand center">
+                          className="default-font center-text">
                           <b>Search sumthin'...</b>
                         </TableCell>
                       </TableRow>
@@ -432,7 +432,7 @@ const Groups = () => {
                       searchTermChanged ?
                       <TableRow key={-1}>
                         <TableCell
-                          className="quicksand center fader">
+                          className="default-font center-text fading-text">
                           Searching...
                         </TableCell>
                       </TableRow>
@@ -444,7 +444,7 @@ const Groups = () => {
               </TableContainer>
             </div>
           :
-            loadingSVG()
+            <LoadingSVG />
         }
       </div>
     </div>

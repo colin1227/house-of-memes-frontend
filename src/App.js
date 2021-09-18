@@ -15,10 +15,10 @@ import {
   Upload,
   MobileViewer,
   Viewer,
-  Groups,
-  GroupPage,
-  TestContainer,
-  TestUserPage
+  // Groups,
+  // GroupPage,
+  // TestContainer,
+  // TestUserPage
 } from "./Containers/index";
 import "./App.scss";
 
@@ -34,22 +34,22 @@ const App = () => {
       className="App">
         <HashRouter>
           <Switch>
-            <Redirect exact from="/" to="/test-page/" />
+            <Redirect exact from="/" to="/memes/" />
             
             {/* Memes */}
             <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
 
             {/* Playlists */}
-            <Route exact path="/groups" component={() => <Groups />} />
+            {/* <Route exact path="/groups" component={() => <Groups />} />
             <Route exact path="/groups/:group" component={() => <GroupPage /> } />
-            
+             */}
             {/* Experimental */}
-            <Route exact path="/test-page" component={() => <TestContainer />} />
+            {/* <Route exact path="/test-page" component={() => <TestContainer />} />
             <Route exact path="/test-user" component={() => <TestUserPage />} />
-
+ */}
             {/* Deactivate user */}
-            <Route exact path="/settings" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />   
+            {/* <Route exact path="/settings" component={() => <div className="undone">This page is on my ToDo list if you are seeing this but thanks for the interest :)</div>} />    */}
 
             {/* Users */}
             <Route exact path="/users/sign-in" component={ () => <SignInForm />} />

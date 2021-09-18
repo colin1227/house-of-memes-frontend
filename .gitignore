@@ -22,6 +22,7 @@
 .env.production.local
 
 ./cplate/*
+./src/components/TestVideoViewer/*
 
 npm-debug.log*
 yarn-debug.log*

@@ -1,8 +1,6 @@
-@import '../../stylesheets/variables.scss';
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
 
-.svgLoad {
-  enable-background: new 0 0 50 50;
-}
 
 .viewer {
   display: inline-block;
@@ -219,15 +217,4 @@
       box-sizing: border-box;
     }
   }
-}
-
-.space-taker-uper {
-  width: 100%;
-  height: auto;
-  margin: 0;
-}
-
-.icon-toggle {
-  height: auto;
-  width: auto;
 }

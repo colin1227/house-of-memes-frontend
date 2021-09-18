@@ -1,7 +1,28 @@
-.groups-container {
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
+
+.Groups-container {
   height: 100%;
   width: 100%;
   top: 0;
+
+  .create-group-modal {
+    text-align: center;
+    height: auto;
+    width: 50%;
+    margin: auto;
+    margin-top: 15% !important;
+  
+    ul {
+      text-align: center;
+    }
+  
+    .create-group-button-container {
+      display: flex;
+      justify-content: space-around;
+      margin: auto;
+    }
+  }
 
   .groups {
     margin: 0 auto;
@@ -70,69 +91,20 @@
       height: auto;
       width: auto;
       font-family: Quicksand;
+
+      .fading-text {
+        animation-name: text-back-to-grey;
+        animation-duration: 0.75s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
     }
   }
-}
 
-.create-group-modal {
-  text-align: center;
-  height: auto;
-  width: 50%;
-  margin: auto;
-  margin-top: 15% !important;
-
-  ul {
-    text-align: center;
-  }
-
-  .create-group-button-container {
-    display: flex;
-    justify-content: space-around;
-    margin: auto;
-  }
-}
-
-.quicksand {
-  font-family: Quicksand;
-}
-
-.bold {
-  font-weight: 900 !important;
-}
-
-.center {
-  text-align: center !important;
-  color: grey;
-}
-
-.fader {
-  animation-name: fading;
-  animation-duration: 0.75s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-.row-fade:hover {
-  animation-name: backgroundFade;
-  animation-duration: 0.75s;
-  animation-direction: alternate;
-  background-color: grey;
-}
-
-@keyframes backgroundFade {
-  from {
-    background-color: white;
-  }
-  to {
+  .row-fade:hover {
+    animation-name: Background-white-to-grey;
+    animation-duration: 0.75s;
+    animation-direction: alternate;
     background-color: grey;
-  }
-}
-
-@keyframes fading {
-  from {
-    color: black;
-  }
-  to {
-    color: grey;
   }
 }

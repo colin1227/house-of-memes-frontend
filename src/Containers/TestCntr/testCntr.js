@@ -13,9 +13,9 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import PublishIcon from '@material-ui/icons/Publish';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
+// import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import TestVideoviewer from '../../components/TestVideoViewer/testVideoViewer';
 // removeMe
 
@@ -106,12 +106,12 @@ const TestContainer = () => {
       iconImg: <VpnKeyIcon />,
       onClick: () => history.push({ pathname: "/users/sign-in", state: { lastUrl: window.location.pathname } })
     },
-    {
-      key: 1,
-      text: "Groups",
-      iconImg: <PeopleOutlineIcon />,
-      onClick: () => history.push("/groups")
-    }
+    // {
+    //   key: 1,
+    //   text: "Groups",
+    //   iconImg: <PeopleOutlineIcon />,
+    //   onClick: () => history.push("/groups")
+    // }
   ];
   const myAccount = [
     {
@@ -120,24 +120,24 @@ const TestContainer = () => {
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },
-    {
-      key: 1,
-      text: "Groups",
-      iconImg: <PeopleOutlineIcon />,
-      onClick: () => history.push("/groups")
-    },
+    // {
+    //   key: 1,
+    //   text: "Groups",
+    //   iconImg: <PeopleOutlineIcon />,
+    //   onClick: () => history.push("/groups")
+    // },
     {
       key: 2,
       text: "Upload",
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
-    {
-      key: 3,
-      text: "Settings",
-      iconImg: <SettingsIcon />,
-      onClick: () => history.push('/settings')
-    },
+    // {
+    //   key: 3,
+    //   text: "Settings",
+    //   iconImg: <SettingsIcon />,
+    //   onClick: () => history.push('/settings')
+    // },
     {
       key: 4,
       text: "Sign Out",

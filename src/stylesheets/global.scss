@@ -1,5 +1,16 @@
 @import "./variables.scss";
 
+// element change default
+// TODO:
+// - make a display flex div template
+
+textarea {
+  resize: none;
+}
+
+// text
+
+// color
 .black {
   background-color: #000;
 }
@@ -12,7 +23,110 @@
   color: grey;
 }
 
-.default-font {
-  font-family: 'Quicksand';
-  color: white;
+.error-text {
+  color: orangered;
+}
+
+
+
+.center-text {
+  text-align: center !important;
+  color: grey;
+}
+
+.bold {
+  font-weight: 900 !important;
+}
+
+.space-taker-uper {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+
+// animations
+// todo: seperate file to import
+
+@keyframes Background-white-to-grey {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: grey;
+  }
+}
+
+@keyframes text-back-to-grey {
+  from {
+    color: black;
+  }
+  to {
+    color: grey;
+  }
+}
+
+@keyframes fade-out-to-left-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0,0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+}
+
+@keyframes fade-out-to-right-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+}
+
+@keyframes fade-into-center-from-right {
+  0% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fade-into-center-from-left {
+  0% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+  100% {
+    opacity: 1; 
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }

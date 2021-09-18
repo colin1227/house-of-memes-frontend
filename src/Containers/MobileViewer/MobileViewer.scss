@@ -1,10 +1,7 @@
-@import '../../stylesheets/variables.scss';
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
 
-.svgLoad {
-  enable-background: new 0 0 50 50;
-}
-
-.mobile-viewer {
+.Mobile-viewer {
   display: inline-block;
   position: relative;
   height: 100%;
@@ -35,15 +32,4 @@
       background-color: black;
     }
   }
-}
-
-.space-taker-uper {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-.icon-toggle {
-  height: auto;
-  width: auto;
 }

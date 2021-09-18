@@ -1,22 +1,7 @@
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
+
 .loader {
   display: flex;
   align-items: center;
-}
-
-.fade-away {
-  opacity: 0;
-  z-index: -1;
-  animation: fadeAway 1s 1;
-}
-
-@keyframes fadeAway {
-  0% {
-    opacity: 1;
-    z-index: 1;
-  }
-
-  100% {
-    opacity: 0;
-    z-index: -1;
-  }
 }

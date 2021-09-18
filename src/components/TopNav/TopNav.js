@@ -1,13 +1,32 @@
 import { useState } from 'react';
+
+
 import "./TopNav.scss";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 
-import { Button } from '@material-ui/core';
+import { Button, Modal } from '@material-ui/core';
+
+import { signOut } from '../../helper/index';
+
+const useStyles = makeStyles(() => ({
+  modal: {
+    position: 'absolute',
+    height: "fit-content",
+    width: 400,
+    backgroundColor: "rgb(255, 255, 255)",
+    border: '2px solid #000',
+    margin: 'auto',
+    padding: '3%',
+    color: "white",
+    fontFamily: 'Quicksand',
+    outline: 0
+  },
+}));
 
 const StyledMenu = withStyles({
   paper: {
@@ -41,8 +60,10 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 const TopNav = ({ muteButton, buttons }) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [openState, changeOpenState] = useState(false);
+  const [modalOpen, changeModalState] = useState(false);
   const handleOpen = (event) => {
     changeOpenState(true);
     setAnchorEl(event.currentTarget);
@@ -52,10 +73,48 @@ const TopNav = ({ muteButton, buttons }) => {
     changeOpenState(false);
     setAnchorEl(false);
   };
+
+  const openModal = () => {
+    changeModalState(true);
+  }
+
+  const confirmSignOut = () => {
+    signOut();
+    changeModalState(false);
+    window.location.reload(false);
+  }
+
+  const confirmCancel = () => {
+    changeModalState(false);
+  }
+
   return (
     <div 
-      className="topNavBar"
+      className="Top-nav-bar"
     >
+      <Modal
+        open={modalOpen}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        className={classes.modal}
+      >
+        <div>
+          <h2>
+            Sign Out?
+          </h2>
+          <Button
+            primary
+            onClick={() => confirmSignOut()}>
+            Confirm
+          </Button>
+          <Button
+            secondary
+            onClick={() => confirmCancel()}
+            >
+            Cancel
+          </Button>
+        </div>
+      </Modal>
       {muteButton}
       <Button
         key={-3}
@@ -82,8 +141,7 @@ const TopNav = ({ muteButton, buttons }) => {
         return (
           <StyledMenuItem
             key={btn.key}
-            
-            onClick={btn.onClick}>
+            onClick={btn.text === "Sign Out" ? () => openModal() : btn.onClick}>
             <ListItemIcon>
               {btn.iconImg}
             </ListItemIcon>

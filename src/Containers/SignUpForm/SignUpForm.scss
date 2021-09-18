@@ -1,8 +1,6 @@
 @import '../../stylesheets/variables.scss';
+@import '../../stylesheets/global.scss';
 
-.error {
-  color: red;
-}
 
 .big-label {
   color: rgb(63, 58, 58);
@@ -13,6 +11,13 @@
   font-size: xx-large;
 }
 
+.margin-auto {
+  opacity: 0;
+  margin: auto;
+  position: absolute;
+  z-index: 2;
+}
+
 /* Style the container */
 .sign-up-page {
   width: 100%;
@@ -20,6 +25,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .sign-in {
+    color: orange;
+    text-decoration: underline;
+    font-family: 'Quicksand';
+    font-weight: 900;
+    margin-bottom: 5%;
+  }
   .form-parent {
     max-width: 45%;
     width: auto;
@@ -88,6 +101,35 @@
     height: auto;
     width: 100%;
   }
+}
+
+// animate in from left
+.on-render {
+  opacity: 1;
+  animation-name: fade-into-center-from-left;
+  animation-duration: 1.5s;
+  animation-iteration-count: 1;
+}
+// animate out to left
+.on-back-button {
+  opacity: 0;
+  animation-name: fade-out-to-left-from-center;
+  animation-duration: .75s;
+  animation-iteration-count: 1;
+}
+// animate out to right
+.on-submit-button {
+  animation-name: fade-out-to-right-from-center;
+  animation-duration: .5s;
+  animation-iteration-count: 1;
+  opacity: 0;
+}
+// animate in from right
+.if-failed-login {
+  opacity: 1;
+  animation-name: fade-into-center-from-right;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
 }
 
 @media(max-width: 600px) {

@@ -1,7 +1,9 @@
 @import './../../stylesheets/variables.scss';
 @import './../../stylesheets/global.scss';
 
-.Upload-web-page {
+
+
+.Upload-Web-Page {
   font-family: Quicksand;
   display: flex;
   justify-content: center;
@@ -9,6 +11,7 @@
   height: 100%;
   width: 100%;
 
+  // is this the modal shown when submitting?
   .upload-modal {
     height: auto;
     width: 50%;
@@ -31,6 +34,7 @@
     }
   }
 
+  // needs work for new template
   .meme-forum {
     font-family: Quicksand;
     height: auto;
@@ -38,7 +42,6 @@
     border-radius: 6.5%;
     overflow: hidden;
     box-shadow: 10px 5px 5px black;
-    animation: fadeup .5s .5s ease both;
     transform: translateY(20px);
     opacity: 0;
     
@@ -57,21 +60,12 @@
         font-size: 40px;
         margin: 0;
         padding: 50px 0;
-        .load {
-          display: inline-block;
-          font-weight: 100;
-          margin-left: -8px;
-          transform: translateX(-20px);
-          opacity: 0;
-          animation: faderight .5s .65s ease both;
-        }
       }
     }
 
     .upload-files {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       height: 100%;
       background-color: white;
       padding-top: 2.5%;
@@ -97,19 +91,6 @@
           b,
           a {
             color: orangered;
-          }
-        }
-        &.active {
-          border: dashed 2px $blue;
-          i {
-            box-shadow: 0 0 0 -3px #fff,
-            0 0 0 lightgray,
-            0 0 0 -3px #fff,
-            0 0 0 lightgray;
-            animation: file .5s ease both;
-          }
-          .pointer-none{
-            pointer-events: none;
           }
         }
       }
@@ -141,19 +122,6 @@
           b,
           a {
             color: orangered;
-          }
-        }
-        &.active {
-          border: dashed 2px $blue;
-          i {
-            box-shadow: 0 0 0 -3px #fff,
-            0 0 0 lightgray,
-            0 0 0 -3px #fff,
-            0 0 0 lightgray;
-            animation: file .5s ease both;
-          }
-          .pointer-none{
-            pointer-events: none;
           }
         }
         .mediaUrl {
@@ -216,7 +184,6 @@
               align-items: center;
               flex-direction: column;
               opacity: 0;
-              // animation: fade .35s ease both;
               .name {
                 font-size: 12px;
                 white-space: nowrap;
@@ -224,15 +191,6 @@
                 overflow: hidden;
                 width: auto;
                 text-align: left;
-              }
-              .progress {
-                width: 175px;
-                height: 5px;
-                border: solid 1px lightgray;
-                background: linear-gradient(to left, rgba( 0,172,193, .2), rgba(84,58,183, .8)) no-repeat;          background-size: 100% 100%;
-                &.active {
-                  animation: progress 30s linear;
-                }
               }
       
               .done {
@@ -311,6 +269,7 @@
     }
   }
 
+  // needs work for new template
   .meme-details {
     position: relative;
     display: flex;
@@ -348,6 +307,7 @@
     }
   }
   
+  // needs work for new template
   .buttons-container {
     display: flex;
     align-items: center;
@@ -411,55 +371,5 @@
 
   .cancel, .sendit {
     border-radius: 20%;
-  }
-}
-
-
-// aoxne
-@keyframes file {
-  50% {
-    box-shadow: -8px 8px 0 -3px #fff,
-    -8px 8px 0 lightgray,
-    -8px 8px 0 -3px #fff,
-    -8px 8px 0 lightgray;
-  }
-  100% {
-    box-shadow: -8px 8px 0 -3px #fff,
-    -8px 8px 0 lightgray,
-    -16px 16px 0 -3px #fff,
-    -16px 16px 0 lightgray;
-  }
-}
-
-// aoxne
-@keyframes progress {
-  from {
-    background-size: 0 100%;
-  }
-  to {
-    background-size: 100% 100%;
-  }
-}
-
-// aoxne
-@keyframes fadeup {
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-// aoxne
-@keyframes faderight {
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-// aoxne
-@keyframes fade {
-  to {
-    opacity: 1;
   }
 }

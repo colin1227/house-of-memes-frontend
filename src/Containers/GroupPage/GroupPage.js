@@ -17,7 +17,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import PublishIcon from '@material-ui/icons/Publish';
-import SettingsIcon from '@material-ui/icons/Settings';
+// import SettingsIcon from '@material-ui/icons/Settings';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
@@ -93,12 +93,12 @@ const GroupPage = (props) => {
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
-    {
-      key: 4,
-      text: "Settings",
-      iconImg: <SettingsIcon />,
-      onClick: () => history.push('/settings')
-    },
+    // {
+    //   key: 4,
+    //   text: "Settings",
+    //   iconImg: <SettingsIcon />,
+    //   onClick: () => history.push('/settings')
+    // },
     {
       key: 5,
       text: "Sign Out",
@@ -177,7 +177,7 @@ useEffect(() => {
 
 
   return (
-    <div className="group-page-container">
+    <div className="Group-page-container">
       <TopNav muteButton={muteButton} buttons={ token ? myAccount : signIn } />
       <div className="group-container">
         <div className="white-space-height" />

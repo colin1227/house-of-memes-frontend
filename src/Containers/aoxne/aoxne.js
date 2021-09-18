@@ -12,7 +12,7 @@ import { Button } from '@material-ui/core';
 
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import { LoadingSVG } from '../../components/index';
+import { LoadingSVG } from '../../components';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -216,7 +216,7 @@ const Upload = (props) => {
       })
 
       if (desc) {
-        formData.append("desc", desc);
+        formData.append("description", desc);
       }
 
       const memeSaved = await axios.request({
@@ -267,7 +267,7 @@ const Upload = (props) => {
         requestData.append('groups', groups);
       }
       if (desc) {
-        requestData.append('desc', desc);
+        requestData.append('description', desc);
       }
 
       const memeSaved = await axios.request({
@@ -303,7 +303,7 @@ const Upload = (props) => {
   }
 
   return (
-    <div className='Upload-web-page'>
+    <div className='Upload-Web-Page'>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -410,7 +410,7 @@ const Upload = (props) => {
                   return (
                     <div key={i} className={`files file--${i}`}>
                       <div className="name"><span>{file.name}</span></div>
-                      {/* <div className="progress active"/> */}
+                      <div className="progress active"/>
                       <div className="done">
                         <a href="nowhere" target="_blank">
                           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 1000 1000">
@@ -470,7 +470,7 @@ const Upload = (props) => {
               rows="5"
               name='desc'
               onChange={(e) => handleDesc(e.target.value)}
-              placeholder='Description(optional)'
+              placeholder='Description?'
             />
           </div>
         </div>

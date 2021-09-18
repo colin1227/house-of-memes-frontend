@@ -1,8 +1,12 @@
-.bottomNav {
+@import './../../stylesheets/variables.scss';
+@import './../../stylesheets/global.scss';
+
+.Bottom-Nav {
   width: 100%;
   height: auto;
   display: flex;
   align-items: flex-end;
+  margin: 0 auto;
 
   .direct {
     height: 100%;
@@ -31,7 +35,7 @@
   .sign-in-buttons, .sign-up-buttons {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     margin: 0 auto;
   }
