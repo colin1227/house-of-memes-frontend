@@ -74,7 +74,7 @@ const Upload = (props) => {
   const handleImportgroups = useCallback(async() => {
     const results = await axios.request({
       method: 'GET',
-      url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("cryptoMiner")}`,
+      url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("HoMCookie")}`,
       headers: { 
         "Content-Type": "multipart/form-data"
       }
@@ -100,7 +100,7 @@ const Upload = (props) => {
   }, [firstRender, handleImportgroups]);
 
   useEffect(() => {
-    if (!myStorage.getItem("cryptoMiner")) {
+    if (!myStorage.getItem("HoMCookie")) {
       history.push({
         pathname: "/users/sign-in",
         state: { lastUrl: window.location.pathname }
@@ -221,7 +221,7 @@ const Upload = (props) => {
 
       const memeSaved = await axios.request({
         method: 'POST',
-        url: `${vars.apiURL}/memes/upload-meme?token=${myStorage.getItem("cryptoMiner")}`,
+        url: `${vars.apiURL}/memes/upload-meme?token=${myStorage.getItem("HoMCookie")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },
@@ -272,7 +272,7 @@ const Upload = (props) => {
 
       const memeSaved = await axios.request({
         method: 'POST',
-        url: `${vars.apiURL}/memes/upload-link?token=${myStorage.getItem("cryptoMiner")}`,
+        url: `${vars.apiURL}/memes/upload-link?token=${myStorage.getItem("HoMCookie")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },

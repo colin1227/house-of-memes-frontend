@@ -34,7 +34,7 @@ const Viewer = (props) => {
   const [descriptions, changeDescription] = useState([]);
   const [initalMeme, isInitial] = useState(true);
   const [loaded, loadVid] = useState(false);
-  const [token] = useState(myStorage.getItem('cryptoMiner'));
+  const [token] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
   const [viewIndex, changeIndex] = useState(0);
   const [muted, toggleMute] = useState(true);
@@ -53,7 +53,7 @@ const Viewer = (props) => {
           await instance.get(`${vars.apiURL}/memes/imports/${n}${token ?
             `?token=${token}` : ''}`);
         if (result.data.token){
-          myStorage.setItem('cryptoMiner', result.data.token);
+          myStorage.setItem('HoMCookie', result.data.token);
         } 
         changeMemes([
           ...memeUrls, 

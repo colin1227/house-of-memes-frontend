@@ -47,7 +47,7 @@ const GroupPage = (props) => {
   const [lastMouseOverId, changeLastMouseOverId] = useState('');
   const [muted, toggleMute] = useState(true);
   const [loaded, loadVid] = useState(false);
-  const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [token, changeLogInStatus] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
   const [once, makeOnce] = useState(true);
   // TODO: useState instead
@@ -111,7 +111,7 @@ const GroupPage = (props) => {
 const handleImportMemes = useCallback(async(group) => {
   try {
       const result = await instance.get(`${vars.apiURL}/groups/${group}${token ? `?token=${token}` : ''}`);
-      if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
+      if (result.data.token) myStorage.setItem('HoMCookie', result.data.token);
 
       changeGroupName(result.data.groupName);
 

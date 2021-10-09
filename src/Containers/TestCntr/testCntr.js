@@ -23,7 +23,7 @@ const myStorage = window.localStorage;
 
 const TestContainer = () => {  
   const history = useHistory();
-  const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [token, changeLogInStatus] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
 
   // Button Changes

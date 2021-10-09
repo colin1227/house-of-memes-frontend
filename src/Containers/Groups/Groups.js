@@ -150,7 +150,7 @@ const Groups = () => {
     }
   ];
 
-  const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [token, changeLogInStatus] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
 
   const [availableGroups, changeAvailibleGroups] = useState(['All Groups']);

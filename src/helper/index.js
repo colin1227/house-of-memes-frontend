@@ -3,7 +3,7 @@ const myStorage = window.localStorage;
 
 const signOut = () => {
   myStorage.removeItem('loggedIn');
-  myStorage.removeItem('cryptoMiner');
+  myStorage.removeItem('HoMCookie');
 
 }
 
@@ -14,7 +14,7 @@ const reducer = (state, action) => {
     case 'decrement':
       return {count: state.count - 1};
     default:
-      throw new Error('shit');
+      throw new Error('can not reduce');
   }
 }
 

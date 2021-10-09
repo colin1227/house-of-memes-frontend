@@ -1,26 +1,153 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-use-before-define */
+import './aoxne.scss';
 
 import { useState, useEffect, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
-import Modal from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+
 import { allowedFormats as af, checkUrl } from "../../helper/index";
 import vars from '../../constants/vars.js';
-import axios from 'axios';
-import { Button } from '@material-ui/core';
-
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import { LoadingSVG } from '../../components';
 
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
+
+import { Button } from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Modal from '@material-ui/core/Modal';
+import { makeStyles } from '@material-ui/core/styles';
+
+import PublishIcon from '@material-ui/icons/Publish';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 
-import './Upload.scss';
-
 const myStorage = window.localStorage;
 const allowedFormats = af();
+
+
+const images = [
+  {
+    url: '',
+    title: 'Breakfast',
+    width: '40%',
+  },
+  {
+    url: '',
+    title: 'Burgers',
+    width: '30%',
+  },
+  {
+    url: '',
+    title: 'Camera',
+    width: '30%',
+  },
+];
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  position: 'relative',
+  height: 200,
+  [theme.breakpoints.down('sm')]: {
+    width: '100% !important', // Overrides inline-style
+    height: 100,
+  },
+  '&:hover, &.Mui-focusVisible': {
+    zIndex: 1,
+    '& .MuiImageBackdrop-root': {
+      opacity: 0.15,
+    },
+    '& .MuiImageMarked-root': {
+      opacity: 0,
+    },
+    '& .MuiTypography-root': {
+      border: '4px solid currentColor',
+    },
+  },
+}));
+
+const ImageSrc = styled('span')({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center 40%',
+});
+
+const Image = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: theme.palette.common.white,
+}));
+
+const ImageBackdrop = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundColor: theme.palette.common.black,
+  opacity: 0.4,
+  transition: theme.transitions.create('opacity'),
+}));
+
+const ImageMarked = styled('span')(({ theme }) => ({
+  height: 3,
+  width: 18,
+  backgroundColor: theme.palette.common.white,
+  position: 'absolute',
+  bottom: -2,
+  left: 'calc(50% - 9px)',
+  transition: theme.transitions.create('opacity'),
+}));
+
+function ButtonBases() {
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+      {images.map((image) => (
+        <ImageButton
+          focusRipple
+          key={image.title}
+          style={{
+            width: image.width,
+          }}
+        >
+          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+          <ImageBackdrop className="MuiImageBackdrop-root" />
+          <Image>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              color="inherit"
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+              }}
+            >
+              {image.title}
+              <ImageMarked className="MuiImageMarked-root" />
+            </Typography>
+          </Image>
+        </ImageButton>
+      ))}
+    </Box>
+  );
+}
+
+
+
 
 const useStyles0 = makeStyles((theme) => ({
   root: {
@@ -74,7 +201,7 @@ const Upload = (props) => {
   const handleImportgroups = useCallback(async() => {
     const results = await axios.request({
       method: 'GET',
-      url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("cryptoMiner")}`,
+      url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("HoMCookie")}`,
       headers: { 
         "Content-Type": "multipart/form-data"
       }
@@ -100,7 +227,7 @@ const Upload = (props) => {
   }, [firstRender, handleImportgroups]);
 
   useEffect(() => {
-    if (!myStorage.getItem("cryptoMiner")) {
+    if (!myStorage.getItem("HoMCookie")) {
       history.push({
         pathname: "/users/sign-in",
         state: { lastUrl: window.location.pathname }
@@ -221,7 +348,7 @@ const Upload = (props) => {
 
       const memeSaved = await axios.request({
         method: 'POST',
-        url: `${vars.apiURL}/memes/upload-meme?token=${myStorage.getItem("cryptoMiner")}`,
+        url: `${vars.apiURL}/memes/upload-meme?token=${myStorage.getItem("HoMCookie")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },
@@ -272,7 +399,7 @@ const Upload = (props) => {
 
       const memeSaved = await axios.request({
         method: 'POST',
-        url: `${vars.apiURL}/memes/upload-link?token=${myStorage.getItem("cryptoMiner")}`,
+        url: `${vars.apiURL}/memes/upload-link?token=${myStorage.getItem("HoMCookie")}`,
         headers: { 
           "Content-Type": "multipart/form-data"
         },
@@ -325,10 +452,7 @@ const Upload = (props) => {
       </Modal>
       <form className="meme-forum" onSubmit={(e) => submittens(e)}>
         <header className="upload-head">
-          <p>
-            <i className="fa fa-cloud-upload" aria-hidden="true"/>
-            <span className="load">Upload</span>
-          </p>
+          <h1>Upload <PublishIcon /></h1>
         </header>
         <div className="upload-files">
           {
@@ -339,7 +463,7 @@ const Upload = (props) => {
                   id="-9"
                   type="text"
                   onChange={(e) => changeUrl(e.target.value)}
-                  className='mediaUrl'
+                  className='media-url'
                   placeholder="enter url"
                   label="link url here"
                   required
@@ -391,7 +515,7 @@ const Upload = (props) => {
                 }
               </div>
             :
-              <div className={`file-prompt${memes.length >= 1 ? ' hidden' : ''}`} id="drop">
+              <div className={`file-prompt ${memes.length >= 1 ? 'hidden' : ''}`} id="drop">
                 <div>
                   <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
                   <p className="pointer-none"><a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">browse</a> to begin the upload</p>
@@ -421,7 +545,7 @@ const Upload = (props) => {
                     </div>
                     )})}
                 </div>
-                <button onClick={(e) => handleFind(e)}  className={`importar${memes.length >= 1 ? ' active' : ''}`}>UPDATE FILES</button>
+                <button onClick={(e) => handleFind(e)}  className={`import-dr ${memes.length >= 1 ? 'active' : ''}`}>UPDATE FILES</button>
               </footer>
             :
               <span className="upload-display upload-error">{error}</span>
