@@ -84,7 +84,7 @@ const SignUpForm = () => {
     if (result.status === '201') {
       myStorage.setItem('loggedIn', result.data.username);
       history.push('/memes/');
-      myStorage.setItem('cryptoMiner', result.data.token);
+      myStorage.setItem('HoMCookie', result.data.token);
     } else {
       changeError('something didn\'t work');
       changeAnimationClass('if-failed-login');

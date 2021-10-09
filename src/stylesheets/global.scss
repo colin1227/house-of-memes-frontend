@@ -66,6 +66,8 @@ textarea {
   }
 }
 
+
+// back button - sign in page
 @keyframes fade-out-to-left-from-center {
   0% {
     opacity: 1;
@@ -77,6 +79,8 @@ textarea {
   }
 }
 
+
+// sign in request
 @keyframes fade-out-to-right-from-center {
   0% {
     opacity: 1;
@@ -89,6 +93,7 @@ textarea {
   }
 }
 
+// on failed login - sign-in/sign-up
 @keyframes fade-into-center-from-right {
   0% {
     opacity: 0;
@@ -100,6 +105,7 @@ textarea {
   }
 }
 
+// on render - sign-in/sign-up
 @keyframes fade-into-center-from-left {
   0% {
     opacity: 0;

@@ -36,7 +36,7 @@ const Viewer = (props) => {
   const [initalMeme, isInitial] = useState(true);
   const [muted, toggleMute] = useState(true);
   const [loaded, loadVid] = useState(false);
-  const [token, changeLogInStatus] = useState(myStorage.getItem('cryptoMiner'));
+  const [token, changeLogInStatus] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
   // TODO: useState instead
   const [viewIndex, changeIndex] = useReducer(reducer, { count: 0 });
@@ -58,7 +58,7 @@ const Viewer = (props) => {
   const handleImportMemes = useCallback(async(n=2) => {
     try {
         const result = await instance.get(`${vars.apiURL}/memes/imports/${n}${token ? `?token=${token}` : ''}`);
-        if (result.data.token) myStorage.setItem('cryptoMiner', result.data.token);
+        if (result.data.token) myStorage.setItem('HoMCookie', result.data.token);
         changeMemes([
           ...memeUrls, 
           ...result.data.memeExport.names.map((name) => `${vars.apiURL}/memes/${name}`)

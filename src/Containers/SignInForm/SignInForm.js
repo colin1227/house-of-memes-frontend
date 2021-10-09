@@ -14,10 +14,7 @@ const BackButton = styled(Button)({
   color: 'white'
 });
 
-const instance = axios.create({
-  proxyHeaders: false,
-  credentials: false
-});
+const passwordText = <li><b>Password</b>'s are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in English</li>;
 
 const myStorage = window.localStorage;
 
@@ -51,61 +48,87 @@ const SignInForm = (props) => {
     e.preventDefault();
     if (username.length < 3) {
       changeError('username must be at a minimum 3 characters');
+    } else if (username.split().filter(character => {
+          return character !== character.toLowerCase();
+        }).length !== 0) {
+      changeError('username must be lower case');
     } else if (password.length < 8) {
-      changeError('passwords must be at min 8 characters');
-    }
-    changeAnimationClass('on-submit-button');
+      changeError('passwords must be a minimum of 8 characters');
+    } else {
+      changeAnimationClass('on-submit-button');
 
-    let reqBody = {
-      username,
-      password
-    };
-    const result = await instance.post(`${vars.apiURL}/users/sign-in`, reqBody);
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("password", password);
 
-    setTimeout(() => {
-      console.log(result.status)
-      if (result.status === 200) {
-        myStorage.setItem('loggedIn', result.data.username);
-        myStorage.setItem('cryptoMiner', result.data.token);
-        history.push({ pathname:
-          (location &&
-          location.state &&
-          location.state.lastUrl)
-            ||
-          '/memes' });
-      } else {
+      try {
+        const result = await axios({
+          method: 'POST',
+          url: `${vars.apiURL}/users/sign-in`,
+          data: formData,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+  
+        if (result.status === 200) {
+          myStorage.setItem('loggedIn', result.data.username);
+          myStorage.setItem('HoMCookie', result.data.token);
+          history.push({ pathname:
+            (location &&
+            location.state &&
+            location.state.lastUrl)
+              ||
+            '/memes' });
+        }
+      } catch (error) {
         changeError('username or password didn\'t match');
-        changeAnimationClass('if-failed-login');
+        changeAnimationClass('on-failed-login');
       }
-    }, 52);
+
+    }
   }
 
   return (
     <div className="sign-in-page">
         <div
-          className={`margin-auto ${animate === 'on-submit-button' ? 'fade-in': animate === 'if-failed-login' ? 'fade-out' : ''}`}>
+          className={`margin-auto ${animate !== 'on-render' ? 'fade-in' : 'fade-out'}`}>
           <LoadingSVG />
         </div>
 
-        <form onSubmit={(e) => verifySignInForm(e)} className={`${animate ? animate : ''} form-parent`}>
+        <form onSubmit={(e) => verifySignInForm(e)}
+        className={`${animate ? animate : ''} form-parent`}>
           <label className='big-label'>Sign In Page</label>
           <div className="row form-username">
             <label htmlFor="username">Username</label>
-            <TextField className='form-inputs col-75' onChange={(e) => changeUsername(e.target.value)} type="text" name="username" id="username" required />
+            <TextField
+              className='form-inputs col-75'
+              onChange={(e) => changeUsername(e.target.value)}
+              type="text"
+              name="username"
+              id="username"
+              required />
           </div>
-
           <div className="row form-password">
             <label htmlFor="password">Password</label>
-            <TextField className='form-inputs col-75' onChange={(e) => changePassword(e.target.value)} type="password" name="password" id="password" required />
+            <TextField
+              className='form-inputs col-75'
+              onChange={(e) => changePassword(e.target.value)}
+              type="password"
+              name="password"
+              id="password"
+              required />
           </div>
           <div className="account-requirements">
             <ul>
-              <li><b>Username</b>'s are 3 characters or more</li>
-              <li><b>Password</b> are <b>8</b> characters or more feat. a Symbol, a number, and an upercase and lower case letter in English</li>
+              <li><b>Username</b>'s are <b>3</b> characters or more and lowercase</li>
+              {passwordText}
               {error ? <li className="error-text">{error}</li> : false}
             </ul>
             <div className="sign-up">
-              <div className="join-here" onClick={() => history.push('/users/sign-up')}>Join Here</div>
+              <div
+                className="join-here"
+                onClick={() => history.push('/users/sign-up')}>Join Here</div>
             </div>
             <BottomNav buttons={signInButtons} />
           </div>

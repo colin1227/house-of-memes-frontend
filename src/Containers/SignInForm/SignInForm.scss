@@ -135,6 +135,10 @@ label {
   animation-duration: .75s;
   animation-iteration-count: 1;
 }
+
+
+// LOGIN ANIMATIONS
+
 // animate out to right
 .on-submit-button {
   animation-name: fade-out-to-right-from-center;
@@ -144,11 +148,11 @@ label {
 }
 
 // animate in from right
-.if-failed-login {
-  opacity: 1;
+.on-failed-login {
   animation-name: fade-into-center-from-right;
   animation-duration: 1s;
   animation-iteration-count: 1;
+  opacity: 1;
 }
 
 // consider looking into animation-direction.

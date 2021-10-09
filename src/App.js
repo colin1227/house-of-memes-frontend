@@ -12,7 +12,7 @@ import {
 import {
   SignInForm,
   SignUpForm,
-  Upload,
+  // Upload,
   MobileViewer,
   Viewer,
   // Groups,
@@ -20,6 +20,8 @@ import {
   // TestContainer,
   // TestUserPage
 } from "./Containers/index";
+
+import Upload from "./Containers/aoxne/aoxne";
 import "./App.scss";
 
 window.mobileCheck = function() {
