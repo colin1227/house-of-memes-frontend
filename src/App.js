@@ -39,7 +39,7 @@ const App = () => {
             <Redirect exact from="/" to="/memes/" />
             
             {/* Memes */}
-            <Route exact path="/memes/" component={ () => window.mobileCheck() ? <MobileViewer /> : <Viewer />} />
+            <Route exact path="/memes/" component={ () => <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
 
             {/* Playlists */}

@@ -198,7 +198,7 @@ const Viewer = (props) => {
             <LoadingSVG />
         }
       </div>
-      <div className="space-taker-uper" />
+      <div className="space-taker-uper comments" />
     </div>
   </div>
   )
