@@ -129,6 +129,10 @@ const TopNav = ({ muteButton, buttons }) => {
           <ViewHeadlineIcon fontSize="small" />
         </ListItemIcon>
       </Button>
+
+      <div className="head-title default-font">
+        House of Memes
+      </div>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}

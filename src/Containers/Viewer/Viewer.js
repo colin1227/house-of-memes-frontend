@@ -160,13 +160,13 @@ const Viewer = (props) => {
       <Button
         variant='contained'
         disabled={0 >= viewIndex}
-        onClick={() => changeMeme(-1)}>Previous</Button>
+        onClick={() => changeMeme(-1)}>Prev</Button>
     </div>
   ];
 
 
   const memeAttributes = {
-    key: 0 || viewIndex,
+    key: viewIndex,
     url: memeUrls[viewIndex],
     format: formatList[viewIndex],
     muted,
@@ -182,13 +182,14 @@ const Viewer = (props) => {
       muteButton={muteButton}
       buttons={token ? myAccount : signIn} />
     <div className="content">
-      <div className="content-description-pannel">
+    <BottomNav variant='contained' buttons={directionalButtons} />
+      {/* <div className="content-description-pannel">
         <h1 className="description">
           {descriptions[viewIndex]}
         </h1>
         <div className="space-taker-uper"/>
         <BottomNav variant='contained' buttons={directionalButtons} />
-      </div>
+      </div> */}
       <div className="content-observation-pannel">
          {
           memeUrls && memeUrls.length ?

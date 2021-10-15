@@ -3,7 +3,7 @@ import { useState } from "react";
 import { KeyboardArrowDownSharp } from "@material-ui/icons";
 
 const VideoViewer = (props) => {
-  const { memeUrl, format, key, muted, autoplay, loaded } = props;
+  const { memeUrl, format, memeNumber, muted, autoplay, loaded } = props;
 
   // playback bar vars
   let length = 0;
@@ -29,7 +29,7 @@ const VideoViewer = (props) => {
   }
 
   return (
-    <div key={KeyboardArrowDownSharp} v={length} className={`VideoViewer`}>
+    <div v={length} className={`VideoViewer`}>
       {
         loaded ?
           <div className="bar-container" >
@@ -57,7 +57,7 @@ const VideoViewer = (props) => {
             }}
             onClick={(e) => handlePlayState(e)}
             className={`video-container video-container-overlay
-            ${key === 0 ? 'fadeIn' : ''}`}
+            ${memeNumber === 0 ? 'fadeIn' : ''}`}
             autoPlay={autoplay}
             loop
             muted={muted}

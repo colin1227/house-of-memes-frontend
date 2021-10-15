@@ -2,7 +2,7 @@
 @import './../../stylesheets/global.scss';
 
 .Viewer-Container {
-  display: inline-block;
+  display: flex;
   position: relative;
   height: 100%;
   width: 100%;
@@ -19,61 +19,34 @@
     justify-content: center;
 
     .content-description-pannel {
+      display: inline-block;
       opacity: 1;
       max-width: 50%;
+      left: 0;
       .description {
         color: white;
         width: 100%;
+        height: 30%;
+        background-color: greenyellow;
         text-align: center;
         font-family: Quicksand;
+      }
+
+      @media screen and (max-width: 632px) {
+        .description {
+          background: radial-gradient(rgba(0,0,0, .77), transparent);
+        }
       }
 
       .slider {
         margin: 5px;
       }
 
-      .other-vids {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        .popular {
-          width: 50%;
-          height: 25%;
-          background: radial-gradient(white, lightslategray);
-          margin-right: 45%;
-          margin-left: 5%;
-          margin-bottom: 2.5px;
-        }
-  
-        .otherUserStuff {
-          width: 50%;
-          height: 25%;
-          background: radial-gradient(white, lightslategray);
-          margin-left: 45%;
-          margin-bottom: 2.5px;
-        }
-  
-        .rising {
-          width: 50%;
-          height: 25%;
-          background: radial-gradient(white, lightslategray);
-          margin-right: 45%;
-          margin-left: 5%;
-          margin-bottom: 2.5px;
-        }
-  
-        .interactions {
-          width: 50%;
-          height: 25%;
-          background: radial-gradient(white, lightslategray);
-          margin-left: 45%;
-        }
-      }
     }
 
     .content-observation-pannel {
       width: 100%;
-      height: auto;
+      height: 100%;
       margin: 0;
       padding: 0;
       position: relative;
@@ -108,7 +81,6 @@
         display: block;
         height: auto;
         width: auto;  
-        overflow: scroll;
         margin: 0 10px;
         border-radius: 15px;
       }
@@ -203,13 +175,18 @@
       height: 100%;
       margin: 0;
       padding: 0;
-      display: flex;
-      align-items: flex-end;
-      flex-direction: column;
-      justify-content: space-evenly;
     }
     @media screen and (max-width: 632px){
-      .content-description-pannel, .comments {
+      .content {
+        display: flex;
+        position: relative;
+        width: 100%;
+      }
+
+      .content-description-pannel {
+        display: none;
+      }
+      .comments {
         display: none;
       }
 

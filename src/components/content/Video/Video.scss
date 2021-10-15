@@ -12,7 +12,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  background: linear-gradient(yellow, transparent, pink);
 
   .bar-container {
     position: relative;
@@ -36,7 +35,7 @@
     position: relative;
     height: 98%;
     // this?
-    width: 100%;
+    width: auto;
     outline: none;
     margin: 0;
   }

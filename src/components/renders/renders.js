@@ -14,7 +14,7 @@ const renderMemes = ({ key, url, format, muted, autoplay, loaded }) => {
   if (vars.formats.VIDEO.includes(format)) {
     meme = <VideoViewer
       memeUrl={url}
-      key={key}
+      memeNumber={key}
       url={url}
       format={format}
       muted={muted}

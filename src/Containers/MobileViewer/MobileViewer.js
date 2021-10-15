@@ -85,7 +85,7 @@ const Viewer = (props) => {
       // 32 = space, pause
       // 117 = w, volume up 5%
       // 115 = s volume down 5%
-      // 97 = a, hold 1 sec for previous meme
+      // 97 = a, hold 1 sec for prev. meme
       // 100 = d, hold 1 sec for next meme
 
       // console.log(e.keyCode);
@@ -155,7 +155,7 @@ const Viewer = (props) => {
   const directionalButtons = [
     <div key={-1} className='direct'>
       <Button variant='contained' disabled={memeUrls.length - 1 <= viewIndex.count} onClick={() => changeMeme(1)}>Next</Button>
-      <Button variant='contained' disabled={viewIndex.count <= 0} onClick={() => changeMeme(-1)}>Previous</Button>
+      <Button variant='contained' disabled={viewIndex.count <= 0} onClick={() => changeMeme(-1)}>Prev</Button>
     </div>
   ];
   if (memeUrls && memeUrls.length) {
