@@ -13,7 +13,12 @@
     display: flex;
     font-size: 32px;
     justify-content: center;
-    
+  }
+
+  @media screen and (max-width: 632px) {
+    .head-title {
+      font-size: 24px;
+    }
   }
 
   // Mui: 

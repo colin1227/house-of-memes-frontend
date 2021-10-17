@@ -1,6 +1,5 @@
 import "./Video.scss";
 import { useState } from "react";
-import { KeyboardArrowDownSharp } from "@material-ui/icons";
 
 const VideoViewer = (props) => {
   const { memeUrl, format, memeNumber, muted, autoplay, loaded } = props;
@@ -27,11 +26,10 @@ const VideoViewer = (props) => {
       e.target.play();
     }
   }
-
   return (
-    <div v={length} className={`VideoViewer`}>
+    <div key={memeNumber} v={length} className={`VideoViewer`}>
       {
-        loaded ?
+        memeUrl ?
           <div className="bar-container" >
             <div className="playback-background-bar"/>
             <div className="playback-black-bar"
@@ -47,7 +45,7 @@ const VideoViewer = (props) => {
           false
       }
       {
-        loaded && memeUrl ?
+        memeUrl ?
           <video
             onTimeUpdate={(e) => handleCurrentTime(e)}
             onCanPlay={(e) => {

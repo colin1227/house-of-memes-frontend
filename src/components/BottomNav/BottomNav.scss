@@ -9,16 +9,38 @@
   margin: 0 auto;
 
   .direct {
-    opacity: 0.2;
+    opacity: 1;
     height: 100%;
     width: 100%;
     position: relative;
-    margin: 3% 4.5%;
+    margin: 0;
+
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
     align-content: space-around;
     flex-direction: column;
+  }
+
+
+
+  @media screen and (max-width: 632px) {
+    .direct {
+      width: 40%;
+      opacity: 0.15;
+      flex-direction: row-reverse;
+      element {
+        width: 40%;
+      }
+    }
+
+    .mobile-click {
+      opacity: 1;
+      animation-name: opacity-clear;
+      animation-iteration-count: 1;
+      animation-duration: 3s;
+      animation-delay: 3.5s;
+    }
   }
 
   .make-comment {
@@ -60,12 +82,12 @@
   }
 }
 
-@keyframes opacity-fruition {
+@keyframes opacity-clear {
   from {
     opacity: 1;
   }
   to {
-    opacity: 0.2;
+    opacity: 0.15;
   }
 }
 

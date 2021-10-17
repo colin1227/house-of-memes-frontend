@@ -179,6 +179,7 @@
     @media screen and (max-width: 632px){
       .content {
         display: flex;
+        justify-content: flex-start;
         position: relative;
         width: 100%;
       }
@@ -194,13 +195,14 @@
         width: 100%;
         height: auto;
       }
+
+      .mobile-nav {
+        background: chartreuse;
+        height: 100%;
+        width: auto;
+      }
     }
 
-    .other-vids div {
-      border: 1px solid rgba(208,208,208,1);
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
   }
 }
 

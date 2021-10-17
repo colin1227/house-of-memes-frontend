@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState, forceUpdate } from 'react';
 
 
 import "./TopNav.scss";
@@ -64,10 +64,35 @@ const TopNav = ({ muteButton, buttons }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openState, changeOpenState] = useState(false);
   const [modalOpen, changeModalState] = useState(false);
+  const [modalDimensions, changeModalDimensions] = useState({})
+
+  useEffect(() => {
+    const modalButtonRetrieve = document.getElementsByClassName('main-menu')[0];
+    const modalButton = modalButtonRetrieve.getBoundingClientRect();
+    changeModalDimensions({
+      top: modalButton.top,
+      bottom: modalButton.bottom,
+      left: modalButton.left,
+      right: modalButton.right })
+  }, [])
+
   const handleOpen = (event) => {
     changeOpenState(true);
     setAnchorEl(event.currentTarget);
   };
+
+  document.addEventListener( "touchend",(e) => {
+    // clientX , clientY
+    const tapX = e.changedTouches[0].clientX;
+    const tapY = e.changedTouches[0].clientY;
+    // if click is within the bounds of button
+    if (modalDimensions.top < tapY &&
+      tapY > modalDimensions.bottom &&
+      modalDimensions.left < tapX &&
+      tapX > modalDimensions.right) {
+        handleClose();
+      }
+  }, false)
 
   const handleClose = () => {
     changeOpenState(false);
@@ -122,6 +147,7 @@ const TopNav = ({ muteButton, buttons }) => {
         aria-haspopup="true"
         variant="contained"
         color="primary"
+        onTouchEnd={(e) => openState ? handleClose() : handleOpen(e)}
         onMouseOver={(e) => handleOpen(e)}
         className="main-menu"
       >
@@ -138,13 +164,17 @@ const TopNav = ({ muteButton, buttons }) => {
         anchorEl={anchorEl}
         keepMounted
         open={openState}
-        MenuListProps={{ onMouseLeave: handleClose }}
+        MenuListProps={{
+          onTouchEnd: handleClose,
+          onMouseLeave: handleClose,
+        }}
       >
       {buttons && buttons.map((btn, l) => {
 
         return (
           <StyledMenuItem
             key={btn.key}
+            onTouchEnd={btn.text === "Sign Out" ? () => openModal() : btn.onClick}
             onClick={btn.text === "Sign Out" ? () => openModal() : btn.onClick}>
             <ListItemIcon>
               {btn.iconImg}

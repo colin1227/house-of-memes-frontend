@@ -14,6 +14,7 @@ import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PanoramaIcon from '@material-ui/icons/Panorama';
 
 import PublishIcon from '@material-ui/icons/Publish';
 // import SettingsIcon from '@material-ui/icons/Settings';
@@ -27,6 +28,8 @@ const instance = axios.create({
 
 const myStorage = window.localStorage;
 
+
+
 const Viewer = (props) => {  
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
@@ -38,8 +41,23 @@ const Viewer = (props) => {
   const [username] = useState(myStorage.getItem('loggedIn'));
   const [viewIndex, changeIndex] = useState(0);
   const [muted, toggleMute] = useState(true);
+  const [mobileClick, changeMobileClick] = useState(false);
+  const [windowWidth] = useState(window.innerWidth);
+
+  const memeAttributes = {
+    key: viewIndex,
+    url: memeUrls[viewIndex],
+    format: formatList[viewIndex],
+    muted,
+    autoplay: !initalMeme,
+    loaded,
+  }
 
   const changeMeme = (dir) => {
+    if (windowWidth <= 632) {
+      changeMobileClick(true);
+    }
+
     if (dir === 1 &&
       memeUrls.length - 1 > viewIndex) {
       changeIndex(viewIndex + 1);
@@ -76,6 +94,12 @@ const Viewer = (props) => {
      }
   },[memeUrls, formatList, descriptions, token]);
 
+  useEffect(() => {
+    let mobileClickTimer = setTimeout(() => changeMobileClick(false), 6500);
+    return () => {
+      clearTimeout(mobileClickTimer);
+    };
+  },[mobileClick]);
 
   useEffect(() => {
     if (memeUrls && memeUrls.length) {
@@ -151,8 +175,29 @@ const Viewer = (props) => {
       iconImg: <ExitToAppIcon />,
     }
   ];
+
+  const myAccountMobile = [
+    {
+      key: 0,
+      iconImg: <PermIdentityIcon />,
+      onClick: () => history.push(`/users/${username}`)
+    },
+    {
+      key: 1,
+      text: "Upload",
+      iconImg: <PublishIcon />,
+      onClick: () => history.push('/memes/upload')
+    },
+    {
+      key: 1,
+      text: "Memes",
+      iconImg: <PanoramaIcon />,
+      onClick: () => history.push("/memes")
+    }
+  ]
+
   const directionalButtons = [
-    <div key={-1} className='direct'>
+    <div key={-1} className={`direct ${mobileClick ? 'mobile-click' : ''}`}>
       <Button
         variant='contained'
         disabled={memeUrls.length - 1 <= viewIndex}
@@ -164,25 +209,19 @@ const Viewer = (props) => {
     </div>
   ];
 
-
-  const memeAttributes = {
-    key: viewIndex,
-    url: memeUrls[viewIndex],
-    format: formatList[viewIndex],
-    muted,
-    autoplay: !initalMeme,
-    loaded,
-  }
-
   return(
   <div 
     className='Viewer-Container'>
+    {
     <TopNav
       variant='contained'
       muteButton={muteButton}
-      buttons={token ? myAccount : signIn} />
+      buttons={token ? myAccount : signIn} />}
     <div className="content">
-    <BottomNav variant='contained' buttons={directionalButtons} />
+    <BottomNav
+      variant='contained'
+      mobileClick={mobileClick}
+      buttons={directionalButtons} />
       {/* <div className="content-description-pannel">
         <h1 className="description">
           {descriptions[viewIndex]}
@@ -201,6 +240,11 @@ const Viewer = (props) => {
       </div>
       <div className="space-taker-uper comments" />
     </div>
+    {/* {windowWidth <= 632 &&
+      <div className={"mobile-nav"}>
+
+      </div>
+    } */}
   </div>
   )
 };
