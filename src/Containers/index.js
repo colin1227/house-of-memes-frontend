@@ -5,7 +5,6 @@ import SignInForm from "./SignInForm/SignInForm";
 import SignUpForm from "./SignUpForm/SignUpForm";
 import Groups from "./Groups/Groups";
 import GroupPage from "./GroupPage/GroupPage";
-import TestContainer from "./TestCntr/testCntr";
 import TestUserPage from "./TestUserPage/TestUserPage";
 
 export {
@@ -16,6 +15,5 @@ export {
   Upload,
   Groups,
   GroupPage,
-  TestContainer,
   TestUserPage
 };

@@ -1,14 +1,17 @@
 @import './../../stylesheets/variables.scss';
 @import './../../stylesheets/global.scss';
 
+// returned component div
 .Viewer-Container {
-  display: flex;
   position: relative;
   height: 100%;
   width: 100%;
   padding: 0;
   margin: 0 auto;
 
+  // Top nav above content div
+  //     ||
+  // Mobile-nav below content div
   .content {
     position: absolute;
     width: 100%;
@@ -16,26 +19,26 @@
     bottom: 0;
     margin: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 
+    // only for desktop
     .content-description-pannel {
-      display: inline-block;
+      display: flex;
       opacity: 1;
-      max-width: 50%;
-      left: 0;
+      flex-direction: column;
+      justify-content: space-around;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
       .description {
         color: white;
         width: 100%;
         height: 30%;
-        background-color: greenyellow;
         text-align: center;
         font-family: Quicksand;
-      }
-
-      @media screen and (max-width: 632px) {
-        .description {
-          background: radial-gradient(rgba(0,0,0, .77), transparent);
-        }
       }
 
       .slider {
@@ -44,29 +47,32 @@
 
     }
 
+    // video/photo/audio inside
     .content-observation-pannel {
       width: 100%;
-      height: 100%;
+      height: auto;
       margin: 0;
       padding: 0;
       position: relative;
       display:flex;
       justify-content: center;
       align-items: center;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
-    .comments {
+    // only for desktop
+    .content-comment-pannel {
       opacity: 0;
       display: block;
-      height: 100%;
+      background-color: transparent;
       width: 100%;
-
-      .comments-header {
-        width: 100%;
-        text-align: center;
-        color: rgb(255, 255, 255);
-        font-family: Quicksand;
-      }
+      height: 100%;
+      margin: 0;
+      padding: 0;
 
       .the-line {
         height: 1px;
@@ -77,140 +83,40 @@
 
       }
 
-      .comment-section {
-        display: block;
-        height: auto;
-        width: auto;  
-        margin: 0 10px;
-        border-radius: 15px;
-      }
-      .comment-object:hover {
-        .triple div {
-          opacity: 1;
-          z-index: 1;
-        }
-      }
-
-      .comment-object {
-        position: relative;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        background: radial-gradient(rgba(232, 232, 232, .334), transparent);
-        border-radius: 15px;
-        height: auto;
-        margin: auto 0;
-        .like-object {
-          margin-top: 3px;
-          margin-bottom: 3px;
-          margin-left: 0;
-          margin-right: 3px;
-          height: auto;
-          width: 100%;
-          max-width: 45px;
-          max-height: 45px;
-          .like-symbol {
-            width: 10px;
-            height: 10px;
-            border: 2px solid white;
-            margin: 0 auto;
-          }
-    
-          .likes {
-            color: white;
-            text-align: center;
-          }
-
-        }
-        .comment {
-          font-family: Quicksand;
-          color: white;
-          width: 100%;
-          height: auto;
-          padding: 1% 0;
-        }
-        
-        .triple {
-          margin: 5px;
-        }
-
-        .triple div {
-          z-index: -1;
-          opacity: 0;
-          width: 5px;
-          height: 5px;
-          border-radius: 3px;
-          background-color: white;
-          margin: 1px;
-        }
-      }
-
-
-      .make-comment {
-        display: block;
-        height: auto;
-        width: 100%;
-        /*
-          TODO: fade bottom of comment section.
-            The idea I have for doing that would be to make another div the size
-            of the screen where the blue gradient is and put that div inside the
-            the comment section then use this linear gradient code:
-              .the-class-name {
-                background: linear-gradient(to bottom,
-                  transparent,
-                  {blueGradient} 90%
-                );
-                bottom: 0;
-                right: 0;
-              }
-        */
-        margin: 10px;
-
-      }
-    }
-
-    .content-description-pannel, .comments {
-      background-color: transparent;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    @media screen and (max-width: 632px){
-      .content {
-        display: flex;
-        justify-content: flex-start;
-        position: relative;
-        width: 100%;
-      }
-
-      .content-description-pannel {
-        display: none;
-      }
-      .comments {
-        display: none;
-      }
-
-      .content-observation-pannel {
-        width: 100%;
-        height: auto;
-      }
-
-      .mobile-nav {
-        background: chartreuse;
-        height: 100%;
-        width: auto;
-      }
     }
 
   }
 }
 
+@media screen and (max-width: 632px){
+  .Viewer-Container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    .content {
+      height: 100%;
+      position: absolute;
+      display: block;
+    }
+  }
 
 
+  .content-description-pannel {
+    // TODO: change this
+    display: none;
+    .description {
+      background: radial-gradient(rgba(0,0,0, .77), transparent);
+    }
+  }
 
-@media (max-width: 1000px) {
   .content-observation-pannel {
-    min-width: 60%;
+    width: 100%;
+    height: auto;
+  }
+
+  .content-comment-pannel {
+    display: none;
   }
 }

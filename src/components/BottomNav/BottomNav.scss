@@ -19,19 +19,42 @@
     align-items: flex-start;
     justify-content: space-around;
     align-content: space-around;
-    flex-direction: column;
+    flex-direction: row-reverse;
+  }
+
+  .mobile-nav {
+    display: flex;
+    justify-content: space-around;    
+    height: 100%;
+    width: 100%;
+
+    svg {
+      fill: white;
+    }
   }
 
 
-
   @media screen and (max-width: 632px) {
+    
+
+
     .direct {
-      width: 40%;
-      opacity: 0.15;
+      z-index: 5;
+      position: absolute;
+      bottom: 10%;
+      width: 60%;
+      height: auto;
+      opacity: .25;
+      justify-content: space-between;
       flex-direction: row-reverse;
+      
       element {
-        width: 40%;
+        width: 25%;
       }
+    }
+
+    .sound-toggle {
+      width: 65%;
     }
 
     .mobile-click {
@@ -41,18 +64,6 @@
       animation-duration: 3s;
       animation-delay: 3.5s;
     }
-  }
-
-  .make-comment {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    align-content: space-around;
-    justify-content: space-around;
-    flex-direction: column;
-    margin: 0 7%;
   }
 
   .sign-in-buttons, .sign-up-buttons {
@@ -80,24 +91,6 @@
   input[type=submit].abled {
     width: 35%;
   }
-}
-
-@keyframes opacity-clear {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0.15;
-  }
-}
-
-@media(max-width: 632px) {
-  .Bottom-Nav {
-    position: absolute;
-    z-index: 2;
-    width: 100%;
-    bottom: 5%;
-  }
 
   .sign-in-buttons {
     width: 100%;
@@ -123,5 +116,30 @@
     white-space: nowrap;
     font-size: 12px;
     font-size: 3vw;
+  }
+}
+
+@keyframes opacity-clear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+@media screen and (max-width: 632px) {
+  .mobile-nav {
+    button {
+      width: 100%;
+      border-radius: 0;
+      border-width: 2px;
+      border-color: black;
+      border-style: solid;
+      background: rgba(0, 0, 0, .5);
+      margin: 0;
+    }
+    background: $bluish;
+    z-index: 1;
   }
 }

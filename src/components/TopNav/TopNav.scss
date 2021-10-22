@@ -10,9 +10,11 @@
   background: linear-gradient(332deg, rgba(208,208,208,1) 0%, rgba(135,135,135,1) 100%);
   
   .head-title {
-    display: flex;
+    z-index: 0;
+    width: 100%;
     font-size: 32px;
-    justify-content: center;
+    position: fixed;
+    text-align: center;
   }
 
   @media screen and (max-width: 632px) {
@@ -97,7 +99,6 @@
     font-family: Quicksand;
     font-size: medium;
     text-overflow: ellipsis;
-    width: 20%;
     height: 100%;
     outline: none;
     margin: 0;
@@ -109,6 +110,7 @@
     top: 0;
     max-width:100%;
     max-height:100%;
+    z-index: 2;
   }
 
   .main-menu {

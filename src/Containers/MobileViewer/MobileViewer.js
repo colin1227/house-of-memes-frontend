@@ -183,7 +183,7 @@ const Viewer = (props) => {
         <h1 className="description">
           {descriptions[viewIndex.count]}
         </h1>
-        <div className="space-taker-uper"/>
+        <div className="space-taker-upper"/>
         <BottomNav variant='contained' buttons={directionalButtons} />
       </div>
       <div className="memeDiv">
@@ -196,7 +196,7 @@ const Viewer = (props) => {
             <LoadingSVG />
         }
       </div>
-      <div className="space-taker-uper" />
+      <div className="space-taker-upper" />
     </div>
   </div>
   )

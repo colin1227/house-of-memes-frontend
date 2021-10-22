@@ -151,24 +151,12 @@ const Viewer = (props) => {
       iconImg: <PermIdentityIcon />,
       onClick: () => history.push(`/users/${username}`)
     },
-    // {
-    //   key: 1,
-    //   text: "Groups",
-    //   iconImg: <PeopleOutlineIcon />,
-    //   onClick: () => history.push("/groups")
-    // },
     {
       key: 2,
       text: "Upload",
       iconImg: <PublishIcon />,
       onClick: () => history.push('/memes/upload')
     },
-    // {
-    //   key: 3,
-    //   text: "Settings",
-    //   iconImg: <SettingsIcon />,
-    //   onClick: () => history.push('/settings')
-    // },
     {
       key: 4,
       text: "Sign Out",
@@ -176,24 +164,24 @@ const Viewer = (props) => {
     }
   ];
 
-  const myAccountMobile = [
-    {
-      key: 0,
-      iconImg: <PermIdentityIcon />,
-      onClick: () => history.push(`/users/${username}`)
-    },
-    {
-      key: 1,
-      text: "Upload",
-      iconImg: <PublishIcon />,
-      onClick: () => history.push('/memes/upload')
-    },
-    {
-      key: 1,
-      text: "Memes",
-      iconImg: <PanoramaIcon />,
-      onClick: () => history.push("/memes")
-    }
+  const mobileNav = [
+    <div key={-1} className="mobile-nav">
+      <Button
+        key={0}
+        onClick={ () => history.push(`/users/${username}`)}>
+        <PermIdentityIcon />
+      </Button>
+      <Button
+        key={1}
+        onClick={() => history.push('/memes/upload')}>
+        <PublishIcon />
+      </Button>
+      <Button
+        key={2}
+        onClick={() => history.push('/memes/')}>
+        <PanoramaIcon />
+      </Button>
+    </div>
   ]
 
   const directionalButtons = [
@@ -202,6 +190,16 @@ const Viewer = (props) => {
         variant='contained'
         disabled={memeUrls.length - 1 <= viewIndex}
         onClick={() => changeMeme(1)}>Next</Button>
+      <Button
+        variant='contained'
+        onClick={() => toggleMute(!muted)}>
+          <img
+            key={-1}
+            alt="speaker representing sound toggle"
+            className="sound-toggle"
+            type="image"
+            src={muted ? muteImg : unmutedImg} />
+      </Button>
       <Button
         variant='contained'
         disabled={0 >= viewIndex}
@@ -213,22 +211,27 @@ const Viewer = (props) => {
   <div 
     className='Viewer-Container'>
     {
-    <TopNav
-      variant='contained'
-      muteButton={muteButton}
-      buttons={token ? myAccount : signIn} />}
+      windowWidth >= 632 ?
+      <TopNav
+        variant='contained'
+        muteButton={muteButton}
+        buttons={token ? myAccount : signIn} />
+      :
+      false
+    }
     <div className="content">
-    <BottomNav
-      variant='contained'
-      mobileClick={mobileClick}
-      buttons={directionalButtons} />
-      {/* <div className="content-description-pannel">
-        <h1 className="description">
-          {descriptions[viewIndex]}
-        </h1>
-        <div className="space-taker-uper"/>
+      {
+        windowWidth > 632 ?
+        <div className="content-description-pannel">
+          <h1 className="description">{descriptions[viewIndex]}</h1>
+          <div className="space-taker-upper"/>
+          <div>
+            <BottomNav variant='contained' buttons={directionalButtons} />
+          </div>
+        </div>
+        :
         <BottomNav variant='contained' buttons={directionalButtons} />
-      </div> */}
+      }
       <div className="content-observation-pannel">
          {
           memeUrls && memeUrls.length ?
@@ -238,13 +241,14 @@ const Viewer = (props) => {
             <LoadingSVG />
         }
       </div>
-      <div className="space-taker-uper comments" />
+      {
+        windowWidth > 632 &&
+        <div className="space-taker-upper content-comment-pannel" />
+      }
     </div>
-    {/* {windowWidth <= 632 &&
-      <div className={"mobile-nav"}>
-
-      </div>
-    } */}
+    {windowWidth <= 632 &&
+        <BottomNav variant='contained' buttons={mobileNav} />
+    }
   </div>
   )
 };

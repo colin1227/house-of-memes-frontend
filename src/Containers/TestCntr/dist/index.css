@@ -1,0 +1,296 @@
+.default-font {
+  font-family: "Quicksand";
+  color: white;
+}
+
+@font-face {
+  font-family: "Quicksand", sans-serif;
+  src: none;
+  font-weight: 300;
+}
+.default-font {
+  font-family: "Quicksand";
+  color: white;
+}
+
+@font-face {
+  font-family: "Quicksand", sans-serif;
+  src: none;
+  font-weight: 300;
+}
+textarea {
+  resize: none;
+}
+
+.black {
+  background-color: #000;
+}
+
+.white-text {
+  color: white;
+}
+
+.grey-text {
+  color: grey;
+}
+
+.error-text {
+  color: orangered;
+}
+
+.center-text {
+  text-align: center !important;
+  color: grey;
+}
+
+.bold {
+  font-weight: 900 !important;
+}
+
+.space-taker-upper {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+@keyframes Background-white-to-grey {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: grey;
+  }
+}
+@keyframes text-back-to-grey {
+  from {
+    color: black;
+  }
+  to {
+    color: grey;
+  }
+}
+@keyframes fade-out-to-left-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+}
+@keyframes fade-out-to-right-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+}
+@keyframes fade-into-center-from-right {
+  0% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fade-into-center-from-left {
+  0% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.viewer {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+}
+.viewer .memeRend {
+  position: absolute;
+  width: 100%;
+  height: 95%;
+  bottom: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.viewer .memeRend .memeInfo {
+  opacity: 1;
+  max-width: 50%;
+}
+.viewer .memeRend .memeInfo .description {
+  color: white;
+  width: 100%;
+  text-align: center;
+  font-family: Quicksand;
+}
+.viewer .memeRend .memeInfo .slider {
+  margin: 5px;
+}
+.viewer .memeRend .memeInfo .other-vids {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.viewer .memeRend .memeInfo .other-vids .popular {
+  width: 50%;
+  height: 25%;
+  background: radial-gradient(white, lightslategray);
+  margin-right: 45%;
+  margin-left: 5%;
+  margin-bottom: 2.5px;
+}
+.viewer .memeRend .memeInfo .other-vids .otherUserStuff {
+  width: 50%;
+  height: 25%;
+  background: radial-gradient(white, lightslategray);
+  margin-left: 45%;
+  margin-bottom: 2.5px;
+}
+.viewer .memeRend .memeInfo .other-vids .rising {
+  width: 50%;
+  height: 25%;
+  background: radial-gradient(white, lightslategray);
+  margin-right: 45%;
+  margin-left: 5%;
+  margin-bottom: 2.5px;
+}
+.viewer .memeRend .memeInfo .other-vids .interactions {
+  width: 50%;
+  height: 25%;
+  background: radial-gradient(white, lightslategray);
+  margin-left: 45%;
+}
+.viewer .memeRend .memeDiv {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.viewer .memeRend .comments {
+  opacity: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.viewer .memeRend .comments .comments-header {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-family: Quicksand;
+}
+.viewer .memeRend .comments .the-line {
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+.viewer .memeRend .comments .comment-section {
+  display: block;
+  height: auto;
+  width: auto;
+  margin: 0 10px;
+  border-radius: 15px;
+}
+.viewer .memeRend .comments .comment-object:hover .triple div {
+  opacity: 1;
+  z-index: 1;
+}
+.viewer .memeRend .comments .comment-object {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: radial-gradient(rgba(232, 232, 232, 0.334), transparent);
+  border-radius: 15px;
+  height: auto;
+  margin: auto 0;
+}
+.viewer .memeRend .comments .comment-object .like-object {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left: 0;
+  margin-right: 3px;
+  height: auto;
+  width: 100%;
+  max-width: 45px;
+  max-height: 45px;
+}
+.viewer .memeRend .comments .comment-object .like-object .like-symbol {
+  width: 10px;
+  height: 10px;
+  border: 2px solid white;
+  margin: 0 auto;
+}
+.viewer .memeRend .comments .comment-object .like-object .likes {
+  color: white;
+  text-align: center;
+}
+.viewer .memeRend .comments .comment-object .comment {
+  font-family: Quicksand;
+  color: white;
+  width: 100%;
+  height: auto;
+  padding: 1% 0;
+}
+.viewer .memeRend .comments .comment-object .triple {
+  margin: 5px;
+}
+.viewer .memeRend .comments .comment-object .triple div {
+  z-index: -1;
+  opacity: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 3px;
+  background-color: white;
+  margin: 1px;
+}
+.viewer .memeRend .memeInfo, .viewer .memeRend .comments {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.viewer .memeRend .other-vids div {
+  border: 1px solid #d0d0d0;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

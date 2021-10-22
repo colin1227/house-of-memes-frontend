@@ -173,29 +173,6 @@
           margin: 1px;
         }
       }
-
-
-      .make-comment {
-        display: block;
-        height: auto;
-        width: 100%;
-        /*
-          TODO: fade bottom of comment section.
-            The idea I have for doing that would be to make another div the size
-            of the screen where the blue gradient is and put that div inside the
-            the comment section then use this linear gradient code:
-              .the-class-name {
-                background: linear-gradient(to bottom,
-                  transparent,
-                  {blueGradient} 90%
-                );
-                bottom: 0;
-                right: 0;
-              }
-        */
-        margin: 10px;
-
-      }
     }
 
     .memeInfo, .comments {

@@ -1,0 +1,228 @@
+.default-font {
+  font-family: "Quicksand";
+  color: white;
+}
+
+@font-face {
+  font-family: "Quicksand", sans-serif;
+  src: none;
+  font-weight: 300;
+}
+.default-font {
+  font-family: "Quicksand";
+  color: white;
+}
+
+@font-face {
+  font-family: "Quicksand", sans-serif;
+  src: none;
+  font-weight: 300;
+}
+textarea {
+  resize: none;
+}
+
+.black {
+  background-color: #000;
+}
+
+.white-text {
+  color: white;
+}
+
+.grey-text {
+  color: grey;
+}
+
+.error-text {
+  color: orangered;
+}
+
+.center-text {
+  text-align: center !important;
+  color: grey;
+}
+
+.bold {
+  font-weight: 900 !important;
+}
+
+.space-taker-upper {
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+@keyframes Background-white-to-grey {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: grey;
+  }
+}
+@keyframes text-back-to-grey {
+  from {
+    color: black;
+  }
+  to {
+    color: grey;
+  }
+}
+@keyframes fade-out-to-left-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+}
+@keyframes fade-out-to-right-from-center {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+}
+@keyframes fade-into-center-from-right {
+  0% {
+    opacity: 0;
+    transform: translate(35%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fade-into-center-from-left {
+  0% {
+    opacity: 0;
+    transform: translate(-35%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.Bottom-Nav {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  margin: 0 auto;
+}
+.Bottom-Nav .direct {
+  opacity: 1;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  align-content: space-around;
+  flex-direction: column;
+}
+@media screen and (max-width: 632px) {
+  .Bottom-Nav .direct {
+    width: 40%;
+    opacity: 0.25;
+    flex-direction: row-reverse;
+  }
+  .Bottom-Nav .direct element {
+    width: 40%;
+  }
+  .Bottom-Nav .mobile-click {
+    opacity: 1;
+    animation-name: opacity-clear;
+    animation-iteration-count: 1;
+    animation-duration: 3s;
+    animation-delay: 3.5s;
+  }
+}
+.Bottom-Nav .sign-in-buttons, .Bottom-Nav .sign-up-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+}
+.Bottom-Nav input {
+  width: 90%;
+  margin: 0 auto;
+}
+.Bottom-Nav button {
+  width: 30%;
+  font-family: Quicksand;
+  font-size: 14px;
+}
+.Bottom-Nav input[type=submit].disabled {
+  width: 35%;
+}
+.Bottom-Nav input[type=submit].abled {
+  width: 35%;
+}
+
+@keyframes opacity-clear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+@media (max-width: 632px) {
+  .Bottom-Nav {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    bottom: 5%;
+  }
+
+  .sign-in-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .sign-up-buttons button {
+    margin: auto;
+    height: 25%;
+    width: auto;
+    white-space: nowrap;
+    font-size: 12px;
+    font-size: 3vw;
+  }
+
+  .sign-in-buttons button {
+    margin: auto;
+    height: 25%;
+    width: auto;
+    white-space: nowrap;
+    font-size: 12px;
+    font-size: 3vw;
+  }
+}
