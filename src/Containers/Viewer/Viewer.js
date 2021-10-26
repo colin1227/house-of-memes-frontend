@@ -190,16 +190,19 @@ const Viewer = (props) => {
         variant='contained'
         disabled={memeUrls.length - 1 <= viewIndex}
         onClick={() => changeMeme(1)}>Next</Button>
-      <Button
-        variant='contained'
-        onClick={() => toggleMute(!muted)}>
-          <img
-            key={-1}
-            alt="speaker representing sound toggle"
-            className="sound-toggle"
-            type="image"
-            src={muted ? muteImg : unmutedImg} />
-      </Button>
+      {
+        windowWidth <= 632 && 
+          <Button
+          variant='contained'
+          onClick={() => toggleMute(!muted)}>
+            <img
+              key={-1}
+              alt="speaker representing sound toggle"
+              className="sound-toggle"
+              type="image"
+              src={muted ? muteImg : unmutedImg} />
+        </Button>
+      }
       <Button
         variant='contained'
         disabled={0 >= viewIndex}
