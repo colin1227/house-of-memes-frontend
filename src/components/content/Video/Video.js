@@ -2,7 +2,7 @@ import "./Video.scss";
 import { useState } from "react";
 
 const VideoViewer = (props) => {
-  const { memeUrl, format, memeNumber, muted, autoplay, loaded } = props;
+  const { memeUrl, format, memeNumber, muted, autoplay } = props;
 
   // playback bar vars
   let length = 0;
