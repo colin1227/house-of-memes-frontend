@@ -11,20 +11,17 @@
 
   .upload-modal {
     height: auto;
-    width: 50%;
-    display: block;
+    width: 45% !important;
   
     h2 {
       margin: 0 auto;
       text-align: center;
   
     }
-  
     .loader svg {
       height: auto;
       margin: 0 auto;
     }
-  
     p {
       margin: 0 auto;
       text-align: center;
@@ -35,7 +32,7 @@
     font-family: Quicksand;
     height: auto;
     width: auto;
-    border-radius: 6.5%;
+    border-radius: 6.25%/5%;
     overflow: hidden;
     box-shadow: 10px 5px 5px black;
     animation: fadeup .5s .5s ease both;
@@ -50,7 +47,7 @@
       height: 100%;
       p {
         height: 20%;
-        background: linear-gradient(to left, orange, white, orange);
+        background: rgb(255, 183, 49);
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
         color: black;
@@ -58,6 +55,8 @@
         margin: 0;
         padding: 50px 0;
         .load {
+          color: #3f3a3a;
+          text-decoration: underline;
           display: inline-block;
           font-weight: 100;
           margin-left: -8px;
@@ -321,7 +320,7 @@
     width: 100%;
     height: auto;
     margin: auto 0;
-    background: linear-gradient(to left, orange, white, orange);
+    background: rgb(255, 183, 49);
     .groups {
       margin: 8px 0;
       max-height: 20%;
@@ -355,7 +354,7 @@
     margin: 0 auto;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to left, orange, white, orange);
+    background: rgb(255, 183, 49);
     padding-bottom: 5%;
     .test-div {
       width: 100%;
@@ -397,25 +396,23 @@
   }
 }
 
-@media(max-width: 600px) {
-  .meme-forum {
-    height: 60%;
-    width: 75%;
-  }
-
-  .files {
-    .progress {
-      width: 100px;
+@media(max-width: 632px) {
+  .Upload-web-page {
+    .files {
+      .progress {
+        width: 100px;
+      }
     }
-  }
-
-  .cancel, .sendit {
-    border-radius: 20%;
+    .cancel, .sendit {
+      border-radius: 10/10%;
+    }
+    .meme-forum {
+      height: auto;
+      width: 85%;
+    }
   }
 }
 
-
-// aoxne
 @keyframes file {
   50% {
     box-shadow: -8px 8px 0 -3px #fff,
@@ -431,7 +428,6 @@
   }
 }
 
-// aoxne
 @keyframes progress {
   from {
     background-size: 0 100%;
@@ -441,7 +437,6 @@
   }
 }
 
-// aoxne
 @keyframes fadeup {
   to {
     transform: translateY(0);
@@ -449,7 +444,6 @@
   }
 }
 
-// aoxne
 @keyframes faderight {
   to {
     transform: translateX(0);
@@ -457,7 +451,6 @@
   }
 }
 
-// aoxne
 @keyframes fade {
   to {
     opacity: 1;

@@ -2,7 +2,6 @@
 import React from 'react';
 
 import {
-  // BrowserRouter as Router,
   HashRouter,
   Switch,
   Route,
@@ -10,13 +9,13 @@ import {
 } from "react-router-dom";
 
 import {
+  Viewer,
+  Upload,
   SignInForm,
   SignUpForm,
-  Viewer,
-  UserProfile
+  UserProfile,
 } from "./Containers/index";
 
-import Upload from "./Containers/aoxne/aoxne";
 import "./App.scss";
 
 window.mobileCheck = function() {

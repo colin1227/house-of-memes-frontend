@@ -1,7 +1,7 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-use-before-define */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
@@ -61,43 +61,21 @@ const Upload = (props) => {
   const history = useHistory();
   let [memes, changeMeme] = useState([]); 
   let [preview, changePreviewMedia] = useState();
-  let [isUploadingLink, changeUploadFormat] = useState(true);
+  let [isUploadingMeme, changeUploadFormat] = useState(true);
   let [groups, changegroups] = useState([]);
   let [mediaUrl, changeUrl] = useState('');
   const [firstRender, changeRenderOccurrence] = useState(true);
-  let [groupOptions, changeGroupOptions] = useState([]);
+  let [groupOptions] = useState([]);
 
   let [desc, changeDesc] = useState('');
   let [error, changeError] = useState('');
   let [initalTime, setInitalTime] = useState(0);
 
-  const handleImportgroups = useCallback(async() => {
-    const results = await axios.request({
-      method: 'GET',
-      url: `${vars.apiURL}/groups?public=${'true'}&private=${true}&token=${myStorage.getItem("HoMCookie")}`,
-      headers: { 
-        "Content-Type": "multipart/form-data"
-      }
-    });
-
-    changeGroupOptions([
-      ...results.data.public.map(g => {
-        return { title: g, type: 'public' }
-      }),
-      ...results.data.private.map(g => {
-        return { title: g, type: 'private'}
-      })
-    ]);
-
-    return true;
-  }, []);
-
   useEffect(() => {
     if (firstRender) {
       changeRenderOccurrence(false);
-      handleImportgroups();
     }
-  }, [firstRender, handleImportgroups]);
+  }, [firstRender]);
 
   useEffect(() => {
     if (!myStorage.getItem("HoMCookie")) {
@@ -109,7 +87,7 @@ const Upload = (props) => {
   }, [history])
 
   const submittens = async(e) => {   
-    if (!isUploadingLink) {
+    if (isUploadingMeme) {
       await sendFile(e).then((res) => {
         if (res.status === 201){
           setInitalTime(0);
@@ -308,18 +286,18 @@ const Upload = (props) => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes0.modal}
-        open={Boolean(initalTime)}
+        open={Boolean(initalTime) || true}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={Boolean(initalTime)}>
+        <Fade in={Boolean(initalTime) || true}>
           <div className={classes1.paper + " upload-modal"}>
-            <h2 className="default-font" id="transition-modal-title">Uploading..</h2>
+            <h2 className="default-font-black" id="transition-modal-title">Uploading..</h2>
             {<LoadingSVG />}
-            <p className="default-font" id="transition-modal-description">Rough ETA: {initalTime} seconds, give or take</p>
+            <p className="default-font-black" id="transition-modal-description">time: {initalTime}s</p>
           </div>
         </Fade>
       </Modal>
@@ -332,75 +310,73 @@ const Upload = (props) => {
         </header>
         <div className="upload-files">
           {
-            isUploadingLink ?
-              <div className="link-field">
-                <textarea
-                  rows={1}
-                  id="-9"
-                  type="text"
-                  onChange={(e) => changeUrl(e.target.value)}
-                  className='mediaUrl'
-                  placeholder="enter url"
-                  label="link url here"
-                  required
-                />
-                {
-                  preview ?
-                    // show preview
-                    // present the option to change the preview
-                    <div
-                      className="inital-preview-display"
-                    >
-                      <img
-                        alt='this is the preview img'
-                        src={URL.createObjectURL(preview)}
-                      />
-                      <input
-                        type="file"
-                        onChange={(e) => handlePreviewMedia(e)}
-                        className='preview-input'
-                      />
-                      <p
-                        className="pointer-none">
-                        <a
-                          href="nuffinHere"
-                          onClick={(e) => handleFind(e)}
-                          id="triggerFile"
-                        >click here</a>to change preview
-                      </p>
-                    </div>
-                  :
-                    // present the option to choose a preview
-                    <div>
-                      <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
-                      <p 
-                        className="pointer-none"
-                      >
-                        <a
-                          href="nuffinHere"
-                          onClick={(e) => handleFind(e)}
-                          id="triggerFile"
-                        >choose</a> a preview image or gif(optional)
-                      </p>
-                      <input
-                        type="file"
-                        onChange={(e) => handlePreviewMedia(e)}
-                        className='ffs'
-                      />
-                    </div>
-                }
-              </div>
-            :
+            isUploadingMeme ?
               <div className={`file-prompt${memes.length >= 1 ? ' hidden' : ''}`} id="drop">
                 <div>
+                  {/* TODO: narrow */}
                   <i className="fa fa-file-text-o pointer-none" aria-hidden="true"></i>
                   <p className="pointer-none"><a href="nuffinHere" onClick={(e) => handleFind(e)} id="triggerFile">browse</a> to begin the upload</p>
                   <input type="file" onChange={(e) => handleMeme(e)} className='ffs' multiple="multiple" />
                 </div>
               </div>
+              :
+              <div className="link-field">
+              <textarea
+                rows={1}
+                id="-9"
+                type="text"
+                onChange={(e) => changeUrl(e.target.value)}
+                className='mediaUrl'
+                placeholder="enter url"
+                label="link url here"
+                required
+              />
+              {
+                preview ?
+                  // show preview
+                  // present the option to change the preview
+                  <div className="inital-preview-display">
+                    <img
+                      alt='this is the preview img'
+                      src={URL.createObjectURL(preview)}
+                    />
+                    <input
+                      type="file"
+                      onChange={(e) => handlePreviewMedia(e)}
+                      className='preview-input' />
+                    <p
+                      className="pointer-none">
+                      <a
+                        href="nuffinHere"
+                        onClick={(e) => handleFind(e)}
+                        id="triggerFile">click here</a>
+                         to change preview
+                    </p>
+                  </div>
+                :
+                  // present the option to choose a preview
+                <div>
+                  <i className="fa fa-file-text-o pointer-none"
+                  aria-hidden="true"/>
+                  <p className="pointer-none">
+                    <a
+                      href="nuffinHere"
+                      onClick={(e) => handleFind(e)}
+                      id="triggerFile"
+                    >choose</a> a preview image or gif(optional)
+                  </p>
+                  <input
+                    type="file"
+                    onChange={(e) => handlePreviewMedia(e)}
+                    className='ffs'
+                  />
+                </div>
+              }
+                  </div>
           }
           {
-            !error.length && isUploadingLink ?
+            // TODO: revisit this
+            !error.length && !isUploadingMeme ?
               <footer className={`upload-display ${memes.length >= 1 ? 'hasFiles': ''}`}>
                 <div className="divider">
                   <span><b>FILES</b></span>
@@ -427,18 +403,18 @@ const Upload = (props) => {
               <span className="upload-display upload-error">{error}</span>
           }
           <div className="type-button-container">
-          <Button
-              variant="contained"
-              className="type-link"
-              disabled={isUploadingLink}
-              onClick={() => handleSwitchToLink()}
-              >Link</Button>
             <Button
               variant="contained"
               className="type-file"
-              disabled={!isUploadingLink}
+              disabled={isUploadingMeme}
               onClick={() => handleSwitchToFile()}
               >File</Button>
+            <Button
+              variant="contained"
+              className="type-link"
+              disabled={!isUploadingMeme}
+              onClick={() => handleSwitchToLink()}
+              >Link</Button>
           </div>
         </div>
         <div className='meme-details'>

@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   .sign-in-form-parent {
-    max-width: 45%;
+    max-width: 40%;
     width: 30%;
     height: auto;
     border-radius: 5%;
@@ -100,14 +100,14 @@
 .on-render {
   opacity: 1;
   animation-name: fade-into-center-from-left;
-  animation-duration: 1.5s;
+  animation-duration: 1.15s;
   animation-iteration-count: 1;
 }
 // animate out to left
 .on-back-button {
   opacity: 0;
   animation-name: fade-out-to-left-from-center;
-  animation-duration: .75s;
+  animation-duration: .35s;
   animation-iteration-count: 1;
 }
 

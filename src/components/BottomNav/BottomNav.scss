@@ -3,7 +3,7 @@
 
 .Bottom-Nav {
   width: 100%;
-  height: auto;
+  max-height: 10%;
   display: flex;
   align-items: flex-end;
   margin: 0 auto;
@@ -40,7 +40,7 @@
       position: absolute;
       bottom: 10%;
       width: 60%;
-      height: auto;
+      height: 10%;
       opacity: .25;
       justify-content: space-between;
       flex-direction: row-reverse;
@@ -65,21 +65,22 @@
 
   .sign-in-buttons, .sign-up-buttons {
     width: 100%;
+    height: 30%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 0 auto;
+    button {
+      height: auto;
+      width: auto;
+      font-family: Quicksand;
+      font-size: 18px !important;
+    }
   }
 
   input {
     width: 90%;
     margin: 0 auto;
-  }
-
-  button {
-    width: 30%;
-    font-family: Quicksand;
-    font-size: 14px;
   }
 
   input[type=submit].disabled {
@@ -89,36 +90,16 @@
     width: 35%;
   }
 
-  .sign-in-buttons {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-  }
-
-  .sign-up-buttons button {
-    margin: auto;
-    height: 25%;
-    width: auto;
-    white-space: nowrap;
-    font-size: 12px;
-    font-size: 3vw;
-  }
-
-  .sign-in-buttons button {
-    margin: auto;
-    height: 25%;
-    width: auto;
-    white-space: nowrap;
-    font-size: 12px;
-    font-size: 3vw;
-  }
+  // .sign-in-buttons {
+  //   width: 100%;
+  //   height: 20%;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   margin: 0 auto;
+  // }
 }
 
-img {
-  height: 24px !important;
-}
 
 @keyframes opacity-clear {
   from {
@@ -151,6 +132,7 @@ img {
     button:nth(2) {
       padding-left: 0;
       padding-right: 0;
+      height: 24px;
     }
   }
 }
