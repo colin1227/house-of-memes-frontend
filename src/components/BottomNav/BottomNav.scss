@@ -35,9 +35,6 @@
 
 
   @media screen and (max-width: 632px) {
-    
-
-
     .direct {
       z-index: 5;
       position: absolute;
@@ -119,6 +116,10 @@
   }
 }
 
+img {
+  height: 24px !important;
+}
+
 @keyframes opacity-clear {
   from {
     opacity: 1;
@@ -139,7 +140,17 @@
       background: rgba(0, 0, 0, .5);
       margin: 0;
     }
-    background: $bluish;
+    button:nth-child(2) {
+      width: 30% !important;
+    }
+    background: $blue-gradient;
     z-index: 1;
+  }
+
+  .direct {
+    button:nth(2) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 }

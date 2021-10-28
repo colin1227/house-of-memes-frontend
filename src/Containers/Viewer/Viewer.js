@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import { Button } from '@material-ui/core';
+import { withRouter } from "react-router";
 
 import "./Viewer.scss";
 
@@ -17,9 +18,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 
 import PublishIcon from '@material-ui/icons/Publish';
-// import SettingsIcon from '@material-ui/icons/Settings';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-// import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 
 const instance = axios.create({
   proxyHeaders: false,
@@ -28,9 +27,7 @@ const instance = axios.create({
 
 const myStorage = window.localStorage;
 
-
-
-const Viewer = (props) => {  
+const Viewer = () => {  
   const history = useHistory();
   const [memeUrls, changeMemes] = useState([]);
   const [formatList, changeFormat] = useState([]);
@@ -121,9 +118,7 @@ const Viewer = (props) => {
     }
   }, [memeUrls, viewIndex, formatList, handleImportMemes]);
   
-  const muteButton =
-    <img
-      key={-1}
+  const muteButton = <img key={-1}
       alt="sound toggle"
       className="sound-toggle"
       onClick={() => toggleMute(!muted)}
@@ -136,14 +131,9 @@ const Viewer = (props) => {
       text: "Sign In",
       iconImg: <VpnKeyIcon />,
       onClick: () => history.push({ pathname: "/users/sign-in", state: { lastUrl: window.location.pathname } })
-    },
-    // {
-    //   key: 1,
-    //   text: "Groups",
-    //   iconImg: <PeopleOutlineIcon />,
-    //   onClick: () => history.push("/groups")
-    // }
+    }
   ];
+  
   const myAccount = [
     {
       key: 0,
@@ -168,7 +158,9 @@ const Viewer = (props) => {
     <div key={-1} className="mobile-nav">
       <Button
         key={0}
-        onClick={ () => history.push(`/users/${username}`)}>
+        onClick={ token ?
+          () => history.replace(`/users/${username}`) :
+          () => history.replace('users/sign-in')}>
         <PermIdentityIcon />
       </Button>
       <Button
@@ -194,7 +186,10 @@ const Viewer = (props) => {
         windowWidth <= 632 && 
           <Button
           variant='contained'
-          onClick={() => toggleMute(!muted)}>
+          onClick={() => {
+            toggleMute(!muted);
+            changeMobileClick(true);
+            }}>
             <img
               key={-1}
               alt="speaker representing sound toggle"
@@ -238,7 +233,7 @@ const Viewer = (props) => {
       <div className="content-observation-pannel">
          {
           memeUrls && memeUrls.length ?
-            // todo: change renderMemes to sequential rendering
+            // TODO: have multiple memes on page only using one at a time
             renderFunctions.renderMemes(memeAttributes) 
           : 
             <LoadingSVG />
@@ -256,4 +251,4 @@ const Viewer = (props) => {
   )
 };
 
-export default Viewer;
+export default withRouter(Viewer);

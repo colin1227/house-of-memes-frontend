@@ -38,4 +38,11 @@ const checkUrl = (url) => {
   return true;
 }
 
-export { reducer, allowedFormats, signOut, loremArray, checkUrl };
+export {
+  reducer,
+  allowedFormats,
+  signOut,
+  loremArray,
+  checkUrl,
+  myStorage
+ };

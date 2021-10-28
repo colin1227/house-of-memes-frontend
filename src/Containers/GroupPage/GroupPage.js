@@ -1,8 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
-// import { Button } from '@material-ui/core';
-
+import { withRouter } from 'react-router';
 import "./GroupPage.scss";
 
 import vars from '../../constants/vars.js';
@@ -15,9 +14,7 @@ import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
 import PublishIcon from '@material-ui/icons/Publish';
-// import SettingsIcon from '@material-ui/icons/Settings';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
@@ -254,4 +251,4 @@ useEffect(() => {
   )
 }
 
-export default GroupPage;
+export default withRouter(GroupPage);

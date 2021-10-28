@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
+
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import { styled } from '@material-ui/core/styles';
 import './SignInForm.scss';
+
 import { BottomNav, LoadingSVG } from '../../components/index';
 import vars from '../../constants/vars';
 
@@ -97,10 +99,11 @@ const SignInForm = (props) => {
         </div>
 
         <form onSubmit={(e) => verifySignInForm(e)}
-        className={`${animate ? animate : ''} form-parent`}>
+        className={`${animate ? animate : ''} sign-in-form-parent`}>
           <label className='big-label'>Sign In Page</label>
           <div className="row form-username">
             <label htmlFor="username">Username</label>
+
             <TextField
               className='form-inputs col-75'
               onChange={(e) => changeUsername(e.target.value)}

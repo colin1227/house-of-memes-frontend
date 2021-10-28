@@ -192,7 +192,7 @@ textarea {
     opacity: 0.25;
   }
 }
-@media (max-width: 632px) {
+@media screen and (max-width: 632px) {
   .Bottom-Nav {
     position: absolute;
     z-index: 2;
