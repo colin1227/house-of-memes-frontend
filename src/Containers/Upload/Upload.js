@@ -286,14 +286,14 @@ const Upload = (props) => {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         className={classes0.modal}
-        open={Boolean(initalTime) || true}
+        open={Boolean(initalTime)}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
         }}
       >
-        <Fade in={Boolean(initalTime) || true}>
+        <Fade in={Boolean(initalTime)}>
           <div className={classes1.paper + " upload-modal"}>
             <h2 className="default-font-black" id="transition-modal-title">Uploading..</h2>
             {<LoadingSVG />}
