@@ -1,0 +1,121 @@
+@import './../../stylesheets/global.scss';
+
+// returned component div
+.Viewer-Container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto;
+
+  // Top nav above content div
+  //     ||
+  // Mobile-nav below content div
+  .content {
+    position: absolute;
+    width: 100%;
+    height: 95%;
+    bottom: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+
+    // only for desktop
+    .content-description-pannel {
+      display: flex;
+      opacity: 1;
+      flex-direction: column;
+      justify-content: space-around;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      .description {
+        color: white;
+        width: 100%;
+        height: 30%;
+        text-align: center;
+        font-family: Quicksand;
+      }
+
+      .slider {
+        margin: 5px;
+      }
+
+    }
+
+    // video/photo/audio inside
+    .content-observation-pannel {
+      width: 100%;
+      height: auto;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    // only for desktop
+    .content-comment-pannel {
+      opacity: 1;
+      display: block;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      .the-line {
+        height: 1px;
+        width: 100%;
+        background-color: black;
+        margin: 0;
+        padding: 0;
+
+      }
+
+    }
+
+  }
+}
+
+@media screen and (max-width: 632px){
+  .Viewer-Container {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    .content {
+      height: 100%;
+      position: absolute;
+      display: block;
+    }
+  }
+
+
+  .content-description-pannel {
+    // TODO: change this
+    display: none;
+    .description {
+      background: radial-gradient(rgba(0,0,0, .77), transparent);
+    }
+  }
+
+  .content-observation-pannel {
+    width: 100%;
+    height: auto;
+  }
+
+  .content-comment-pannel {
+    display: none;
+  }
+}
