@@ -397,7 +397,7 @@ const Groups = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <b className="default-font bold">{availableGroups[selectedIndex]}</b>
+                        <b className="default-font black-text bold">{availableGroups[selectedIndex]}</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -410,7 +410,7 @@ const Groups = () => {
                     ).map((name) => (
                       <TableRow key={name}>
                         <TableCell
-                          className="default-font row-fade"
+                          className="default-font black-text row-fade"
                           onClick={() => history.push(`/groups/${name.toLowerCase().split(" ").join("_")}`)}
                           component="th"
                           scope="row">
@@ -422,8 +422,8 @@ const Groups = () => {
                     selectedIndex === 0 && !allGroups.length ?
                       <TableRow key={-1}>
                         <TableCell
-                          className="default-font center-text">
-                          <b>Search sumthin'...</b>
+                          className="default-font grey-text center-text">
+                          <b>Search somthing...</b>
                         </TableCell>
                       </TableRow>
                       : false
@@ -432,7 +432,7 @@ const Groups = () => {
                       searchTermChanged ?
                       <TableRow key={-1}>
                         <TableCell
-                          className="default-font center-text fading-text">
+                          className="default-font grey-text center-text fading-text">
                           Searching...
                         </TableCell>
                       </TableRow>

@@ -295,9 +295,9 @@ const Upload = (props) => {
       >
         <Fade in={Boolean(initalTime)}>
           <div className={classes1.paper + " upload-modal"}>
-            <h2 className="default-font-black" id="transition-modal-title">Uploading..</h2>
+            <h2 className="default-font black-text" id="transition-modal-title">Uploading..</h2>
             {<LoadingSVG />}
-            <p className="default-font-black" id="transition-modal-description">time: {initalTime}s</p>
+            <p className="default-font black-text" id="transition-modal-description">time: {initalTime}s</p>
           </div>
         </Fade>
       </Modal>

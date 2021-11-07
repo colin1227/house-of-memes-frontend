@@ -1,41 +1,51 @@
-@import "./variables.scss";
+$instagram: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+$Twitter: #1DA1F2;
+$reddit: url('../../photos/reddit.svg');
 
-// element change default
-// TODO:
-// - make a display flex div template
+$shadow: 0px 3px 10px rgba(0,0,0,.25);
 
-textarea {
-  resize: none;
-}
+$green-blue: #4db6ac;
+$blue-gradient: linear-gradient(33deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+$blue: rgba(84,58,183,1);
 
-// text
+// TODO: make a display flex div template
 
-// color
+// background color
 .black {
   background-color: #000;
+}
+
+// -- text --
+.default-font {
+  font-family: 'Quicksand';
+}
+
+// might delete later
+@font-face {
+  font-family: 'Quicksand', sans-serif;
+  src: none;
+  font-weight: 300;
 }
 
 .white-text {
   color: white;
 }
-
 .grey-text {
   color: grey;
 }
-
 .error-text {
   color: orangered;
 }
 
 .center-text {
   text-align: center !important;
-  color: grey;
 }
 
 .bold {
   font-weight: 900 !important;
 }
 
+// spacing
 .space-taker-upper {
   width: 100%;
   height: auto;
@@ -43,7 +53,8 @@ textarea {
 }
 
 
-// animations
+// -- animations --
+
 // todo: seperate file to import
 
 @keyframes Background-white-to-grey {
