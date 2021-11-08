@@ -84,8 +84,8 @@
     }
   }
 
-  .fadeIn {
-    animation: fadeIn ease 2s;
+  .fade-in {
+    animation: fade-in ease 2s;
   }
 }
 
@@ -93,7 +93,7 @@ input:focus, textarea:focus, select:focus{
   outline: none;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }
@@ -102,7 +102,7 @@ input:focus, textarea:focus, select:focus{
   }
 }
 
-@keyframes initVideoT {
+@keyframes  initalize-black-background-expand {
   0% {
     background-color: black;
     height: 0%;

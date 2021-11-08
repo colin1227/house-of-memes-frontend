@@ -301,7 +301,7 @@ const Upload = (props) => {
           </div>
         </Fade>
       </Modal>
-      <form className="meme-forum" onSubmit={(e) => submittens(e)}>
+      <form className="meme-forum default-font" onSubmit={(e) => submittens(e)}>
         <header className="upload-head">
           <p>
             <i className="fa fa-cloud-upload" aria-hidden="true"/>
@@ -326,7 +326,7 @@ const Upload = (props) => {
                 id="-9"
                 type="text"
                 onChange={(e) => changeUrl(e.target.value)}
-                className='mediaUrl'
+                className='mediaUrl defualt-font'
                 placeholder="enter url"
                 label="link url here"
                 required
@@ -400,7 +400,7 @@ const Upload = (props) => {
                 <button onClick={(e) => handleFind(e)}  className={`importar${memes.length >= 1 ? ' active' : ''}`}>UPDATE FILES</button>
               </footer>
             :
-              <span className="upload-display upload-error">{error}</span>
+              <span className="upload-display upload-error error-text">{error}</span>
           }
           <div className="type-button-container">
             <Button

@@ -361,7 +361,7 @@ const Groups = () => {
                 button
                 aria-haspopup="true"
                 onMouseOver={(e) => handleClickListItem(e)}
-                className="groups-dropdown-button"
+                className="groups-dropdown-button default-font grey-text"
               >
                 <ListItemText
                   className="default-font"
@@ -370,7 +370,7 @@ const Groups = () => {
               </ListItem>
             </List>
             <TextField
-              className="search-bar"
+              className="search-bar default-font"
               id="outlined-basic"
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search"
@@ -388,7 +388,7 @@ const Groups = () => {
         }
         {
           loaded ?
-            <div className="grided-groups">
+            <div className="grided-groups default-font">
               <TableContainer className="f" component={Paper}>
                 <Table
                   className={`${ classes.table} default-font`}

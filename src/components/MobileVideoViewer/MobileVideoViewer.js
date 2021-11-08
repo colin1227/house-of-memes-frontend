@@ -52,7 +52,7 @@ const MobileVideoViewer = (props) => {
               setCurrentLength(e.target.duration);
             }}
             onClick={(e) => handlePlayState(e)}
-            className={`video-container video-container-overlay ${indx === 0 ? 'fadeIn' : ''}`}
+            className={`video-container video-container-overlay ${indx === 0 ? 'fade-in' : ''}`}
             autoPlay={autoplay}
             loop
             muted={muted}

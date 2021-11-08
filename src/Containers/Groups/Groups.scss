@@ -3,15 +3,17 @@
 .Groups-container {
   height: 100%;
   width: 100%;
+  
   top: 0;
 
   .create-group-modal {
-    text-align: center;
     height: auto;
     width: 50%;
     margin: auto;
-    margin-top: 15% !important;
-  
+    margin-top: 15%;
+    
+    text-align: center;
+
     ul {
       text-align: center;
     }
@@ -24,72 +26,75 @@
   }
 
   .groups {
+    display: block;
     margin: 0 auto;
     padding-top: 5%;
-    display: block;
     max-width: 85%;
 
-    #ustomized-menu {
+    #customized-menu {
       width: 100%;
     }
 
     .dropdown-button-container {
-      width: 50%;
-      height: 100%;
       display: flex;
       justify-content: space-around;
-      left: 0;      
+      height: 100%;
+      width: 50%;
       margin: 0;
       margin-bottom: 2.5%;
 
+      left: 0;      
+
       .groups-dropdown-button {
-        height: 100%;
+        display: flex;
         justify-content: flex-start;
         position: relative;
-        text-align: center;
-        border-radius: 5%/10%;
+        height: 100%;
+
         background-color: white;
+        border-radius: 5%/10%;
         color: grey;
-        font-family: Quicksand;
-        
+        text-align: center;
+
       }  
 
       .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 20%;
         margin-left: 5%;
+
         background-color: white;
         border-radius: 2%/10%;
-        height: 20%;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        font-family: Quicksand;
         label {
           color: darkblue;
         }
       }
 
       .add-group {
-        width: 20px !important;
+        width: 20px;
       }
     }
 
 
-    .loader {  
-      margin-top: 10%;
-      justify-content: center;
+    .loader {
+      display: flex;
       align-items: center;
+      justify-content: center;
       position: relative;
+      margin-top: 10%;
     }
 
     .grided-groups {
-      position: relative;
       display: flex;
       justify-content: center;
-      margin-left: auto;
-      margin-right: auto;
+      position: relative;
       height: auto;
       width: auto;
-      font-family: Quicksand;
+      margin-left: auto;
+      margin-right: auto;
 
       .fading-text {
         animation-name: text-back-to-grey;

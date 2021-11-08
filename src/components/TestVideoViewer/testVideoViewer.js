@@ -105,7 +105,7 @@ const TestVideoviewer = () => {
         className={`video-container video-container-overlay`}
       >
         <video
-          className="fadeIn"
+          className="fade-in"
           onClick={(e) => handlePlayState(e)}
           onTimeUpdate={(e) => handleCurrentTime(e)}
           onCanPlay={(e) => {
@@ -118,7 +118,7 @@ const TestVideoviewer = () => {
           muted={true}
         />
         {/* <img
-          className={true ? 'fadeIn' : ''}
+          className={true ? 'fade-in' : ''}
           alt="default to se what Im doing"
           src="cat.png" /> */}
       </div>

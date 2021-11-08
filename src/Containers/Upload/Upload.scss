@@ -1,21 +1,21 @@
 @import './../../stylesheets/global.scss';
 
 .Upload-web-page {
-  font-family: Quicksand;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
 
+  font-family: Quicksand;
+
   .upload-modal {
     height: auto;
-    width: 45% !important;
+    width: 45%;
   
     h2 {
       margin: 0 auto;
       text-align: center;
-  
     }
     .loader svg {
       height: auto;
@@ -28,24 +28,27 @@
   }
 
   .meme-forum {
-    font-family: Quicksand;
     height: auto;
     width: auto;
+    
+    animation: fade-up .5s .5s ease both;
     border-radius: 6.25%/5%;
-    overflow: hidden;
     box-shadow: 10px 5px 5px black;
-    animation: fadeup .5s .5s ease both;
-    transform: translateY(20px);
+    font-family: Quicksand;
     opacity: 0;
+    overflow: hidden;
+    transform: translateY(20px);
     
     .upload-head {
+      width: 100%;
+      height: 100%;
+
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
       text-align: center;
-      width: 100%;
-      height: 100%;
       p {
         height: 20%;
+        
         background: rgb(255, 183, 49);
         border-bottom-right-radius: 0;
         border-bottom-left-radius: 0;
@@ -54,31 +57,34 @@
         margin: 0;
         padding: 50px 0;
         .load {
+          display: inline-block;
+
+          animation: fade-right .5s .65s ease both;
           color: #3f3a3a;
           text-decoration: underline;
-          display: inline-block;
           font-weight: 100;
           margin-left: -8px;
-          transform: translateX(-20px);
           opacity: 0;
-          animation: faderight .5s .65s ease both;
+          transform: translateX(-20px);
         }
       }
     }
 
     .upload-files {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       height: 100%;
-      background-color: white;
       padding-top: 2.5%;
       padding-bottom: 2.5%;
 
+      background-color: white;
+
       .file-prompt {
         width: 100%;
-        text-align: center;
         margin: auto;
+
+        text-align: center;
         &.hidden {
           display: none;
         }
@@ -86,8 +92,8 @@
           visibility: hidden;
         }
         i {
-          font-size: 65px;
           color: lightgray;
+          font-size: 65px;
         }
         p {
           font-size: 14px;
@@ -100,11 +106,11 @@
         &.active {
           border: dashed 2px $blue;
           i {
+            animation: file .5s ease both;
             box-shadow: 0 0 0 -3px #fff,
             0 0 0 lightgray,
             0 0 0 -3px #fff,
             0 0 0 lightgray;
-            animation: file .5s ease both;
           }
           .pointer-none{
             pointer-events: none;
@@ -114,17 +120,14 @@
 
       .link-field {
         width: 80%;
-        text-align: center;
         margin: auto;
-        // &.hidden {
-        //   display: none;
-        // }
+        text-align: center;
+
         .inital-preview-display {
           .preview-input {
             position: absolute;
           }
         }
-
 
         input {
           visibility: hidden;
@@ -144,48 +147,50 @@
         &.active {
           border: dashed 2px $blue;
           i {
+            animation: file .5s ease both;
             box-shadow: 0 0 0 -3px #fff,
             0 0 0 lightgray,
             0 0 0 -3px #fff,
             0 0 0 lightgray;
-            animation: file .5s ease both;
           }
           .pointer-none{
             pointer-events: none;
           }
         }
         .mediaUrl {
-          font-size: small;
+          width: 100%;
+
           border-radius: 2%/30%;
           border-color: black;
           outline: none;
           font-family: Quicksand;
-          width: 100%;
+          font-size: small;
         }
       }
 
       .upload-error {
         width: 100%;
         text-align: center;
-        color: red;
       }
       footer {
-
+        height: 0;
         width: 100%;
         margin: 0 auto;
-        height: 0;
+
         .divider {
-          margin: 0 auto;
           width: 0;
+          margin: 0 auto;
+
           border-top: solid 4px #3D9CC0;
-          text-align: center;
           overflow: hidden;
+          text-align: center;
           transition: width .5s ease;
           span {
             display: inline-block;
-            transform: translateY(-25px);
             font-size: 12px;
             padding-top: 8px;
+
+            transform: translateY(-25px);
           }
         }
         &.hasFiles {
@@ -199,55 +204,60 @@
           }
           .list-files {
             width: 100%;
+            max-height: 210px;
             margin: 0 auto;
             margin-top: 15px;
             padding-left: 5px;
+
             text-align: center;
             overflow-x: hidden;
             overflow-y: auto;
-            max-height: 210px;
             .files {
-              width: auto;
-              min-height: 50px;
               display: flex;
               justify-content: space-between;
               align-items: center;
               flex-direction: column;
+              width: auto;
+              min-height: 50px;
+
               opacity: 0;
-              // animation: fade .35s ease both;
+
               .name {
-                font-size: 12px;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
                 width: auto;
+
+                font-size: 12px;
+                overflow: hidden;
                 text-align: left;
+                text-overflow: ellipsis;
+                white-space: nowrap;
               }
               .progress {
-                width: 175px;
                 height: 5px;
-                border: solid 1px lightgray;
+                width: 175px;
                 background: linear-gradient(to left, rgba( 0,172,193, .2), rgba(84,58,183, .8)) no-repeat;          background-size: 100% 100%;
+                border: solid 1px lightgray;
                 &.active {
                   animation: progress 30s linear;
                 }
               }
       
               .done {
-                cursor: pointer;
-                width: 40px;
+                position: relative;
                 height: 40px;
+                width: 40px;
+                margin-left: -10px;
+                
+                cursor: pointer;
                 background: $blue-gradient;
                 border-radius: 50%;
-                margin-left: -10px;
                 transform: scale(0);
-                position: relative;
                 &:before {
-                  content: "View";
                   position: absolute;
-                  top: 0;
-                  left: -5px;
+                  content: "View";
+
                   font-size: 24px;
+                  left: -5px;
+                  top: 0;
                   opacity: 0;
                 }
                 &:hover:before {
@@ -256,41 +266,41 @@
                   opacity: 1;
                 }
                 #path {
-                  stroke-dashoffset: 7387.59423828125;
-                  stroke-dasharray: 7387.59423828125 7387.59423828125;
-                  stroke: #fff;
                   fill: transparent;
+                  stroke: #fff;
+                  stroke-dasharray: 7387.59423828125 7387.59423828125;
+                  stroke-dashoffset: 7387.59423828125;
                   stroke-width: 50px;
                 }
-              }
-                      
+              }          
             }
           }
         }
         .importar {
-          font-family: Quicksand;
-          outline: none;
           position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 20px;
+          font-family: Quicksand;
           margin: auto;
+
+          background: transparent;
+          border-radius: 4px;
+          bottom: 20px;
           border: solid 1px $blue-gradient;
           color: $blue;
-          background: transparent;
-          padding: 8px 15px;
-          font-size: 12px;
-          border-radius: 4px;
-          line-height: 1;
           cursor: pointer;
-          transform: translateY(15px);
+          font-size: 12px;
+          left: 0;
+          line-height: 1;
           opacity: 0;
+          outline: none;
+          padding: 8px 15px;
+          right: 0;
+          transform: translateY(15px);
           visibility: hidden;
           &.active {
-            transition: transform .5s 1.5s ease, opacity .5s 1.5s ease;
             transform: translateY(0);
+            transition: transform .5s 1.5s ease, opacity .5s 1.5s ease;
             opacity: 1;
-                    visibility: visible;
+            visibility: visible;
           }
           &:hover{
             background: $blue-gradient;
@@ -301,29 +311,30 @@
     }
 
     .type-button-container {
-      margin: 0 auto;
-      width: 100%;
-      height: auto;
       display: flex;
       justify-content: space-around;
+      height: auto;
+      width: 100%;
+      margin: 0 auto;
     }
   }
 
   .meme-details {
-    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    opacity: 1;
-    min-width: 100%;
-    width: 100%;
+    position: relative;
     height: auto;
+    width: 100%;
     margin: auto 0;
+    min-width: 100%;
+
     background: rgb(255, 183, 49);
+    opacity: 1;
     .groups {
+      width: 85%;
       margin: 8px 0;
       max-height: 20%;
-      width: 85%;
       background-color: white;
     }
     .desc-container {
@@ -333,15 +344,16 @@
       width: 100%;
       margin: 8px 0;
       .desc {
-        font-size: 16px;
-        border-radius: 1rem;
-        border-color: transparent;
-        outline: none;
-        text-indent: 5%;
-        font-family: Quicksand;
         height: 50%;
         width: 85%;
         max-width: 85%;
+
+        border-color: transparent;
+        border-radius: 1rem;
+        font-family: Quicksand;
+        font-size: 16px;
+        outline: none;
+        text-indent: 5%;
       }
     }
   }
@@ -350,19 +362,21 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin: 0 auto;
     height: 100%;
     width: 100%;
+    margin: 0 auto;
+
     background: rgb(255, 183, 49);
     padding-bottom: 5%;
     .test-div {
-      width: 100%;
       display: flex;
       justify-content: center;
+      width: 100%;
       padding-bottom: 5%;
       .test-meme {
-        background-color: steelblue;
         width: 35%;
+
+        background-color: steelblue;
       }
     }
 
@@ -370,26 +384,28 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      margin: 0 auto;
       height: 100%;
       width: 100%;
+      margin: 0 auto;
       .cancel {
         height: 100%;
         width: 35%;
-        right: 0;
-        cursor: pointer;
-        background-color: grey;
         margin: 0;
+
+        background-color: grey;
+        cursor: pointer;
         font-family: Quicksand;
+        right: 0;
       }
       .sendit {
         height: 100%;
         width: 35%;
-        right: 0;
-        cursor: pointer;
         margin: 0;
-        font-family: Quicksand;
+
+        cursor: pointer;
         background-color: rgba(0,172,193,1);
+        font-family: Quicksand;
+        right: 0;
       }
     }
   }
@@ -436,17 +452,17 @@
   }
 }
 
-@keyframes fadeup {
+@keyframes fade-up {
   to {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes faderight {
+@keyframes fade-right {
   to {
-    transform: translateX(0);
     opacity: 1;
+    transform: translateX(0);
   }
 }
 

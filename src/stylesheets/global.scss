@@ -10,6 +10,10 @@ $blue: rgba(84,58,183,1);
 
 // TODO: make a display flex div template
 
+// base element re-assignments
+label {
+  font-family: QuickSand;
+}
 // background color
 .black {
   background-color: #000;
@@ -19,18 +23,10 @@ $blue: rgba(84,58,183,1);
 .default-font {
   font-family: 'Quicksand';
 }
-
-// might delete later
-@font-face {
-  font-family: 'Quicksand', sans-serif;
-  src: none;
-  font-weight: 300;
-}
-
 .white-text {
   color: white;
 }
-.grey-text {
+.grey-text, .gray-text {
   color: grey;
 }
 .error-text {
@@ -143,5 +139,49 @@ $blue: rgba(84,58,183,1);
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes initalize-black-background-expand {
+  0% {
+    background-color: black;
+    height: 0%;
+    width: 1%;
+    opacity: 1;
+    top: 0;
+  }
+
+  30% {
+    height: 50%;
+    width: 1%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 1;
+    background-color: black;
+  }
+}
+
+@keyframes initVideoB {
+  0% {
+    background-color: black;
+    height: 0%;
+    width: 1%;
+    opacity: 1;
+    bottom: 0;
+  }
+
+  30% {
+    height: 50%;
+    width: 1%;
+    opacity: 1;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 1;
+    background-color: black;
   }
 }

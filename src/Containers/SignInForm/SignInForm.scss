@@ -2,24 +2,26 @@
 
 /* Style the container */
 .sign-in-page {
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
   .sign-in-form-parent {
-    max-width: 40%;
-    width: 30%;
     height: auto;
+    width: 30%;
+    max-width: 40%;
+    padding: 20px;
+
     border-radius: 5%;
     background-color: #f2f2f2;
-    padding: 20px;
   }
 
   /* Style inputs, select elements and textareas */
   input[type=text], select, textarea{
     width: 100%;
     padding: 12px;
+
     border-radius: 4px;
     box-sizing: border-box;
     resize: vertical;
@@ -31,14 +33,15 @@
 
   /* Style the label to display next to the inputs */
   label {
-    padding: 12px 12px 12px 12px;
     display: inline-block;
+    padding: 12px 12px 12px 12px;
   }
 
   /* Style the submit button */
   input[type=submit] {
-    color: white;
     padding: 12px 20px;
+
+    color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -47,8 +50,8 @@
 
   /* Floating column for labels: 25% width */
   .col-25 {
-    float: left;
     width: 25%;
+    float: left;
     margin-top: 6px;
   }
 
@@ -60,17 +63,15 @@
 
   /* Clear floats after the columns */
   .row:after {
-    content: "";
     display: table;
     clear: both;
+    content: "";
   }
 
   .form-inputs {
-    width: 75% !important;
     height: 100%;
+    width: 75% !important;
   }
-
-
 
   .account-requirements {
     height: auto;
@@ -95,25 +96,27 @@
   }
 }
 
-// animate in from left
+// animate in from left to center
 .on-render {
-  opacity: 1;
   animation-name: fade-into-center-from-left;
   animation-duration: 1.15s;
   animation-iteration-count: 1;
+
+  opacity: 1;
 }
-// animate out to left
+// animate out from center to left
 .on-back-button {
-  opacity: 0;
   animation-name: fade-out-to-left-from-center;
   animation-duration: .35s;
   animation-iteration-count: 1;
+
+  opacity: 0;
 }
 
 
 // LOGIN ANIMATIONS
 
-// animate out to right
+// animate out from center to right
 .on-submit-button {
   animation-name: fade-out-to-right-from-center;
   animation-duration: .5s;
@@ -121,7 +124,7 @@
   opacity: 0;
 }
 
-// animate in from right
+// animate in from right to center
 .on-failed-login {
   animation-name: fade-into-center-from-right;
   animation-duration: 1s;
@@ -129,19 +132,12 @@
   opacity: 1;
 }
 
-// consider looking into animation-direction.
-// reverse and use one animation for:
-// - fade-in
-// - fade-out
-
-label {
-  font-family: QuickSand;
-}
 // for LoadingSVG
 .margin-auto {
-  opacity: 0;
-  margin: auto;
   position: absolute;
+  margin: auto;
+
+  opacity: 0;
   z-index: 2;
 }
 
@@ -149,35 +145,38 @@ label {
   text-align: center;
   .join-here {
     color: $blue;
-    text-decoration: underline;
     font-family: 'Quicksand';
     font-weight: 900;
     margin-bottom: 5%;
+    text-decoration: underline;
   }
   margin: 0 auto 5% auto;
   width: 100%;
 }
 
 .big-label {
+  width: 100%;
   color: rgb(63, 58, 58);
   margin: auto;
-  text-align: center;
-  width: 100%;
+
   font-family: QuickSand;
   font-size: xx-large;
+  text-align: center;
   text-decoration: underline;
 }
 
 .fade-in {
-  opacity: 1;
   animation-name: fade-in;
   animation-duration: .25s;
   animation-iteration-count: 1;
+
+  opacity: 1;
 }
 
 .fade-out {
-  opacity: 0;
   animation-name: fade-out;
   animation-duration: .25s;
   animation-iteration-count: 1;
+
+  opacity: 0;
 }

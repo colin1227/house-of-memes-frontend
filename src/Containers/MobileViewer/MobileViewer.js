@@ -178,8 +178,8 @@ const Viewer = (props) => {
   <div 
   className='Mobile-viewer'>
     <TopNav variant='contained' muteButton={muteButton} buttons={token ? myAccount : signIn} />
-    <div className="memeRend">
-      <div className="memeInfo">
+    <div className="meme-renderer">
+      <div className="meme-information">
         <h1 className="description">
           {descriptions[viewIndex.count]}
         </h1>

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import "./index.scss";
+import "./TestContainer.scss";
 
 import { signOut } from "../../helper/index";
 
@@ -153,8 +153,8 @@ const TestContainer = () => {
       muteButton={muteButton}
       buttons={token ? myAccount : signIn}
     />
-    <div className="memeRend">
-      <div className="memeInfo">
+    <div className="meme-renderer">
+      <div className="meme-information">
         <div className="space-taker-upper"/>
         {/* <BottomNav variant='contained' buttons={directionalButtons} /> */}
       </div>

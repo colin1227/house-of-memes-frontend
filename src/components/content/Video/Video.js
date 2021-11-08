@@ -54,7 +54,7 @@ const VideoViewer = (props) => {
             }}
             onClick={(e) => handlePlayState(e)}
             className={`video-container video-container-overlay
-            ${memeNumber === 0 ? 'fadeIn' : ''}`}
+            ${memeNumber === 0 ? 'fade-in' : ''}`}
             autoPlay={autoplay}
             loop
             muted={muted}

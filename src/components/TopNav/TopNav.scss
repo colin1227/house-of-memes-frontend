@@ -2,20 +2,21 @@
 
 .Top-nav-bar {
   position: fixed;
-  z-index: 5;
   width: 100%;
   height: 5%;
   margin: 0;
+
   background: linear-gradient(332deg, rgba(208,208,208,1) 0%, rgba(135,135,135,1) 100%);
+  z-index: 5;
   
   .head-title {
-    z-index: 0;
-    width: 100%;
-    font-size: 32px;
     position: fixed;
-    text-align: center;
-    font-family: 'QuickSand';
+    width: 100%;
+
     color: white;
+    font-size: 32px;
+    text-align: center;
+    z-index: 0;
   }
 
   @media screen and (max-width: 632px) {
@@ -24,40 +25,41 @@
     }
   }
 
-  // Mui: 
-  // are these classes for the buttons passed down?
+  // Material-ui changes
   .MuiButtonBase-label {
-    width: auto;
-    padding: 0 !important;
-    margin: 0 !important;
     display: flex;
     justify-content: center;
+    width: auto;
+    padding: 0;
+    margin: 0;
   }
   .MuiListItemIcon-root {
-    width: auto;
-    padding: 0 !important;
-    margin: 0 !important;
     display: flex;
     justify-content: center;
+    width: auto;
+    margin: 0;
+    padding: 0;
   }
   
   .mobile-buttons {
-    top: 0;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: flex-start;
     position: absolute;
     width: auto;
     height: 100%;
+    margin: 0;
+    padding: 0;
+
+    top: 0;
+
     .sound-toggle {
       position: relative;
       height: auto;
       width: auto;
     }  
     .mobile-direct {
-      position: relative;
       display: inline;
+      position: relative;
       button:nth-child(1) {
         margin-left: 2%;
       }
@@ -70,55 +72,62 @@
     }
   }
   .myAccount-options {
-    position: relative;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: auto;
     display: flex;
     justify-content: flex-end;
+    position: relative;
+    height: 100%;
+    width: auto;
     margin: 0;
+
+    right: 0;
+    top: 0;
+
     .username {
-      cursor: pointer;
-      width: 20%;
       height: auto;
+      width: 20%;
+      padding: 0;
       margin-right: .75%;
-      padding: 0 !important;
+
+      cursor: pointer;
       font-size: small;
+
     }
     .upload {
-      cursor: pointer;
-      padding: 0 !important;
-      width: 20%;
       height: auto;
+      width: 20%;
       margin-right: .75%;
+      padding: 0;
+
+      cursor: pointer;
       font-size: small;
     }
   }
 
   button {
-    font-family: Quicksand;
-    font-size: medium;
-    text-overflow: ellipsis;
-    height: 100%;
-    outline: none;
     margin: 0;
     margin-right: .75%;
+    height: 100%;
+
+    font-family: Quicksand;
+    font-size: medium;
+    outline: none;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .sound-toggle {
     position: absolute;
-    top: 0;
-    max-width:100%;
     max-height:100%;
+    max-width:100%;
+
+    top: 0;
     z-index: 2;
   }
 
   .main-menu {
-    z-index: 7 !important;
     width: auto;
-    float: right;
     margin: 0;
+    float: right;
+    z-index: 1;
   }
 }
 

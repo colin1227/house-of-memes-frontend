@@ -1,41 +1,45 @@
 @import '../../stylesheets/global.scss';
 
 .big-label {
-  color: rgb(63, 58, 58);
-  margin: auto;
-  text-align: center;
   width: 100%;
+  margin: auto;
+
+  color: rgb(63, 58, 58);
   font-family: QuickSand;
   font-size: xx-large;
+  text-align: center;
 }
 
 .margin-auto {
-  opacity: 0;
-  margin: auto;
   position: absolute;
+  margin: auto;
+
+  opacity: 0;
   z-index: 2;
 }
 
 /* Style the container */
 .sign-up-page {
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
 
   .sign-in {
     color: $blue;
-    text-decoration: underline;
     font-family: 'Quicksand';
     font-weight: 500;
+    text-decoration: underline;
   }
   .sign-up-form-parent {
-    max-width: 40%;
-    width: auto;
     height: auto;
+    width: auto;
     border-radius: 5%;
     background-color: #f2f2f2;
+
+    max-width: 40%;
     padding: 20px;
     .row:nth-child(n + 1) {
       display: flex;
@@ -43,8 +47,8 @@
     }
 
     .form-confirmPassword {
-      position: relative;
       display: block;
+      position: relative;
     }
   }
 
@@ -54,25 +58,27 @@
 
   /* Style the label to display next to the inputs */
   label {
-    padding: 12px 0 12px 0;
     display: inline-block;
+    padding: 12px 0 12px 0;
   }
 
   /* Style the submit button */
   input[type=submit] {
-    color: white;
     padding: 12px 20px;
+
     border: none;
     border-radius: 4px;
+    color: white;
     cursor: pointer;
     float: right;
   }
 
   /* Floating column for labels: 25% width */
   .col-25 {
-    float: left;
     width: 25%;
     margin-top: 6px;
+
+    float: left;
   }
 
   /* Floating column for inputs: 75% width */
@@ -82,11 +88,9 @@
   }
 
   .form-inputs {
-    width: 75% !important;
     height: 100%;
+    width: 75%;
   }
-
-
 
   .account-requirements {
     height: auto;
@@ -96,31 +100,35 @@
 
 // animate in from left
 .on-render {
-  opacity: 1;
   animation-name: fade-into-center-from-left;
   animation-duration: 1.15s;
   animation-iteration-count: 1;
+
+  opacity: 1;
 }
 // animate out to left
 .on-back-button {
-  opacity: 0;
   animation-name: fade-out-to-left-from-center;
   animation-duration: .75s;
   animation-iteration-count: 1;
+
+  opacity: 0;
 }
 // animate out to right
 .on-submit-button {
   animation-name: fade-out-to-right-from-center;
   animation-duration: .5s;
   animation-iteration-count: 1;
+
   opacity: 0;
 }
 // animate in from right
 .on-failed-login {
-  opacity: 1;
   animation-name: fade-into-center-from-right;
   animation-duration: 1s;
   animation-iteration-count: 1;
+
+  opacity: 1;
 }
 
 @media screen and (max-width: 632px) {
@@ -133,14 +141,10 @@
           padding-right: 0;
         }
         .MuiFormControl-root.MuiTextField-root.form-inputs.col-75 {
-          width: 95% !important;
-          padding: auto !important;
+          width: 95%;
+          padding: auto;
         }
       }
     }
   }
-}
-
-label {
-  font-family: QuickSand;
 }

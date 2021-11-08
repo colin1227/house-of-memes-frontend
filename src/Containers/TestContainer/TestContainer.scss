@@ -1,31 +1,31 @@
 @import './../../stylesheets/global.scss';
 
-
 .viewer {
   display: inline-block;
   position: relative;
   height: 100%;
   width: 100%;
-  padding: 0;
-  margin: 0 auto;
 
-  .memeRend {
-    position: absolute;
-    width: 100%;
-    height: 95%;
-    bottom: 0;
-    margin: 0;
+  margin: 0 auto;
+  padding: 0;
+
+  .meme-renderer {
     display: flex;
     justify-content: center;
+    position: absolute;
+    height: 95%;
+    width: 100%;
+    margin: 0;
 
-    .memeInfo {
-      opacity: 1;
+    bottom: 0;
+
+    .meme-information {
       max-width: 50%;
+      opacity: 1;
+
       .description {
-        color: white;
         width: 100%;
         text-align: center;
-        font-family: Quicksand;
       }
 
       .slider {
@@ -33,76 +33,71 @@
       }
 
       .other-vids {
-        width: 100%;
         height: 100%;
+        width: 100%;
         margin: 0;
         .popular {
-          width: 50%;
           height: 25%;
+          width: 50%;
+
           background: radial-gradient(white, lightslategray);
-          margin-right: 45%;
-          margin-left: 5%;
           margin-bottom: 2.5px;
+          margin-left: 5%;
+          margin-right: 45%;
         }
   
-        .otherUserStuff {
-          width: 50%;
+        .recomendedUserMemes {
           height: 25%;
+          width: 50%;
+
           background: radial-gradient(white, lightslategray);
           margin-left: 45%;
           margin-bottom: 2.5px;
         }
   
         .rising {
-          width: 50%;
           height: 25%;
-          background: radial-gradient(white, lightslategray);
-          margin-right: 45%;
-          margin-left: 5%;
+          width: 50%;
           margin-bottom: 2.5px;
+          margin-left: 5%;
+          margin-right: 45%;
+
+          background: radial-gradient(white, lightslategray);
         }
   
         .interactions {
-          width: 50%;
           height: 25%;
-          background: radial-gradient(white, lightslategray);
+          width: 50%;
           margin-left: 45%;
+
+          background: radial-gradient(white, lightslategray);
         }
       }
     }
 
     .memeDiv {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
       width: 100%;
       height: auto;
       margin: 0;
       padding: 0;
-      position: relative;
-      display:flex;
-      justify-content: center;
-      align-items: center;
-      // overflow: scroll;
     }
 
     .comments {
-      opacity: 0;
       display: block;
       height: 100%;
       width: 100%;
 
+      opacity: 0;
       .comments-header {
         width: 100%;
-        text-align: center;
+
         color: rgb(255, 255, 255);
         font-family: Quicksand;
-      }
-
-      .the-line {
-        height: 1px;
-        width: 100%;
-        background-color: black;
-        margin: 0;
-        padding: 0;
-
+        text-align: center;
       }
 
       .comment-section {
@@ -110,6 +105,7 @@
         height: auto;
         width: auto;  
         margin: 0 10px;
+
         border-radius: 15px;
       }
       .comment-object:hover {
@@ -120,28 +116,27 @@
       }
 
       .comment-object {
-        position: relative;
         display: flex;
-        justify-content: flex-start;
         align-items: center;
+        justify-content: flex-start;
+        position: relative;
+        height: auto;
+
         background: radial-gradient(rgba(232, 232, 232, .334), transparent);
         border-radius: 15px;
-        height: auto;
         margin: auto 0;
         .like-object {
-          margin-top: 3px;
-          margin-bottom: 3px;
-          margin-left: 0;
-          margin-right: 3px;
           height: auto;
           width: 100%;
           max-width: 45px;
           max-height: 45px;
+          margin: 3px 3px 3px 0;
           .like-symbol {
-            width: 10px;
             height: 10px;
-            border: 2px solid white;
+            width: 10px;
             margin: 0 auto;
+
+            border: 2px solid white;
           }
     
           .likes {
@@ -151,10 +146,11 @@
 
         }
         .comment {
-          font-family: Quicksand;
-          color: white;
-          width: 100%;
           height: auto;
+          width: 100%;
+
+          color: white;
+          font-family: Quicksand;
           padding: 1% 0;
         }
         
@@ -163,27 +159,29 @@
         }
 
         .triple div {
-          z-index: -1;
-          opacity: 0;
-          width: 5px;
           height: 5px;
-          border-radius: 3px;
-          background-color: white;
+          width: 5px;
           margin: 1px;
+
+          background-color: white;
+          border-radius: 3px;
+          opacity: 0;
+          z-index: -1;
         }
       }
     }
 
-    .memeInfo, .comments {
-      background-color: transparent;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    .meme-information, .comments {
       display: flex;
       align-items: flex-end;
       flex-direction: column;
       justify-content: space-evenly;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      background-color: transparent;
     }
 
     .other-vids div {

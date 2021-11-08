@@ -1,111 +1,48 @@
 @import './../../../stylesheets/global.scss';
 
 .VideoViewer {
-  padding: 0;
-  margin: 0;
-  // this?
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-  position: absolute;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
   background-color: black;
+  bottom: 0;
+  flex-wrap: wrap;
+  position: absolute;
 
   .bar-container {
     position: relative;
-    width: 100%;
     height: 2%;
+    width: 100%;
     .playback-background-bar {
       position: absolute;
-      background: linear-gradient(94deg, rgba(255,139,0,1) 75%, rgba(255,0,119,1) 100%);
       height: 100%;
       width: 100%;
+
+      background: linear-gradient(94deg, rgba(255,139,0,1) 75%, rgba(255,0,119,1) 100%);
     }
     .playback-black-bar {
       position: absolute;
-      background: black;
-      width: 100%;
       height: 100%;
+      width: 100%;
+
+      background: black;
     }
   }
   video {
     position: relative;
     height: 98%;
-    // this?
     width: 96%;
-    outline: none;
+
     margin: 0;
+    outline: none;
   }
 
-  .fadeIn {
-    animation: fadeIn ease 2s;
-  }
-}
-
-.black {
-  background-color: #000;
-}
-
-.white-text {
-  color: white;
-}
-
-@media only screen and (max-device-width: 632px){
-
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes initVideoT {
-  0% {
-    background-color: black;
-    height: 0%;
-    width: 1%;
-    opacity: 1;
-    top: 0;
-  }
-
-  30% {
-    height: 50%;
-    width: 1%;
-    opacity: 1;
-  }
-
-  100% {
-    width: 100%;
-    opacity: 1;
-    background-color: black;
-  }
-}
-
-@keyframes initVideoB {
-  0% {
-    background-color: black;
-    height: 0%;
-    width: 1%;
-    opacity: 1;
-    bottom: 0;
-  }
-
-  30% {
-    height: 50%;
-    width: 1%;
-    opacity: 1;
-  }
-
-  100% {
-    width: 100%;
-    opacity: 1;
-    background-color: black;
+  .fade-in {
+    animation: fade-in ease 2s;
   }
 }
 
