@@ -9,7 +9,7 @@ import "./Viewer.scss";
 import vars from '../../constants/vars';
 
 import renderFunctions from "../../components/renders/renders";
-import { TopNav, LoadingSVG, BottomNav } from "./../../components/index";
+import { TopNav, LoadingSVG, BottomNav, SearchBar } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
@@ -29,21 +29,25 @@ const myStorage = window.localStorage;
 
 const Viewer = () => {  
   const history = useHistory();
-  const [memeUrls, changeMemes] = useState([]);
-  const [formatList, changeFormat] = useState([]);
-  const [descriptions, changeDescription] = useState([]);
+
+  const [memeList, changeMemes] = useState([]);
+  const [formatList, changeFormats] = useState([]);
+  const [descriptionList, changeDescriptions] = useState([]);
+  const [viewIndex, changeIndex] = useState(0);
+
   const [initalMeme, isInitial] = useState(true);
   const [loaded, loadVid] = useState(false);
+  const [muted, toggleMute] = useState(true);
+
   const [token] = useState(myStorage.getItem('HoMCookie'));
   const [username] = useState(myStorage.getItem('loggedIn'));
-  const [viewIndex, changeIndex] = useState(0);
-  const [muted, toggleMute] = useState(true);
+
   const [mobileClick, changeMobileClick] = useState(false);
   const [windowWidth] = useState(window.innerWidth);
 
   const memeAttributes = {
     key: viewIndex,
-    url: memeUrls[viewIndex],
+    url: memeList[viewIndex],
     format: formatList[viewIndex],
     muted,
     autoplay: !initalMeme,
@@ -56,12 +60,13 @@ const Viewer = () => {
     }
 
     if (dir === 1 &&
-      memeUrls.length - 1 > viewIndex) {
+      memeList.length - 1 > viewIndex) {
       changeIndex(viewIndex + 1);
     } else if (dir === -1 && 0 < viewIndex) {
       changeIndex(viewIndex - 1);
     }
   }
+
   const handleImportMemes = useCallback(async(n=2) => {
     try {
         const result =
@@ -71,25 +76,83 @@ const Viewer = () => {
           myStorage.setItem('HoMCookie', result.data.token);
         } 
         changeMemes([
-          ...memeUrls, 
+          ...memeList, 
           ...result.data.memeExport.names.map((name) => {
           return `${vars.apiURL}/memes/${name}`})
         ]);
 
-        changeFormat([
+        changeFormats([
           ...formatList,
           ...result.data.memeExport.formats
         ]);
 
-        changeDescription([
-          ...descriptions,
+        changeDescriptions([
+          ...descriptionList,
           ...result.data.memeExport.description
         ]);
 
       } catch(err) {
         console.log(err);
      }
-  },[memeUrls, formatList, descriptions, token]);
+  },[memeList, formatList, descriptionList, token]);
+
+  const addSearchedMeme = (searchedMeme) => {
+    const splicedMemeList = memeList;
+    const splicedDescriptionList = descriptionList;
+    const splicedFormatList = formatList;
+    splicedMemeList.splice(viewIndex + 1, 0, `${vars.apiURL}/memes/${searchedMeme.awsName}`);
+    splicedDescriptionList.splice(viewIndex + 1, 0, searchedMeme.label);
+    splicedFormatList.splice(viewIndex + 1, 0, searchedMeme.format);
+
+    changeMemes(splicedMemeList)
+    changeDescriptions(splicedDescriptionList);
+    changeFormats(splicedFormatList);
+    changeMeme(1);
+  }
+
+  // rendering functions
+  const showContentDescriptionPannel = () => {
+    if (windowWidth > 632) {
+      return (
+        <div className="content-description-pannel">
+          <h1 className="description">{descriptionList[viewIndex]}</h1>
+          <div className="space-taker-upper"/>
+          <div>
+            <BottomNav
+              variant='contained'
+              buttons={directionalButtons} />
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <BottomNav
+          variant='contained'
+          buttons={directionalButtons}/>
+      )
+    }
+  }
+  const showMobileNav = () => {
+    if (windowWidth < 632) {
+      return (
+        <BottomNav
+          variant='contained'
+          buttons={mobileNav} />
+      )
+    }
+  }
+
+  const showRightPannel = () => {
+    if (windowWidth > 632) {
+      return (
+        <div
+          className="space-taker-upper content-comment-pannel"
+        >
+          <SearchBar addSearchedMeme={addSearchedMeme} />
+        </div>
+      );
+    }
+  }
 
   useEffect(() => {
     let mobileClickTimer = setTimeout(() => changeMobileClick(false), 6500);
@@ -99,24 +162,24 @@ const Viewer = () => {
   },[mobileClick]);
 
   useEffect(() => {
-    if (memeUrls && memeUrls.length) {
+    if (memeList && memeList.length) {
       setTimeout(() => {
         loadVid(true);
       }, 1250);
     }
-  }, [memeUrls])
+  }, [memeList])
   useEffect(() => {
     if (initalMeme &&
         viewIndex === 1 &&
-        memeUrls.length > 0){
+        memeList.length > 0){
       isInitial(false);
     }
-  },[initalMeme, viewIndex, memeUrls]);
+  },[initalMeme, viewIndex, memeList]);
   useEffect(() => {
-    if (memeUrls.length <= viewIndex + 1) {
+    if (memeList.length <= viewIndex + 1) {
       handleImportMemes(4);
     }
-  }, [memeUrls, viewIndex, formatList, handleImportMemes]);
+  }, [memeList, viewIndex, formatList, handleImportMemes]);
   
   const muteButton = <img key={-1}
       alt="sound toggle"
@@ -180,7 +243,7 @@ const Viewer = () => {
     <div key={-1} className={`direct ${mobileClick ? 'mobile-click' : ''}`}>
       <Button
         variant='contained'
-        disabled={memeUrls.length - 1 <= viewIndex}
+        disabled={memeList.length - 1 <= viewIndex}
         onClick={() => changeMeme(1)}>Next</Button>
       {
         windowWidth <= 632 && 
@@ -218,35 +281,19 @@ const Viewer = () => {
       false
     }
     <div className="content">
-      {
-        windowWidth > 632 ?
-        <div className="content-description-pannel">
-          <h1 className="description">{descriptions[viewIndex]}</h1>
-          <div className="space-taker-upper"/>
-          <div>
-            <BottomNav variant='contained' buttons={directionalButtons} />
-          </div>
-        </div>
-        :
-        <BottomNav variant='contained' buttons={directionalButtons} />
-      }
+      {showContentDescriptionPannel()}
       <div className="content-observation-pannel">
          {
-          memeUrls && memeUrls.length ?
+          memeList && memeList.length ?
             // TODO: have multiple memes on page only using one at a time
             renderFunctions.renderMemes(memeAttributes) 
           : 
             <LoadingSVG />
         }
       </div>
-      {
-        windowWidth > 632 &&
-        <div className="space-taker-upper content-comment-pannel" />
-      }
+      {showRightPannel()}
     </div>
-    {windowWidth <= 632 &&
-        <BottomNav variant='contained' buttons={mobileNav} />
-    }
+    {showMobileNav()}
   </div>
   )
 };

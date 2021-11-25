@@ -1,0 +1,13 @@
+@import "./../../stylesheets/global.scss";
+
+.search-component {
+  z-index: 1;
+  background-color: rgb(230, 230, 230);
+  .MuiBox-root .css-13r4j3i {
+    z-index: 1;
+  }
+  .search-bar {
+    background-color: rgb(230, 230, 230);
+    border-radius: 5/15%;
+  }
+}
