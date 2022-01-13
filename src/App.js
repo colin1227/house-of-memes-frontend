@@ -14,6 +14,7 @@ import {
   SignInForm,
   SignUpForm,
   UserProfile,
+  TestContainer
 } from "./Containers/index";
 
 import "./App.scss";
@@ -30,8 +31,8 @@ const App = () => {
       className="App">
         <HashRouter>
           <Switch>
-            <Redirect exact from="/" to="/memes/" />
-            
+            {/* <Redirect exact from="/" to="/memes/" /> */}
+            <Redirect exact from="/" to="/test-page/" />
             {/* Memes */}
             <Route exact path="/memes/" component={ () => <Viewer />} />
             <Route exact path="/memes/upload" component={ () => <Upload />} />
@@ -43,10 +44,7 @@ const App = () => {
              */}
 
             {/* Experimental */}
-            {/*
-              <Route exact path="/test-page" component={() => <TestContainer />} />
-              <Route exact path="/test-user" component={() => <TestUserPage />} />
-            */}
+            <Route exact path="/test-page" component={() => <TestContainer />} />
 
             {/* Users */}
             <Route exact path="/users/sign-in" component={() => <SignInForm />} />

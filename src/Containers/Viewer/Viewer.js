@@ -9,7 +9,7 @@ import "./Viewer.scss";
 import vars from '../../constants/vars';
 
 import renderFunctions from "../../components/renders/renders";
-import { TopNav, LoadingSVG, BottomNav } from "./../../components/index";
+import { TopNav, LoadingSVG, NavigationBar } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
@@ -224,11 +224,11 @@ const Viewer = () => {
           <h1 className="description">{descriptions[viewIndex]}</h1>
           <div className="space-taker-upper"/>
           <div>
-            <BottomNav variant='contained' buttons={directionalButtons} />
+            <NavigationBar variant='contained' buttons={directionalButtons} />
           </div>
         </div>
         :
-        <BottomNav variant='contained' buttons={directionalButtons} />
+        <NavigationBar variant='contained' buttons={directionalButtons} />
       }
       <div className="content-observation-pannel">
          {
@@ -245,7 +245,7 @@ const Viewer = () => {
       }
     </div>
     {windowWidth <= 632 &&
-        <BottomNav variant='contained' buttons={mobileNav} />
+        <NavigationBar variant='contained' buttons={mobileNav} />
     }
   </div>
   )

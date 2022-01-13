@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import './SignUpForm.scss';
 
 import vars from '../../constants/vars.js';
-import { BottomNav, LoadingSVG } from '../../components';
+import { NavigationBar, LoadingSVG } from '../../components';
 
 let passwordRegEx = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
 const myStorage = window.localStorage;
@@ -127,7 +127,7 @@ const SignUpForm = () => {
         <div className="sign-up">
           <div className="sign-in" onClick={() => history.push('/users/sign-in')}>Already have an account? Sign In</div>
         </div>
-        <BottomNav buttons={signUpButtons} />
+        <NavigationBar buttons={signUpButtons} />
       </form>
     </div>
   )

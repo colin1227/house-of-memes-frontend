@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { styled } from '@material-ui/core/styles';
 import './SignInForm.scss';
 
-import { BottomNav, LoadingSVG } from '../../components/index';
+import { NavigationBar, LoadingSVG } from '../../components/index';
 import vars from '../../constants/vars';
 
 const BackButton = styled(Button)({
@@ -133,7 +133,7 @@ const SignInForm = (props) => {
                 className="join-here"
                 onClick={() => history.push('/users/sign-up')}>Join Here</div>
             </div>
-            <BottomNav buttons={signInButtons} />
+            <NavigationBar buttons={signInButtons} />
           </div>
         </form>
     </div>

@@ -110,6 +110,9 @@
         background-color: orange;
         color: black;
         margin: auto;
+        &.clicked {
+          background-color: rgb(66, 66, 241);
+        }
       }
     }
 

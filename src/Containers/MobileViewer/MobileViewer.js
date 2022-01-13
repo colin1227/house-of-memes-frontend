@@ -9,7 +9,7 @@ import vars from '../../constants/vars';
 import { reducer, signOut } from "../../helper/index";
 
 import renderFunctions from "../../components/renders/renders";
-import { TopNav, LoadingSVG, BottomNav } from "./../../components/index";
+import { TopNav, LoadingSVG, NavigationBar } from "./../../components/index";
 
 import muteImg from "../../media/mutedImg.png";
 import unmutedImg from "../../media/unmutedImg.png";
@@ -184,7 +184,7 @@ const Viewer = (props) => {
           {descriptions[viewIndex.count]}
         </h1>
         <div className="space-taker-upper"/>
-        <BottomNav variant='contained' buttons={directionalButtons} />
+        <NavigationBar variant='contained' buttons={directionalButtons} />
       </div>
       <div className="memeDiv">
         {

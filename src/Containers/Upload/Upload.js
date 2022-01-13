@@ -452,7 +452,7 @@ const Upload = (props) => {
         </div>
         <div className="buttons-container">
           {
-            preview ?
+            false ?
               <div className="test-div">
                 <Button
                   variant="contained"

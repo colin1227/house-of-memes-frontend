@@ -156,7 +156,7 @@ const TestContainer = () => {
     <div className="memeRend">
       <div className="memeInfo">
         <div className="space-taker-upper"/>
-        {/* <BottomNav variant='contained' buttons={directionalButtons} /> */}
+        {/* <NavigationBar variant='contained' buttons={directionalButtons} /> */}
       </div>
       <div className="memeDiv">
         <TestVideoviewer/>

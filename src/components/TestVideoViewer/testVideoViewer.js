@@ -18,13 +18,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const TestVideoviewer = () => {
-
   // playback bar variables
   let length = 0;
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLength, setCurrentLength] = useState(0);
   const [open, setOpen] = useState(false);
   const classes = useStyles();
+  
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -32,6 +33,8 @@ const TestVideoviewer = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+
   // current video info
   const [playing, togglePlayBack]  = useState(false);
   const [, setCurrentVideo] = useState({});
@@ -96,31 +99,13 @@ const TestVideoviewer = () => {
 
       <div className="all-links">
         <img
-          alt="internet links to find creator around the web"
+          alt="internet links to find creators around the web"
           src="https://img.icons8.com/fluency-systems-filled/24/000000/dots-loading.png"
-          onClick={() => handleOpen(true)}
           />
       </div>
       <div
         className={`video-container video-container-overlay`}
       >
-        <video
-          className="fadeIn"
-          onClick={(e) => handlePlayState(e)}
-          onTimeUpdate={(e) => handleCurrentTime(e)}
-          onCanPlay={(e) => {
-            length = length + 1;
-            setCurrentVideo(e.target);
-            setCurrentLength(e.target.duration);
-          }}
-          src="kitty.mp4"
-          loop
-          muted={true}
-        />
-        {/* <img
-          className={true ? 'fadeIn' : ''}
-          alt="default to se what Im doing"
-          src="cat.png" /> */}
       </div>
     </div>
   )

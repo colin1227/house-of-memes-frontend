@@ -1,6 +1,6 @@
 import TopNav from "./TopNav/TopNav";
-import BottomNav from "./BottomNav/BottomNav";
+import NavigationBar from "./NavigationBar/NavigationBar";
 import rendrs from "./renders/renders";
 import LoadingSVG from "./loadingSVG/loadingSVG";
 
-export { rendrs, TopNav,  BottomNav, LoadingSVG };
+export { rendrs, TopNav,  NavigationBar, LoadingSVG };

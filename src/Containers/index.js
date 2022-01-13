@@ -8,7 +8,7 @@ import SignUpForm from "./SignUpForm/SignUpForm";
 
 import Groups from "./Groups/Groups";
 import GroupPage from "./GroupPage/GroupPage";
-import TestUserPage from "./TestUserPage/TestUserPage";
+import TestContainer from "./TestContainer/TestContainer";
 
 export {
   Viewer,
@@ -21,6 +21,6 @@ export {
 
   Groups,
   GroupPage,
-  TestUserPage,
+  TestContainer,
   MobileViewer,
 };
