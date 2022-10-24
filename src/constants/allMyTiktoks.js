@@ -2,7 +2,6 @@ let likedTikToks = [
   "https://www.tiktok.com/@coryhunterwinn/video/7022466475378150662",
   "https://www.tiktok.com/@mygirlharper/video/7022674682142903558",
   "https://www.tiktok.com/@nyc_liquor_plug/video/7022669297369484549",
-  "https://www.tiktok.com/@bann_shann/video/7021939710507437318",
   "https://www.tiktok.com/@duckman_2020/video/7022442964215549190",
   "https://www.tiktok.com/@milliondollarlawnman1/video/7022446845775383814",
   "https://www.tiktok.com/@alejwho/video/7022700611313372422",

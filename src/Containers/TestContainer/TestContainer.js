@@ -22,7 +22,7 @@ import PanoramaIcon from '@material-ui/icons/Panorama';
 import PublishIcon from '@material-ui/icons/Publish';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import TiktokEmbed from '../../components/tiktokEmebed/tiktokEmbed';
-
+import localStorageFunctions from '../../localStorage/index';
 // storage
 const myStorage = window.localStorage;
 
@@ -40,20 +40,25 @@ const TestContainer = () => {
 
   const confirmNextMeme = () => {
     changeI(i + 1);
+    // localStorage . setItem
+    handleClassState(classStates.map((_) => false));
   }
 
   const returnToLastMeme = () => {
     changeI(i - 1);
+    // localStorage . getItem
   }
 
   const editClassState = (index) => {
     const newClassStates = classStates;
     newClassStates[index] = !classStates[index];
-    handleClassState(newClassStates);
+    handleClassState([...newClassStates]);
+        // localStorage . setItem
   }
 
   const eraseClassStates = () => {
     handleClassState(classStates.map( _ => false));
+        // localStorage . setItem -> empty
   }
 
   // Button Changes
@@ -188,13 +193,15 @@ const TestContainer = () => {
     let buttons = [];
 
     for (let i = 0; i < btnTexts.length; i++) {
-      buttons.push(<Button
-        variant='contained'
-        key={0 + i}
-        className={classStates[i] ? "clicked" : ""}
-        disabled={classStates[i]}
-        onClick={() => editClassState(i)}
-      >{btnTexts[i]}</Button>)
+      buttons.push(
+        <Button
+          variant={classStates[i] ? 'contained': 'outline'}
+          key={0 + i}
+          className={`${i}-tag tag-single ${classStates[i] ? "clicked" : ""}`}
+          onClick={() => editClassState(i)}
+        >
+          {btnTexts[i]}
+        </Button>)
     }
     return buttons;
   }
@@ -236,15 +243,13 @@ const TestContainer = () => {
       :
       false
     }
-    <div className="content">
-      <div className="content-description-pannel">
-        <div className="space-taker-upper"/>
-      </div>
+    <div className="content">  
       <div className="content-observation-pannel">
         {<TiktokEmbed
           videoIdentifier={likedTiktoks[i]}
           />}
       </div>
+      
       {
         windowWidth > 632 &&
         <div className="content-comment-pannel">
